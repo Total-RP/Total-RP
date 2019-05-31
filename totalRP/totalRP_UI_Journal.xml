@@ -1,0 +1,2127 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+
+<!-- Document TEMPLATE  -->
+<Frame name="PanelDocumentsFrameTemplate" virtual="true">
+	<Layers>
+		<Layer level="BACKGROUND">
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="350" y="415"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER"><Offset><AbsDimension x="0" y="-30"/></Offset></Anchor>
+				</Anchors>
+				<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="400" y="700"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-150"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="PanelDocumentsNomHidden" inherits="NumberFontNormalHuge" justifyH="CENTER" hidden="true">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="220"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+</Frame>
+
+<!-- Emplacement Document TEMPLATE  -->
+<Button name="DocumentsSlotTemplate" virtual="true">
+   <Size>
+      <AbsDimension x="45" y="45"/>
+    </Size>
+    <Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="278" y="47"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="115" y="-1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+			</Texture>
+		</Layer>
+        <Layer level="BORDER">
+	        <Texture name="$parentIcon" file="Interface\Buttons\UI-EmptySlot-Disabled">
+			  <Size>
+				<AbsDimension x="40" y="40"/>
+			  </Size>
+			  <Anchors>
+				<Anchor point="CENTER">
+				  <Offset>
+					<AbsDimension x="-1" y="0"/>
+				  </Offset>
+				</Anchor>
+			  </Anchors>
+			</Texture>
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="320" y="80"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="122" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+        </Layer>
+	    <Layer level="OVERLAY">
+			<FontString name="$parentTitre" inherits="GameFontNormal" justifyH="LEFT" >
+				<Size><AbsDimension x="200" y="10"/></Size>
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="47" y="12"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="1" g="1" b="1"/>
+			</FontString>
+			<FontString name="$parentAuteur" inherits="GameFontNormalSmall" justifyH="LEFT" >
+				<Size><AbsDimension x="200" y="10"/></Size>
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="47" y="-3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="1" g="1" b="1"/>
+			</FontString>
+			<FontString name="$parentDate" inherits="GameFontNormalSmall" justifyH="LEFT" >
+				<Size><AbsDimension x="200" y="10"/></Size>
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="47" y="-15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="1" g="1" b="1"/>
+			</FontString>
+			<FontString name="$parentID" inherits="GameFontNormalSmall" justifyH="LEFT" hidden="true">
+				<Size><AbsDimension x="200" y="10"/></Size>
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="47" y="-15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="1" g="1" b="1"/>
+			</FontString>
+	    </Layer>
+    </Layers>
+    <NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+      <Size>
+        <AbsDimension x="70" y="70"/>
+      </Size>
+      <Anchors>
+        <Anchor point="CENTER">
+          <Offset>
+            <AbsDimension x="0" y="-1"/>
+          </Offset>
+        </Anchor>
+      </Anchors>
+    </NormalTexture>
+    <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+    <HighlightTexture alphaMode="ADD" file="Interface\Vehicles\Arrow">
+		<Size><AbsDimension x="64" y="32"/></Size>
+        <Anchors>
+	        <Anchor point="CENTER">
+	            <Offset>
+					<AbsDimension x="-32" y="0"/>
+	            </Offset>
+	        </Anchor>
+        </Anchors>
+	</HighlightTexture>
+	<Frames>
+		<Button name="$parentDelete" inherits="ButtonDeleteTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="245" y="-13"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Remove",1,1,1);
+					GameTooltip:Show()
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="$parentEdit">
+		    <Size><AbsDimension x="20" y="20"/></Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="245" y="13"/></Offset></Anchor></Anchors>
+			<NormalTexture file="Interface\GLUES\LoadingScreens\DynamicElements">
+				<Size><AbsDimension x="16" y="16"/></Size>
+		        <Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+		        </Anchors>
+				<TexCoords left="0.5" right="1" top="0" bottom="0.5"/>
+		    </NormalTexture>
+			<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+				<Size><AbsDimension x="20" y="20"/></Size>
+		        <Anchors>
+			        <Anchor point="CENTER">
+			            <Offset>
+							<AbsDimension x="0" y="0"/>
+			            </Offset>
+			        </Anchor>
+		        </Anchors>
+			</HighlightTexture>
+			<PushedTexture alphaMode="ADD" file="Interface\GLUES\LoadingScreens\DynamicElements">
+				<Size><AbsDimension x="16" y="16"/></Size>
+		        <Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+		        </Anchors>
+				<TexCoords left="0.5" right="1" top="0" bottom="0.5"/>
+		    </PushedTexture>
+			<Scripts>
+				<OnEnter>
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnLeave>
+			GameTooltip:Hide()
+		</OnLeave>
+		<OnLoad>
+	       this:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp");
+	    </OnLoad>
+		<OnClick>
+
+		</OnClick>
+	</Scripts>
+</Button>
+
+<!-- Document Panel  -->
+<Frame name="PanelDocumentsFrame" inherits="PanelDocumentsFrameTemplate" virtual="true">
+
+	<Frames>
+		<!-- ONGLET = SAC A DOS -->
+		<Button name="InventaireOngletSacADosDocu" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-160" y="-40"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletInventaire","InventaireOngletSacADos")
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(COFFREFINANCES, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- ONGLET = COFFRE -->
+		<Button name="InventaireOngletCoffreDocu" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-120" y="-40"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					if IsMounted() then
+						PanelOpen("FicheJoueurOngletInventaire","InventaireOngletCoffre")
+					else
+						TRPError(ObjectError["NOMOUNT"]);
+					end
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(COFFREVOYAGE, 1, 1, 1);
+					if not IsMounted() then
+						GameTooltip:AddLine(ObjectError["MUSTBOONMOUNT"], 1, 0, 0);
+					end
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- ONGLET = Planques -->
+		<Button name="InventaireOngletPlanquesDocu" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-80" y="-40"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnLoad>
+					InventaireOngletPlanquesDocuIcon:SetTexture("Interface\\Icons\\INV_Misc_Map07.blp");
+				</OnLoad>
+				<OnClick>
+					if DetectPlanque() then
+						PanelOpen("FicheJoueurOngletInventaire","InventaireOngletPlanques")
+					else
+						if IconeZone[GetCurrentMapContinent()] == nil or IconeZone[GetCurrentMapContinent()][GetCurrentMapZone()] == nil then
+							TRPError("You cannot create a hiding place here.");
+						else
+							TRP_ShowStaticPopup("TRP_CREATE_PLANQUE");
+						end
+					end
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(PLANQUES, 1, 1, 1);
+					if DetectPlanque() then
+						GameTooltip:AddLine("|cff00ff00"..PLANQUEACCES, 1, 1, 1);
+					else
+						GameTooltip:AddLine("|cff00ff00"..CREERPLANQUETOOL, 1, 1, 1);
+					end
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- ONGLET = CREATION DOCUMENT-->
+		<Button name="FicheJoueurOngletDocumentDocu" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="120" y="-40"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnLoad>
+					this:Disable();
+					FicheJoueurOngletDocumentDocuIcon:SetAlpha(0.5);
+				</OnLoad>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletInventaire","FicheJoueurOngletDocument")
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPRIGHT");
+					GameTooltip:AddLine(DOCUMENT, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- ONGLET = CREATION OBJET -->
+		<Button name="InventaireOngletCreationDocu" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="160" y="-40"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletInventaire","InventaireOngletCreation")
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPRIGHT");
+					GameTooltip:AddLine(OUTILCREATION, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		
+		<!-- Panel Liste  -->
+		<Frame name="PanelDocumentsListe" enableMouseWheel="true">
+			<Size><AbsDimension x="330" y="440"/></Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-20"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\AchievementFrame\UI-Achievement-StatsBackground">
+						<Size>
+							<AbsDimension x="300" y="293"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER"><Offset><AbsDimension x="0" y="11"/></Offset></Anchor>
+						</Anchors>
+						<TexCoords left="0" right="1" top="0" bottom="1"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="345" y="495"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="8" y="-70"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="OVERLAY">
+					<FontString name="PanelDocumentsListeEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER">
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="0" y="15"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+					<FontString name="PanelDocumentsRechercheText" inherits="NumberFontNormal" justifyH="CENTER">
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-90" y="-170"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+				</Layer>
+			</Layers>
+			<Frames>
+				<EditBox name="PanelDocumentListeRecherche" inherits="SaisieTemplateSmall" autofocus="false">
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="-100" y="-190"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnTextChanged>
+							if string.find(this:GetText(),"%[*%]*%%*%(*%)*") then
+								this:SetText(string.gsub(this:GetText(),"%[*%]*%%*%(*%)*",""))
+							end
+							if this:IsVisible() then
+								DocumentsChargerListe();
+							end
+						</OnTextChanged>
+						<OnEscapePressed>
+							this:ClearFocus();
+						</OnEscapePressed>
+					</Scripts>
+				</EditBox>
+				<Button name="DocumentsSlot1" inherits="DocumentsSlotTemplate">
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-115" y="-75"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnLoad>
+							DocumentsSlot1Delete:SetScript("OnClick", 
+								function(self,button,down)
+									deleteDocuments(DocumentsSlot1ID:GetText());
+							end );
+							DocumentsSlot1Edit:SetScript("OnClick", 
+								function(self,button,down)
+									if TRP_Module_Documents[DocumentsSlot1ID:GetText()]["Lock"] and TRP_Module_Documents[DocumentsSlot1ID:GetText()]["Createur"] ~= Joueur then
+										TRPError("The document author have locked the document, you can't edit it.");
+									else
+										PanelOpen("FicheJoueurOngletDocument","DocumentsPanelModifier",DocumentsSlot1ID:GetText());
+									end
+							end );
+							DocumentsSlot1Edit:SetScript("OnEnter", 
+								function()
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									if TRP_Module_Documents[DocumentsSlot1ID:GetText()]["Lock"] then
+										if TRP_Module_Documents[DocumentsSlot1ID:GetText()]["Createur"] ~= Joueur then
+											GameTooltip:AddLine("Document Locked",1,0,0);
+											GameTooltip:AddLine("Document locked by the author,|cffffffff "..TRP_Module_Documents[DocumentsSlot1ID:GetText()]["Createur"],1,0.5,0);
+										else
+											GameTooltip:AddLine("Edit",1,1,1);
+											GameTooltip:AddLine("You have locked this document",1,0.75,0);
+										end
+									else
+										GameTooltip:AddLine("Edit",1,1,1);
+									end
+									GameTooltip:Show();
+							end );
+						</OnLoad>
+						<OnEnter>
+							Reinit_DocumentsEdit();
+							getglobal("DocumentsSlot1Edit"):Show();
+							getglobal("DocumentsSlot1Delete"):Show();
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if TRP_Module_Documents[DocumentsSlot1ID:GetText()]["Createur"] == Joueur then
+								GameTooltip:AddLine(DocumentsTexts["YOUCREATEUR"],0,1,0);
+								GameTooltip:AddLine("Consult the document",1,1,1);
+							else
+								GameTooltip:AddLine(DocumentsTexts["CREATEUR"]..TRP_Module_Documents[DocumentsSlot1ID:GetText()]["Createur"],1,0.75,0);
+							end
+							if UnitName("target") ~= nil and UnitName("target") ~= Joueur and UnitIsPlayer("target") and UnitFactionGroup("target") == UnitFactionGroup("player") and 
+							CheckInteractDistance("target",3) ~= nil then
+								GameTooltip:AddLine(CLICGAUCHECTRL.." : Give the document to "..UnitName("target"),0.5,0.5,1);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="DocumentsSlot2" inherits="DocumentsSlotTemplate">
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-115" y="-130"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnLoad>
+							DocumentsSlot2Delete:SetScript("OnClick", 
+								function(self,button,down)
+									deleteDocuments(DocumentsSlot2ID:GetText());
+							end );
+							DocumentsSlot2Edit:SetScript("OnClick", 
+								function(self,button,down)
+									if TRP_Module_Documents[DocumentsSlot2ID:GetText()]["Lock"] and TRP_Module_Documents[DocumentsSlot2ID:GetText()]["Createur"] ~= Joueur then
+										TRPError("The document author have locked the document, you can't edit it.");
+									else
+										PanelOpen("FicheJoueurOngletDocument","DocumentsPanelModifier",DocumentsSlot2ID:GetText());
+									end
+							end );
+							DocumentsSlot2Edit:SetScript("OnEnter", 
+								function()
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									if TRP_Module_Documents[DocumentsSlot2ID:GetText()]["Lock"] then
+										if TRP_Module_Documents[DocumentsSlot2ID:GetText()]["Createur"] ~= Joueur then
+											GameTooltip:AddLine("Document Locked",1,0,0);
+											GameTooltip:AddLine("Document locked by the author,|cffffffff "..TRP_Module_Documents[DocumentsSlot2ID:GetText()]["Createur"],1,0.5,0);
+										else
+											GameTooltip:AddLine("Edit",1,1,1);
+											GameTooltip:AddLine("You have locked this document",1,0.75,0);
+										end
+									else
+										GameTooltip:AddLine("Edit",1,1,1);
+									end
+									GameTooltip:Show();
+							end );
+						</OnLoad>
+						<OnEnter>
+							Reinit_DocumentsEdit();
+							getglobal("DocumentsSlot2Edit"):Show();
+							getglobal("DocumentsSlot2Delete"):Show();
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if TRP_Module_Documents[DocumentsSlot2ID:GetText()]["Createur"] == Joueur then
+								GameTooltip:AddLine(DocumentsTexts["YOUCREATEUR"],0,1,0);
+								GameTooltip:AddLine("Consult the document",1,1,1);
+							else
+								GameTooltip:AddLine(DocumentsTexts["CREATEUR"]..TRP_Module_Documents[DocumentsSlot2ID:GetText()]["Createur"],1,0.75,0);
+							end
+							if UnitName("target") ~= nil and UnitName("target") ~= Joueur and UnitIsPlayer("target") and UnitFactionGroup("target") == UnitFactionGroup("player") and 
+							CheckInteractDistance("target",3) ~= nil then
+								GameTooltip:AddLine(CLICGAUCHECTRL.." : Give the document to "..UnitName("target"),0.5,0.5,1);
+							end
+							GameTooltip:Show()
+
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="DocumentsSlot3" inherits="DocumentsSlotTemplate">
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-115" y="-185"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnLoad>
+							DocumentsSlot3Delete:SetScript("OnClick", 
+								function(self,button,down)
+									deleteDocuments(DocumentsSlot3ID:GetText());
+							end );
+							DocumentsSlot3Edit:SetScript("OnClick", 
+								function(self,button,down)
+									if TRP_Module_Documents[DocumentsSlot3ID:GetText()]["Lock"] and TRP_Module_Documents[DocumentsSlot3ID:GetText()]["Createur"] ~= Joueur then
+										TRPError("The document author have locked the document, you can't edit it.");
+									else
+										PanelOpen("FicheJoueurOngletDocument","DocumentsPanelModifier",DocumentsSlot3ID:GetText());
+									end
+							end );
+							DocumentsSlot3Edit:SetScript("OnEnter", 
+								function()
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									if TRP_Module_Documents[DocumentsSlot3ID:GetText()]["Lock"] then
+										if TRP_Module_Documents[DocumentsSlot3ID:GetText()]["Createur"] ~= Joueur then
+											GameTooltip:AddLine("Document Locked",1,0,0);
+											GameTooltip:AddLine("Document locked by the author,|cffffffff "..TRP_Module_Documents[DocumentsSlot3ID:GetText()]["Createur"],1,0.5,0);
+										else
+											GameTooltip:AddLine("Edit",1,1,1);
+											GameTooltip:AddLine("You have locked this document",1,0.75,0);
+										end
+									else
+										GameTooltip:AddLine("Edit",1,1,1);
+									end
+									GameTooltip:Show();
+							end );
+						</OnLoad>
+						<OnEnter>
+							Reinit_DocumentsEdit();
+							getglobal("DocumentsSlot3Edit"):Show();
+							getglobal("DocumentsSlot3Delete"):Show();
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if TRP_Module_Documents[DocumentsSlot3ID:GetText()]["Createur"] == Joueur then
+								GameTooltip:AddLine(DocumentsTexts["YOUCREATEUR"],0,1,0);
+								GameTooltip:AddLine("Consult the document",1,1,1);
+							else
+								GameTooltip:AddLine(DocumentsTexts["CREATEUR"]..TRP_Module_Documents[DocumentsSlot3ID:GetText()]["Createur"],1,0.75,0);
+							end
+							if UnitName("target") ~= nil and UnitName("target") ~= Joueur and UnitIsPlayer("target") and UnitFactionGroup("target") == UnitFactionGroup("player") and 
+							CheckInteractDistance("target",3) ~= nil then
+								GameTooltip:AddLine(CLICGAUCHECTRL.." : Give the document to "..UnitName("target"),0.5,0.5,1);
+							end
+							GameTooltip:Show()
+
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="DocumentsSlot4" inherits="DocumentsSlotTemplate">
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-115" y="-240"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnLoad>
+							DocumentsSlot4Delete:SetScript("OnClick", 
+								function(self,button,down)
+									deleteDocuments(DocumentsSlot4ID:GetText());
+							end );
+							DocumentsSlot4Edit:SetScript("OnClick", 
+								function(self,button,down)
+									if TRP_Module_Documents[DocumentsSlot4ID:GetText()]["Lock"] and TRP_Module_Documents[DocumentsSlot4ID:GetText()]["Createur"] ~= Joueur then
+										TRPError("The document author have locked the document, you can't edit it.");
+									else
+										PanelOpen("FicheJoueurOngletDocument","DocumentsPanelModifier",DocumentsSlot4ID:GetText());
+									end
+							end );
+							DocumentsSlot4Edit:SetScript("OnEnter", 
+								function()
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									if TRP_Module_Documents[DocumentsSlot4ID:GetText()]["Lock"] then
+										if TRP_Module_Documents[DocumentsSlot4ID:GetText()]["Createur"] ~= Joueur then
+											GameTooltip:AddLine("Document Locked",1,0,0);
+											GameTooltip:AddLine("Document locked by the author,|cffffffff "..TRP_Module_Documents[DocumentsSlot4ID:GetText()]["Createur"],1,0.5,0);
+										else
+											GameTooltip:AddLine("Edit",1,1,1);
+											GameTooltip:AddLine("You have locked this document",1,0.75,0);
+										end
+									else
+										GameTooltip:AddLine("Edit",1,1,1);
+									end
+									GameTooltip:Show();
+							end );
+						</OnLoad>
+						<OnEnter>
+							Reinit_DocumentsEdit();
+							getglobal("DocumentsSlot4Edit"):Show();
+							getglobal("DocumentsSlot4Delete"):Show();
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if TRP_Module_Documents[DocumentsSlot4ID:GetText()]["Createur"] == Joueur then
+								GameTooltip:AddLine(DocumentsTexts["YOUCREATEUR"],0,1,0);
+								GameTooltip:AddLine("Consult the document",1,1,1);
+							else
+								GameTooltip:AddLine(DocumentsTexts["CREATEUR"]..TRP_Module_Documents[DocumentsSlot4ID:GetText()]["Createur"],1,0.75,0);
+							end
+							if UnitName("target") ~= nil and UnitName("target") ~= Joueur and UnitIsPlayer("target") and UnitFactionGroup("target") == UnitFactionGroup("player") and 
+							CheckInteractDistance("target",3) ~= nil then
+								GameTooltip:AddLine(CLICGAUCHECTRL.." : Give the document to "..UnitName("target"),0.5,0.5,1);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="DocumentsSlot5" inherits="DocumentsSlotTemplate">
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-115" y="-295"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnLoad>
+							DocumentsSlot5Delete:SetScript("OnClick", 
+								function(self,button,down)
+									deleteDocuments(DocumentsSlot5ID:GetText());
+							end );
+							DocumentsSlot5Edit:SetScript("OnClick", 
+								function(self,button,down)
+									if TRP_Module_Documents[DocumentsSlot5ID:GetText()]["Lock"] and TRP_Module_Documents[DocumentsSlot5ID:GetText()]["Createur"] ~= Joueur then
+										TRPError("The document author have locked the document, you can't edit it.");
+									else
+										PanelOpen("FicheJoueurOngletDocument","DocumentsPanelModifier",DocumentsSlot5ID:GetText());
+									end
+							end );
+							DocumentsSlot5Edit:SetScript("OnEnter", 
+								function()
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									if TRP_Module_Documents[DocumentsSlot5ID:GetText()]["Lock"] then
+										if TRP_Module_Documents[DocumentsSlot5ID:GetText()]["Createur"] ~= Joueur then
+											GameTooltip:AddLine("Document Locked",1,0,0);
+											GameTooltip:AddLine("Document locked by the author,|cffffffff "..TRP_Module_Documents[DocumentsSlot5ID:GetText()]["Createur"],1,0.5,0);
+										else
+											GameTooltip:AddLine("Edit",1,1,1);
+											GameTooltip:AddLine("You have locked this document",1,0.75,0);
+										end
+									else
+										GameTooltip:AddLine("Edit",1,1,1);
+									end
+									GameTooltip:Show();
+							end );
+						</OnLoad>
+						<OnEnter>
+							Reinit_DocumentsEdit();
+							getglobal("DocumentsSlot5Edit"):Show();
+							getglobal("DocumentsSlot5Delete"):Show();
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if TRP_Module_Documents[DocumentsSlot5ID:GetText()]["Createur"] == Joueur then
+								GameTooltip:AddLine(DocumentsTexts["YOUCREATEUR"],0,1,0);
+								GameTooltip:AddLine("Consult the document",1,1,1);
+							else
+								GameTooltip:AddLine(DocumentsTexts["CREATEUR"]..TRP_Module_Documents[DocumentsSlot5ID:GetText()]["Createur"],1,0.75,0);
+							end
+							if UnitName("target") ~= nil and UnitName("target") ~= Joueur and UnitIsPlayer("target") and UnitFactionGroup("target") == UnitFactionGroup("player") and 
+							CheckInteractDistance("target",3) ~= nil then
+								GameTooltip:AddLine(CLICGAUCHECTRL.." : Give the document to "..UnitName("target"),0.5,0.5,1);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="PanelDocumentsListeAddButton" inherits="InventaireSlotTemplate">
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-180"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnLoad>
+							PanelDocumentsListeAddButtonIcon:SetTexture("Interface\\ICONS\\Spell_ChargePositive.blp");
+							this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+						</OnLoad>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine("New Document",1,1,1);
+							GameTooltip:AddLine("Left-click: Create a new document",0,1,0);
+							GameTooltip:AddLine("Right-click Create from ...",0,1,0);
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnClick>
+							if arg1 == "RightButton" then
+								OpenListeDocuments("PanelDocumentsFromHidden");							
+							else
+								createEmptyDocument();
+							end
+						</OnClick>
+					</Scripts>
+				</Button>
+				<EditBox name="PanelDocumentsFromHidden" inherits="SaisieTemplateSmall" autofocus="false" hidden="false" letters="16">
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="-115" y="-4010"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnTextChanged>
+							if this:GetText() ~= "" then
+								createEmptyDocumentWithOtherID(this:GetText());
+							end
+						</OnTextChanged>
+					</Scripts>
+				</EditBox>
+				<Slider name="PanelDocumentsListeSlider" inherits="OptionsSliderTemplate">
+					<Size>
+						<AbsDimension x="15" y="280"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="152" y="10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnLoad>
+							getglobal(this:GetName().."Text"):SetText();
+							getglobal(this:GetName().."High"):SetText();
+							getglobal(this:GetName().."Low"):SetText();
+							this:SetMinMaxValues(0, 6);
+							this:SetValueStep(1);
+						</OnLoad>
+						<OnValueChanged>
+							if this:IsVisible() then
+								ChargerSliderDocumentVertical(this:GetValue());
+							end
+						</OnValueChanged>
+					</Scripts>
+				</Slider>
+			</Frames>
+			<Scripts>
+				<OnMouseWheel>
+					
+				</OnMouseWheel>
+			</Scripts>
+		</Frame>
+		<!-- Panel Editer  -->
+		<Frame name="PanelDocumentsModifier">
+			<Size><AbsDimension x="330" y="440"/></Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-15"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					
+				</Layer>
+				<Layer level="BORDER">
+
+				</Layer>
+				<Layer level="OVERLAY">
+					<FontString name="PanelDocumentEditIDStock" inherits="GameFontNormalLarge" justifyH="CENTER" hidden="true">
+						<Size><AbsDimension x="200" y="0"/></Size>
+						<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-5"/></Offset></Anchor></Anchors>
+						<Color r="1" g="1" b="1"/>
+					</FontString>
+				</Layer>
+			</Layers>
+			<Frames>
+				<Button name="DocumentSaveButton" inherits="UIPanelButtonTemplate" text="">
+					<Size>
+						<AbsDimension x="90" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="45" y="-240"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnClick>
+							EnregistrerDocument();
+						</OnClick>
+					</Scripts>
+				</Button>
+				<Button name="DocumentAnnulerButton" inherits="UIPanelButtonTemplate" text="">
+					<Size>
+						<AbsDimension x="90" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="-45" y="-240"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnClick>
+							PanelOpen("FicheJoueurOngletDocument","DocumentsPanelListe");
+						</OnClick>
+					</Scripts>
+				</Button>
+				<!-- PANEL MODIFIER  -->
+				<ScrollFrame name="PanelDocumentsModifierScroll" inherits="UIPanelScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="330" y="400"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="-3" y="-17"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<ScrollChild>
+						<Frame>
+							<Size>
+								<AbsDimension x="350" y="1650"/> 
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+							</Anchors>
+							<Layers>
+								<Layer level="OVERLAY">
+									<FontString name="PanelDocumentEdit" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size><AbsDimension x="200" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-5"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditVignette" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-25"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditVignetteTitre" inherits="GameFontNormal" justifyH="LEFT">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="10" y="-50"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditVignetteAuteur" inherits="GameFontNormal" justifyH="LEFT">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="10" y="-75"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditVignetteDate" inherits="GameFontNormal" justifyH="LEFT">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="10" y="-100"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditVignetteIcon" inherits="GameFontNormal" justifyH="LEFT">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="10" y="-125"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditTexte" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-150"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditTitre" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-462"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditSignature" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-752"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditBackground" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-1042"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditImages" inherits="GameFontNormalHuge" justifyH="CENTER">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-1120"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditImage1" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-1145"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditImage1Url" inherits="GameFontNormal" justifyH="LEFT">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-1170"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditImage2" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-1320"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditImage2Url" inherits="GameFontNormal" justifyH="LEFT">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-1345"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditImage3" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-1495"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditImage3Url" inherits="GameFontNormal" justifyH="LEFT">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-1520"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelDocumentEditOptions" inherits="GameFontNormalHuge" justifyH="CENTER" text="|cffffaa00Additional Options">
+										<Size><AbsDimension x="300" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-1675"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Frames>
+								<!-- Vignette Titre  -->
+								<Button name="AideButtonCreaDocuVignetteTitre" inherits="BoutonAideTemplate">
+									<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="15" y="-47"/></Offset></Anchor></Anchors>
+								</Button>
+								<EditBox name="DocumentCreateTitreVignette" inherits="SaisieTemplate" letters="0">
+									<Size>
+										<AbsDimension x="220" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP"><Offset><AbsDimension x="40" y="-47"/></Offset></Anchor>
+									</Anchors>
+									<Scripts>
+										<OnLoad>
+											this.max = 50;
+										</OnLoad>
+										<OnTextChanged>
+											refreshApercu();
+										</OnTextChanged>
+										<OnEditFocusGained>
+											this:HighlightText();
+										</OnEditFocusGained>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+										<OnTabPressed>
+											if IsShiftKeyDown() then
+												DocumentCreateTexteScrollTexte:SetFocus();
+											else
+												DocumentCreateAuteurVignette:SetFocus();
+											end
+										</OnTabPressed>
+									</Scripts>
+								</EditBox>
+								<!-- Vignette Auteur  -->
+								<Button name="AideButtonCreaDocuVignetteAuteur" inherits="BoutonAideTemplate">
+									<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="15" y="-72"/></Offset></Anchor></Anchors>
+								</Button>
+								<EditBox name="DocumentCreateAuteurVignette" inherits="SaisieTemplate" letters="0">
+									<Size>
+										<AbsDimension x="220" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP"><Offset><AbsDimension x="40" y="-72"/></Offset></Anchor>
+									</Anchors>
+									<Scripts>
+										<OnLoad>
+											this.max = 50;
+										</OnLoad>
+										<OnTextChanged>
+											refreshApercu();
+										</OnTextChanged>
+										<OnEditFocusGained>
+											this:HighlightText();
+										</OnEditFocusGained>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+										<OnTabPressed>
+											if IsShiftKeyDown() then
+												DocumentCreateTitreVignette:SetFocus();
+											else
+												DocumentCreateDateVignette:SetFocus();
+											end
+										</OnTabPressed>
+									</Scripts>
+								</EditBox>
+								<!-- Vignette Date  -->
+								<Button name="AideButtonCreaDocuVignetteDate" inherits="BoutonAideTemplate">
+									<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="15" y="-97"/></Offset></Anchor></Anchors>
+								</Button>
+								<EditBox name="DocumentCreateDateVignette" inherits="SaisieTemplate" letters="0">
+									<Size>
+										<AbsDimension x="220" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP"><Offset><AbsDimension x="40" y="-97"/></Offset></Anchor>
+									</Anchors>
+									<Scripts>
+										<OnLoad>
+											this.max = 50;
+										</OnLoad>
+										<OnTextChanged>
+											refreshApercu();
+										</OnTextChanged>
+										<OnEditFocusGained>
+											this:HighlightText();
+										</OnEditFocusGained>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+										<OnTabPressed>
+											if IsShiftKeyDown() then
+												DocumentCreateAuteurVignette:SetFocus();
+											else
+												DocumentCreateIconVignette:SetFocus();
+											end
+										</OnTabPressed>
+									</Scripts>
+								</EditBox>
+								<!-- Vignette Icone  -->
+								<Button name="AideButtonCreaDocuVignetteIcone" inherits="BoutonAideTemplate">
+									<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="15" y="-122"/></Offset></Anchor></Anchors>
+								</Button>
+								<EditBox name="DocumentCreateIconVignette" inherits="SaisieTemplate" letters="0">
+									<Size>
+										<AbsDimension x="220" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP"><Offset><AbsDimension x="40" y="-122"/></Offset></Anchor>
+									</Anchors>
+									<Scripts>
+										<OnTextChanged>
+											refreshApercu();
+										</OnTextChanged>
+										<OnEditFocusGained>
+											OpenListeIcones("DocumentCreateIconVignette");
+											this:HighlightText();
+										</OnEditFocusGained>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+										<OnTabPressed>
+											if IsShiftKeyDown() then
+												DocumentCreateDateVignette:SetFocus();
+											else
+												DocumentCreateTexteScrollTexte:SetFocus();
+											end
+										</OnTabPressed>
+									</Scripts>
+								</EditBox>
+								<!-- Texte  -->
+								<ScrollFrame name="DocumentCreateTexteScroll" inherits="UIPanelScrollFrameTemplate">
+									<Size>
+										<AbsDimension x="270" y="68"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP">
+											<Offset>
+												<AbsDimension x="-15" y="-180"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<Layers>
+										<Layer level="BORDER">
+											<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+												<Size>
+													<AbsDimension x="350" y="150"/>
+												</Size>
+												<Anchors>
+													<Anchor point="CENTER">
+														<Offset>
+															<AbsDimension x="15" y="-30"/>
+														</Offset>
+													</Anchor>
+												</Anchors>
+											</Texture>
+										</Layer>
+										<Layer level="OVERLAY">
+											<!-- Compteur de texte -->
+											<FontString name="DocumentCreateTexteScrollCount" inherits="GameFontNormal" justifyH="LEFT">
+												<Size>
+													<AbsDimension x="200" y="0"/>
+												</Size>
+												<Anchors>
+													<Anchor point="TOPLEFT"><Offset><AbsDimension x="0" y="-70"/></Offset></Anchor>
+												</Anchors>
+												<Color r="0.75" g="0.75" b="0"/>
+											</FontString>
+										</Layer>
+									</Layers>
+									<ScrollChild>
+										<EditBox name="DocumentCreateTexteScrollTexte" letters="0" multiLine="true" enableMouse="false" autoFocus="false">
+											<Size>
+												<AbsDimension x="270" y="68"/>
+											</Size>
+											<Scripts>
+												<OnTextChanged>
+													if string.find(this:GetText(),"%D") then
+														this:SetText(string.gsub(this:GetText(),"|",""));
+													end
+													if string.len(this:GetText()) > 3500 then
+														this:SetText(string.sub(this:GetText(),0,3500));
+													end
+													DocumentCreateTexteScrollCount:SetText("( "..string.len(this:GetText()).." / 3500 )");
+													refreshApercu();
+												</OnTextChanged>
+												<OnEscapePressed>
+													
+												</OnEscapePressed>
+												<OnEditFocusLost>
+													this:HighlightText(0,0);
+												</OnEditFocusLost>
+												<OnTabPressed>
+													if IsShiftKeyDown() then
+														DocumentCreateIconVignette:SetFocus();
+													else
+														DocumentCreateTitreVignette:SetFocus();
+													end
+												</OnTabPressed>
+											</Scripts>
+											<FontString inherits="ChatFontNormal"/>
+										</EditBox>
+									</ScrollChild>
+									<Scripts>
+										<OnEnter>
+											DocumentCreateTexteScrollTexte:SetFocus();
+										</OnEnter>
+									</Scripts>
+								</ScrollFrame>
+								<!--Texte Police  -->
+								<Slider name="DocumentCreateTexteFontSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-285"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText();
+											getglobal(this:GetName().."Low"):SetText();
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 5);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Texte Taille  -->
+								<Slider name="DocumentCreateTexteTailleSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-320"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 27);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Texte Surligner  -->
+								<Slider name="DocumentCreateTexteContoursSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-355"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 3);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Texte Transparence Ombre  -->
+								<Slider name="DocumentCreateTexteOmbreSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-390"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 100);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Texte Alignement -->
+								<Slider name="DocumentCreateTexteAlignSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-425"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 3);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Titre saisie  -->
+								<EditBox name="DocumentCreateTitreSet" inherits="SaisieTemplate" letters="0">
+									<Size>
+										<AbsDimension x="220" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP"><Offset><AbsDimension x="0" y="-490"/></Offset></Anchor>
+									</Anchors>
+									<Scripts>
+										<OnLoad>
+											this.max = 80;
+										</OnLoad>
+										<OnTextChanged>
+											refreshApercu();
+										</OnTextChanged>
+										<OnEditFocusGained>
+											this:HighlightText();
+										</OnEditFocusGained>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+									</Scripts>
+								</EditBox>
+								<!-- Titre police -->
+								<Slider name="DocumentCreateTitrePoliceSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-530"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 5);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Titre taille -->
+								<Slider name="DocumentCreateTitreTailleSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-565"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 27);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Titre Ombre -->
+								<Slider name="DocumentCreateTitreOmbreSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-600"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 100);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Titre alignement  -->
+								<Slider name="DocumentCreateTitreAlignementSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-635"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 3);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Titre Surligner  -->
+								<Slider name="DocumentCreateTitreContoursSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-670"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 3);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Titre Pos X  -->
+								<Slider name="DocumentCreateTitrePosXSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-710"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 330);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Titre Pos Y  -->
+								<Slider name="DocumentCreateTitrePosYSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="75" y="-710"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 440);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Signature saisie  -->
+								<EditBox name="DocumentCreateSignatureSet" inherits="SaisieTemplate" letters="0">
+									<Size>
+										<AbsDimension x="220" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP"><Offset><AbsDimension x="0" y="-780"/></Offset></Anchor>
+									</Anchors>
+									<Scripts>
+										<OnLoad>
+											this.max = 80;
+										</OnLoad>
+										<OnTextChanged>
+											refreshApercu();
+										</OnTextChanged>
+										<OnEditFocusGained>
+											this:HighlightText();
+										</OnEditFocusGained>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+									</Scripts>
+								</EditBox>
+								<!-- Signature police -->
+								<Slider name="DocumentCreateSignaturePoliceSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-820"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 5);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Signature taille -->
+								<Slider name="DocumentCreateSignatureTailleSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-855"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 27);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Signature Ombre -->
+								<Slider name="DocumentCreateSignatureOmbreSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-890"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 100);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Signature alignement  -->
+								<Slider name="DocumentCreateSignatureAlignementSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-925"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 3);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Signature Surligner  -->
+								<Slider name="DocumentCreateSignatureContoursSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-960"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 3);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Signature Pos X  -->
+								<Slider name="DocumentCreateSignaturePosXSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-1000"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 330);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Signature Pos Y  -->
+								<Slider name="DocumentCreateSignaturePosYSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="75" y="-1000"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 440);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Background  -->
+								<Slider name="DocumentCreateBackgroundSlider" inherits="SliderWithTitle">
+									<Size><AbsDimension x="270" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-1080"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("");
+											getglobal(this:GetName().."Low"):SetText("");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 8);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Image 1  saisie nom -->
+								<EditBox name="DocumentCreateImage1Nom" inherits="SaisieTemplate" letters="0">
+									<Size>
+										<AbsDimension x="220" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP"><Offset><AbsDimension x="30" y="-1167"/></Offset></Anchor>
+									</Anchors>
+									<Scripts>
+										<OnLoad>
+											this.max = 80;
+										</OnLoad>
+										<OnTextChanged>
+											refreshApercu();
+										</OnTextChanged>
+										<OnEditFocusGained>
+											this:HighlightText();
+										</OnEditFocusGained>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+									</Scripts>
+								</EditBox>
+								<!--Image 1 taille X  -->
+								<Slider name="DocumentCreateImage1SizeX" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-1210"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 400);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 1 taille  Y  -->
+								<Slider name="DocumentCreateImage1SizeY" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="75" y="-1210"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 400);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 1 pos X  -->
+								<Slider name="DocumentCreateImage1PosX" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-1245"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 330);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 1 pos Y  -->
+								<Slider name="DocumentCreateImage1PosY" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="75" y="-1245"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 440);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 1 Transparence  -->
+								<Slider name="DocumentCreateImage1Alpha" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-1280"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 100);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Image 2  saisie nom -->
+								<EditBox name="DocumentCreateImage2Nom" inherits="SaisieTemplate" letters="0">
+									<Size>
+										<AbsDimension x="220" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP"><Offset><AbsDimension x="30" y="-1342"/></Offset></Anchor>
+									</Anchors>
+									<Scripts>
+										<OnLoad>
+											this.max = 80;
+										</OnLoad>
+										<OnTextChanged>
+											refreshApercu();
+										</OnTextChanged>
+										<OnEditFocusGained>
+											this:HighlightText();
+										</OnEditFocusGained>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+									</Scripts>
+								</EditBox>
+								<!--Image 2 taille X  -->
+								<Slider name="DocumentCreateImage2SizeX" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-1385"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 400);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 2 taille  Y  -->
+								<Slider name="DocumentCreateImage2SizeY" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="75" y="-1385"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 400);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 2 pos X  -->
+								<Slider name="DocumentCreateImage2PosX" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-1420"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 330);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 2 pos Y  -->
+								<Slider name="DocumentCreateImage2PosY" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="75" y="-1420"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 440);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 2 Transparence  -->
+								<Slider name="DocumentCreateImage2Alpha" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-1455"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 100);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Image 3  saisie nom -->
+								<EditBox name="DocumentCreateImage3Nom" inherits="SaisieTemplate" letters="0">
+									<Size>
+										<AbsDimension x="220" y="18"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP"><Offset><AbsDimension x="30" y="-1517"/></Offset></Anchor>
+									</Anchors>
+									<Scripts>
+										<OnLoad>
+											this.max = 80;
+										</OnLoad>
+										<OnTextChanged>
+											refreshApercu();
+										</OnTextChanged>
+										<OnEditFocusGained>
+											this:HighlightText();
+										</OnEditFocusGained>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+									</Scripts>
+								</EditBox>
+								<!--Image 3 taille X  -->
+								<Slider name="DocumentCreateImage3SizeX" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-1560"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 400);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 3 taille  Y  -->
+								<Slider name="DocumentCreateImage3SizeY" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="75" y="-1560"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 400);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 3 pos X  -->
+								<Slider name="DocumentCreateImage3PosX" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-1595"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 330);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 3 pos Y  -->
+								<Slider name="DocumentCreateImage3PosY" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="75" y="-1595"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 440);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!--Image 3 Transparence  -->
+								<Slider name="DocumentCreateImage3Alpha" inherits="SliderWithTitle">
+									<Size><AbsDimension x="120" y="15"/></Size>
+									<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-1630"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText("+");
+											getglobal(this:GetName().."Low"):SetText("-");
+											this:SetOrientation("Horizontal");
+											this:SetMinMaxValues(1, 100);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											refreshApercu();
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Option :  Lie a objet  -->
+								<Button name="AideButtonCreaDocuLock" inherits="BoutonAideTemplate">
+									<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="58" y="-1703"/></Offset></Anchor></Anchors>
+								</Button>
+								<CheckButton name="CreaDocuCheckBoxLock" inherits="OptionsCheckButtonTemplate" checked="false">
+									<Size x="24" y="24"/>
+									<Anchors>
+										<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-250" y="-1700"/></Offset></Anchor>
+									</Anchors>
+									<Scripts>
+										<OnLoad>
+											CreaDocuCheckBoxLockText:SetText("Lock the document");
+										</OnLoad>
+										<OnClick>
+											
+										</OnClick>
+									</Scripts>
+								</CheckButton>
+							</Frames>
+						</Frame>
+					</ScrollChild>
+					<Scripts>
+						<OnEnter>
+							
+						</OnEnter>
+					</Scripts>
+				</ScrollFrame>
+			
+				<Frame name="DocumentApercu">
+					<Size><AbsDimension x="330" y="440"/></Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="-350" y="50"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="ApercuDocumentFond1" file="Interface\Stationery\StationeryTest1">
+								<Size>
+									<AbsDimension x="256" y="256"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER"><Offset><AbsDimension x="-25" y="35"/></Offset></Anchor>
+								</Anchors>
+							</Texture>
+							<Texture name="ApercuDocumentFond2" file="Interface\Stationery\StationeryTest2">
+								<Size>
+									<AbsDimension x="64" y="256"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER"><Offset><AbsDimension x="135" y="35"/></Offset></Anchor>
+								</Anchors>
+							</Texture>
+							<Texture name="ApercuDocumentFond3" file="Interface\Stationery\StationeryTest1">
+								<Size>
+									<AbsDimension x="256" y="128"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER"><Offset><AbsDimension x="-25" y="-157"/></Offset></Anchor>
+								</Anchors>
+								<TexCoords left="0" right="1" top="0" bottom="0.5"/>
+							</Texture>
+							<Texture name="ApercuDocumentFond4" file="Interface\Stationery\StationeryTest2">
+								<Size>
+									<AbsDimension x="64" y="128"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER"><Offset><AbsDimension x="135" y="-157"/></Offset></Anchor>
+								</Anchors>
+								<TexCoords left="0" right="1" top="0" bottom="0.5"/>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+								<Size>
+									<AbsDimension x="345" y="655"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-138"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString name="ApercuPanelDocumentConsulteApercu" inherits="GameFontNormalHuge" justifyH="CENTER">
+								<Size><AbsDimension x="200" y="200"/></Size>
+								<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="185"/></Offset></Anchor></Anchors>
+								<Color r="1" g="1" b="1"/>
+							</FontString>
+							<FontString name="ApercuPanelDocumentConsulteApercuVignette" inherits="GameFontNormalLarge" justifyH="CENTER">
+								<Size><AbsDimension x="200" y="200"/></Size>
+								<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-230"/></Offset></Anchor></Anchors>
+								<Color r="1" g="1" b="1"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<Frame name="ApercuPanelDocumentImagesFrame">
+							<Size><AbsDimension x="330" y="440"/></Size>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Layers>
+								<Layer level="BACKGROUND">
+									<Texture name="ApercuDocumentImage1" file="">
+										<Size>
+											<AbsDimension x="256" y="256"/>
+										</Size>
+										<Anchors>
+											<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+										</Anchors>
+									</Texture>
+								</Layer>
+								<Layer level="BORDER">
+									<Texture name="ApercuDocumentImage2" file="">
+										<Size>
+											<AbsDimension x="256" y="256"/>
+										</Size>
+										<Anchors>
+											<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+										</Anchors>
+									</Texture>
+								</Layer>
+								<Layer level="ARTWORK">
+									<Texture name="ApercuDocumentImage3" file="">
+										<Size>
+											<AbsDimension x="256" y="256"/>
+										</Size>
+										<Anchors>
+											<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+										</Anchors>
+									</Texture>
+								</Layer>
+								<Layer level="OVERLAY">
+									<FontString name="ApercuPanelDocumentConsulteTitre1" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size><AbsDimension x="300" y="200"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="125"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="ApercuPanelDocumentConsulteAuteur1" inherits="GameFontNormalLarge" justifyH="LEFT">
+										<Size><AbsDimension x="300" y="200"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-180"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Frames>
+							
+							</Frames>
+						</Frame>
+						<ScrollFrame name="ApercuPanelDocumentConsulteScroll" inherits="UIPanelScrollFrameTemplate">
+							<Size>
+								<AbsDimension x="270" y="250"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="2" y="-25"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<ScrollChild>
+								<EditBox name="ApercuPanelDocumentConsulteScrollText" multiLine="true" enableMouse="false" autoFocus="false">
+									<Size>
+										<AbsDimension x="270" y="250"/>
+									</Size>
+									<Anchors>
+										<Anchor point="CENTER">
+											<Offset>
+												<AbsDimension x="0" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<Scripts>
+										<OnEditFocusGained>
+											ApercuPanelDocumentConsulteScrollText:ClearFocus();
+										</OnEditFocusGained>
+									</Scripts>
+									<FontString inherits="GameFontNormal">
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+								</EditBox>
+							</ScrollChild>
+						</ScrollFrame>
+						<Button name="ApercuPanelDocumentVignette" inherits="DocumentsSlotTemplate" enableMouse="false" >
+							<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-115" y="-265"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									ApercuPanelDocumentVignetteEdit:Hide();
+									ApercuPanelDocumentVignetteDelete:Hide();
+									this:Disable();
+								</OnLoad>
+								<OnEnter>
+
+								</OnEnter>
+							</Scripts>
+						</Button>
+					</Frames>
+				</Frame>
+			</Frames>
+		</Frame>
+	</Frames>
+	
+</Frame>
+
+</Ui>

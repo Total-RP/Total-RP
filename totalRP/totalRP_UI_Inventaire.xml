@@ -1,0 +1,3180 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+
+<!-- Inventaire TEMPLATE 2  -->
+<Frame name="InventaireFrameTemplateB" virtual="true">
+	<Size>
+		<AbsDimension x="480" y="576"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER"/>
+	</Anchors>
+	
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="365" y="325"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="420" y="550"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-90"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+	</Layers>
+</Frame>
+
+<!-- Emplacement Inventaire TEMPLATE  -->
+<Button name="InventaireSlotTemplate" virtual="true">
+   <Size>
+      <AbsDimension x="45" y="45"/>
+    </Size>
+    <Layers>
+      <Layer level="BORDER">
+        <Texture name="$parentIcon" file="Interface\Buttons\UI-EmptySlot-Disabled">
+		  <Size>
+			<AbsDimension x="40" y="40"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="CENTER">
+			  <Offset>
+				<AbsDimension x="-1" y="0"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+      </Layer>
+	  <Layer level="OVERLAY">
+		<FontString name="$parentQte" inherits="NumberFontNormal" justifyH="RIGHT" text="">
+			<Anchors>
+				<Anchor point="RIGHT">
+					<Offset>
+						<AbsDimension x="-6" y="-6"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</FontString>
+		<FontString name="$parentCooldownText" inherits="GameFontNormalSmall" justifyH="CENTER" text="">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-2" y="14"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</FontString>
+	  </Layer>
+    </Layers>
+    <NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+      <Size>
+        <AbsDimension x="70" y="70"/>
+      </Size>
+      <Anchors>
+        <Anchor point="CENTER">
+          <Offset>
+            <AbsDimension x="0" y="-1"/>
+          </Offset>
+        </Anchor>
+      </Anchors>
+    </NormalTexture>
+    <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+    <HighlightTexture alphaMode="ADD" file="Interface\Buttons\ButtonHilight-Square"/>
+	<Frames>
+	</Frames>
+	<Scripts>
+		<OnLeave>
+			GameTooltip:Hide()
+			TRP_Objet_3D_Apercu:Hide();
+		</OnLeave>
+		<OnLoad>
+	       this:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp");
+	    </OnLoad>
+	</Scripts>
+</Button>
+
+<!-- Emplacement Objet PERSO TEMPLATE  -->
+<Button name="ObjetPersoSlotTemplate" virtual="true">
+   <Size>
+      <AbsDimension x="45" y="45"/>
+    </Size>
+	
+	<Layers>
+		<Layer level="BORDER">
+        <Texture name="$parentIcon" file="Interface\Buttons\UI-EmptySlot-Disabled">
+		  <Size>
+			<AbsDimension x="40" y="40"/>
+		  </Size>
+		  <Anchors>
+			<Anchor point="CENTER">
+			  <Offset>
+				<AbsDimension x="-1" y="0"/>
+			  </Offset>
+			</Anchor>
+		  </Anchors>
+		</Texture>
+      </Layer>
+		 <Layer level="OVERLAY">
+		<FontString name="$parentID" inherits="NumberFontNormal" justifyH="RIGHT" hidden="true">
+			<Anchors>
+				<Anchor point="RIGHT">
+					<Offset>
+						<AbsDimension x="-6" y="-6"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</FontString>
+		<FontString name="$parentLock" inherits="NumberFontNormal" justifyH="RIGHT" text="">
+			<Anchors>
+				<Anchor point="RIGHT">
+					<Offset>
+						<AbsDimension x="-6" y="-6"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</FontString>
+	  </Layer>
+	</Layers>
+	<NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+      <Size>
+        <AbsDimension x="70" y="70"/>
+      </Size>
+      <Anchors>
+        <Anchor point="CENTER">
+          <Offset>
+            <AbsDimension x="0" y="-1"/>
+          </Offset>
+        </Anchor>
+      </Anchors>
+    </NormalTexture>
+    <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+    <HighlightTexture alphaMode="ADD" file="Interface\Buttons\ButtonHilight-Square"/>
+
+	<Scripts>
+		<OnEnter>
+			SetObjetPersoTooltip(string.gsub(this:GetName(),"ObjetPersoSlot",""))
+		</OnEnter>
+		<OnLeave>
+			GameTooltip:Hide()
+		</OnLeave>
+		<OnLoad>
+	       this:RegisterForClicks("LeftButtonUp", "RightButtonUp","MiddleButtonUp");
+	    </OnLoad>
+		<OnClick>
+			if button == "LeftButton" then
+				if IsControlKeyDown() and TRP_Module_ObjetsPerso[string.gsub(this:GetName(),"ObjetPersoSlot","")] ~= nil then
+					DonnerReference(string.gsub(this:GetName(),"ObjetPersoSlot",""));
+				else
+					EditObjetPerso(string.gsub(this:GetName(),"ObjetPersoSlot",""));
+				end
+			elseif button == "MiddleButton" then
+				if TRP_Module_ObjetsPerso[string.gsub(this:GetName(),"ObjetPersoSlot","")] ~= nil then
+					GetObjets(TRP_Module_ObjetsPerso[string.gsub(this:GetName(),"ObjetPersoSlot","")]["ID"],-1,1);
+				end
+			else
+				if TRP_Module_ObjetsPerso[string.gsub(this:GetName(),"ObjetPersoSlot","")] ~= nil then
+					StaticPopupDialogs["TRP_INV_DELETE_REF"].text = setTRPColorToString(TRP_ENTETE.." \n "..DELETEREF.." :\n\n"..CONFIRMSUPPREF);
+					TRP_ShowStaticPopup("TRP_INV_DELETE_REF",nil,nil,string.gsub(this:GetName(),"ObjetPersoSlot",""));
+				end
+			end
+		</OnClick>
+	</Scripts>
+</Button>
+
+<!-- Creation TEMPLATE  --> 
+<Frame name="CreateObjetTemplate" virtual="true">
+	<Size>
+		<AbsDimension x="768" y="512"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER"/>
+	</Anchors>
+	
+	<Layers>
+		<Layer level="BACKGROUND">
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="350" y="415"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER"><Offset><AbsDimension x="0" y="-15"/></Offset></Anchor>
+				</Anchors>
+				<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="400" y="700"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-135"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="CreateObjetNumber" inherits="NumberFontNormalHuge" justifyH="CENTER" hidden="true">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="240"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+</Frame>
+
+<Frame name="CreateObjetPageTemplate" inherits="CreateObjetTemplate" virtual="true">
+	<Frames>
+		<!-- Bouton onglet General -->
+		<Button name="CreaObjBoutonPanelGeneral" inherits="TRPButtonOnglet">
+			<Size>
+				<AbsDimension x="70" y="20"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-130" y="203"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					CreaObjGoToPanel("General");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Main Information", 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Utilisation Effet -->
+		<Button name="CreaObjBoutonPanelUtilisationEffet" inherits="TRPButtonOnglet">
+			<Size>
+				<AbsDimension x="60" y="20"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-65" y="203"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					CreaObjGoToPanel("UtilisationEffet");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Effects when used", 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Utilisation Condition -->
+		<Button name="CreaObjBoutonPanelUtilisationCondition" inherits="TRPButtonOnglet">
+			<Size>
+				<AbsDimension x="60" y="20"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-5" y="203"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					CreaObjGoToPanel("UtilisationCondition");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Conditions for using", 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+				<OnUpdate>
+					if CreaObjCheckBoxA3:GetChecked() then
+						this:Enable();
+						this:SetAlpha(1);
+					else
+						this:Disable();
+						this:SetAlpha(0.5);
+					end
+				</OnUpdate>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Butin -->
+		<Button name="CreaObjBoutonPanelButin" inherits="TRPButtonOnglet">
+			<Size>
+				<AbsDimension x="60" y="20"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="55" y="203"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					CreaObjGoToPanel("Butin");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Booty Options", 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Avancé -->
+		<Button name="CreaObjBoutonPanelAdvance" inherits="TRPButtonOnglet">
+			<Size>
+				<AbsDimension x="60" y="20"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="115" y="203"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					CreaObjGoToPanel("Advance");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Advanced Information", 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Apercu de l'objet -->
+		<Frame name="ApercuObjet">
+			<Size>
+				<AbsDimension x="100" y="100"/> 
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER"><Offset><AbsDimension x="-240" y="0"/></Offset></Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\Stationery\Stationery_ill1">
+						<Size>
+							<AbsDimension x="100" y="100"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="115" y="165"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="2" y="-28"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="OVERLAY">
+					<FontString name="CreaObjApercuText" inherits="GameFontNormalLarge" justifyH="CENTER">
+						<Size>
+							<AbsDimension x="200" y="0"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER"><Offset><AbsDimension x="0" y="35"/></Offset></Anchor>
+						</Anchors>
+						<Color r="0.95" g="0.95" b="0.95"/>
+					</FontString>
+				</Layer>
+			</Layers>
+			<Frames>
+				<Button name="ObjetPersoSave" inherits="UIPanelButtonTemplate" text="">
+					<Size>
+						<AbsDimension x="90" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="-65"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnClick>
+							EnregistrerObjetPerso();
+						</OnClick>
+					</Scripts>
+				</Button>
+				<Button name="ObjetPersoCancel" inherits="UIPanelButtonTemplate" text="">
+					<Size>
+						<AbsDimension x="90" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="-85"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnClick>
+							PanelOpen("FicheJoueurOngletInventaire","InventaireOngletCreation");
+						</OnClick>
+					</Scripts>
+				</Button>
+				<Button name="InventaireSlotTest" inherits="InventaireSlotTemplate">
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnEnter>
+							SetTestObjetTooltip()
+						</OnEnter>
+						<OnUpdate>
+							InventaireSlotTestIcon:SetTexture("Interface\\ICONS\\"..CreaObjOptionC:GetText()..".blp");
+						</OnUpdate>
+						<OnLeave>
+							GameTooltip:Hide()
+							TRP_Objet_3D_Apercu:Hide();
+						</OnLeave>
+						<OnLoad>
+						   this:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp");
+						</OnLoad>
+						<OnClick>
+						</OnClick>
+					</Scripts>
+				</Button>
+			</Frames>
+		</Frame>
+		<!-- PANEL GENERAL  -->
+		<ScrollFrame name="CreaObjPanelGeneral" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">	
+							<FontString name="UtilisationGeneralTitle" inherits="GameFontNormalHuge" justifyH="LEFT" text="Main Information :">
+								<Size>
+									<AbsDimension x="250" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-5"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- Reference  -->
+							<FontString name="CreaObjOptionA" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="200" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-35"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- Nom  -->
+							<FontString name="CreaObjOptionB" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="200" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-60"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- Icone  -->
+							<FontString name="CreaObjOptionC" inherits="GameFontNormal" justifyH="LEFT" hidden="true">
+								<Size>
+									<AbsDimension x="200" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-85"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- Description  -->
+							<FontString name="CreaObjOptionD" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="200" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-135"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- Categorie  -->
+							<FontString name="CreaObjOptionH" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="250" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-260"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- Sous Categorie  -->
+							<FontString name="CreaObjOptionI" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="250" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-300"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- Reference  -->
+						<Button name="AideButtonCreaObjReference" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="0" y="-33"/></Offset></Anchor></Anchors>
+						</Button>
+						<EditBox name="CreaObjEditBoxA" inherits="SaisieTemplate" letters="0">
+							<Size>
+								<AbsDimension x="200" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-37" y="-32"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									this:SetText(CreateObjetNumber:GetText());
+								</OnTextChanged>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjEditBoxD:SetFocus();
+									else
+										CreaObjEditBoxB:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!-- Nom  -->
+						<Button name="AideButtonCreaObjNom" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="0" y="-58"/></Offset></Anchor></Anchors>
+						</Button>
+						<EditBox name="CreaObjEditBoxB" inherits="SaisieTemplate" letters="0">
+							<Size>
+								<AbsDimension x="200" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-37" y="-57"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 50;
+								</OnLoad>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"|",""));
+								</OnTextChanged>
+								<OnEditFocusLost>
+									if this:GetText() == "" then
+										this:SetText(TRP_Module_ObjetsPerso[CreateObjetNumber:GetText()]["Nom"]);
+										this:HighlightText(0,0);
+									end
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjEditBoxA:SetFocus();
+									else
+										CreaObjEditBoxC:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!-- Icone  -->
+						<Button name="AideButtonCreaObjIcone" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="0" y="-83"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="CreaObjEditBoxC" inherits="UIPanelButtonTemplate">
+							<Size>
+								<AbsDimension x="125" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-110" y="-82"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									OpenListeIcones("CreaObjOptionC");
+								</OnClick>
+								<OnLoad>
+									this:SetText("Select Icon");
+								</OnLoad>
+							</Scripts>
+						</Button>
+						<!-- Modèle  -->
+						<Button name="AideButtonCreaObjModele" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="0" y="-108"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="CreaObjModele" inherits="UIPanelButtonTemplate">
+							<Size>
+								<AbsDimension x="150" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-110" y="-107"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									if button == "LeftButton" then
+										OpenListeModele(this);
+									else
+										this.model = nil;
+										TRP_Objet_3D_Apercu:Hide();
+									end
+									GameTooltip:Hide();
+								</OnClick>
+								<OnLoad>
+									this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+								</OnLoad>
+								<OnLeave>
+									TRP_Objet_3D_Apercu:Hide();
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if this.model and TRP_OBJETS_MODEL[this.model] then
+										this:SetText("3D Model : |cff00ff00Yes !");
+									else
+										this:SetText("3D Model : |cff000000No !");
+									end
+								</OnUpdate>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Item Model",1,1,1);
+									GameTooltip:AddLine(" ",1,1,1);
+									if this.model and TRP_OBJETS_MODEL[this.model] then
+										GameTooltip:AddLine("You have chosen the 3D model :",1,0.75,0);
+										GameTooltip:AddLine(TRP_OBJETS_MODEL[this.model].Nom,1,1,1);
+										GameTooltip:AddLine(" ",1,0.75,0);
+										GameTooltip:AddLine("Left Click: Select another 3D model.",0.25,1,0.25);
+										GameTooltip:AddLine("Right Click: Remove Selected 3D model.",1,0.25,0.25);
+									else
+										GameTooltip:AddLine("You have not selected a 3D model.",1,0.75,0);
+										GameTooltip:AddLine(" ",1,0.75,0);
+										GameTooltip:AddLine("Left Click: Select a 3D model.",0.25,1,0.25);
+									end
+									GameTooltip:Show();
+									anchorModeleTo(this.model,FicheJoueur,this);
+								</OnEnter>
+							</Scripts>
+						</Button>
+						<!-- Description scroll  -->
+						<Button name="AideButtonCreaObjDescri" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="0" y="-133"/></Offset></Anchor></Anchors>
+						</Button>
+						<ScrollFrame name="CreaObjScrollA" inherits="UIPanelScrollFrameTemplate">
+							<Size>
+								<AbsDimension x="270" y="68"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset>
+										<AbsDimension x="25" y="-160"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Layers>
+								<Layer level="BACKGROUND">
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size>
+											<AbsDimension x="350" y="150"/>
+										</Size>
+										<Anchors>
+											<Anchor point="CENTER">
+												<Offset>
+													<AbsDimension x="15" y="-30"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+									</Texture>
+								</Layer>
+								<Layer level="OVERLAY">
+									<!-- Compteur de description -->
+									<FontString name="CreaObjOptionDCount" inherits="GameFontNormal" justifyH="LEFT">
+										<Size>
+											<AbsDimension x="200" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOPLEFT"><Offset><AbsDimension x="0" y="-70"/></Offset></Anchor>
+										</Anchors>
+										<Color r="0.75" g="0.75" b="0"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<ScrollChild>
+								<EditBox name="CreaObjEditBoxD" letters="0" multiLine="true" enableMouse="false" autoFocus="false">
+									<Size>
+										<AbsDimension x="270" y="68"/>
+									</Size>
+									<Scripts>
+										<OnTextChanged>
+											this:SetText(string.gsub(this:GetText(),"|",""));
+											if string.len(CreaObjEditBoxD:GetText()) > 200 then
+												CreaObjEditBoxD:SetText(string.sub(CreaObjEditBoxD:GetText(),0,200));
+											end
+											CreaObjOptionDCount:SetText("( "..string.len(CreaObjEditBoxD:GetText()).." / 200 )");
+										</OnTextChanged>
+										<OnEscapePressed>
+											
+										</OnEscapePressed>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+										<OnTabPressed>
+											if IsShiftKeyDown() then
+												CreaObjEditBoxC:SetFocus();
+											else
+												CreaObjEditBoxA:SetFocus();
+											end
+										</OnTabPressed>
+									</Scripts>
+									<FontString inherits="ChatFontNormal"/>
+								</EditBox>
+							</ScrollChild>
+							<Scripts>
+								<OnEnter>
+									CreaObjEditBoxD:SetFocus();
+								</OnEnter>
+							</Scripts>
+						</ScrollFrame>
+						<!-- Caracteristique : Categorie  -->
+						<Button name="AideButtonCreaObjCategorie" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="8" y="-259"/></Offset></Anchor></Anchors>
+						</Button>
+						<Slider name="CreaObjSliderCategorie" inherits="OptionsSliderTemplate">
+							<Size>
+								<AbsDimension x="270" y="15"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="5" y="-280"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Layers>
+								<Layer level="OVERLAY">
+									<FontString name="CreaObjSliderCategorieText" inherits="GameFontNormal" justifyH="CENTER" text="">
+										<Size>
+											<AbsDimension x="500" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="CENTER">
+												<Offset>
+													<AbsDimension x="0" y="0"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(1, 7);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									CreaObjSliderCategorieText:SetText(TRP_ObjetCategorie[this:GetValue()].Nom);
+									CreaObjSliderSousCategorie:SetMinMaxValues(1, #TRP_ObjetCategorie[this:GetValue()].SousCategorie);
+									CreaObjSliderSousCategorie:SetValue(1);
+									CreaObjSliderSousCategorieText:SetText(TRP_ObjetCategorie[this:GetValue()].SousCategorie[CreaObjSliderSousCategorie:GetValue()]);
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+						<!-- Caracteristique : Sous Categorie  -->
+						<Slider name="CreaObjSliderSousCategorie" inherits="OptionsSliderTemplate">
+							<Size>
+								<AbsDimension x="270" y="15"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="5" y="-320"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Layers>
+								<Layer level="OVERLAY">
+									<FontString name="CreaObjSliderSousCategorieText" inherits="GameFontNormal" justifyH="CENTER" text="">
+										<Size>
+											<AbsDimension x="500" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="CENTER">
+												<Offset>
+													<AbsDimension x="0" y="0"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(1, 7);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									CreaObjSliderSousCategorieText:SetText(TRP_ObjetCategorie[CreaObjSliderCategorie:GetValue()].SousCategorie[this:GetValue()]);
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+						<!-- Caracteristique :  Lock  -->
+						<Button name="AideButtonCreaObjLock" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="88" y="-364"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjCheckBoxLock" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-220" y="-360"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									CreaObjCheckBoxLockText:SetText("Lock the item");
+								</OnLoad>
+								<OnClick>
+									
+								</OnClick>
+							</Scripts>
+						</CheckButton>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+			<Scripts>
+				<OnEnter>
+					
+				</OnEnter>
+			</Scripts>
+		</ScrollFrame>
+		<!-- PANEL UTILISATION EFFET -->
+		<ScrollFrame name="CreaObjPanelUtilisationEffet" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="UtilisationEffetTitle" inherits="GameFontNormalHuge" justifyH="LEFT" text="Effects when used :">
+								<Size>
+									<AbsDimension x="250" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-45"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- USE : Charges  -->
+							<FontString name="CreaObjOptionE" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="250" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-75"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- USE : Phrases a l'utilisation  -->
+							<FontString name="CreaObjOptionPhraseA" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-100"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- USE : Phrases a l'utilisation : Perso  -->
+							<FontString name="CreaObjOptionPhraseAPerso" inherits="GameFontNormalSmall" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-120"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- USE : Phrases a l'utilisation : Emote  -->
+							<FontString name="CreaObjOptionPhraseAEmote" inherits="GameFontNormalSmall" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-140"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- USE : Charges Epuisees  -->
+							<FontString name="CreaObjOptionChargeEpuise" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-200"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- USE : Charges Epuisee : Perso  -->
+							<FontString name="CreaObjOptionPhraseBPerso" inherits="GameFontNormalSmall" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-225"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- USE : Charges Epuisee : Emote  -->
+							<FontString name="CreaObjOptionPhraseBEmote" inherits="GameFontNormalSmall" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-245"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- USE :Phrase tooltip  -->
+							<FontString name="CreaObjOptionPhraseTooltip" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-305"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- USE : Lier document  -->
+							<FontString name="CreaObjOptionLierDocument" inherits="GameFontNormal" justifyH="LEFT" text="Link to a document :">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-350"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- String caché de sélection  -->
+							<FontString name="CreaObjEditBoxI" inherits="GameFontNormal" justifyH="LEFT" hidden="true">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-350"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="CreaObjEditBoxM" inherits="GameFontNormal" justifyH="LEFT" hidden="true">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-310"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="CreaObjEditBoxF" inherits="GameFontNormal" justifyH="LEFT" hidden="true">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-330"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- Caracteristique :  Utilisable  -->
+						<Button name="AideButtonCreaObjUtilisable" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="108" y="-13"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjCheckBoxA3" inherits="TRP_CheckButton_Template" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-200" y="-9"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnUpdate>
+									if this:GetChecked() then
+										CreaObjCheckBoxA3Edit:SetAlpha(1);
+										CreaObjEditBoxG:SetAlpha(1);
+										CreaObjEditBoxH:SetAlpha(1);
+										CreaObjBoutonUseCreate:Enable();
+										CreaObjCheckBoxPlaySound:Enable();
+										CreaObjBoutonUseCreate:SetAlpha(1);
+										CreaObjCheckBoxPlaySound:SetAlpha(1);
+										CreaObjEditBoxK:SetAlpha(1);
+										CreaObjEditBoxL:SetAlpha(1);
+										CreaObjEditBoxE:SetAlpha(1);
+										CreaObjBoutonDeathCreate:Enable();
+										CreaObjCheckBoxDeathSound:Enable();
+										CreaObjBoutonLierDocument:Enable();
+										CreaObjBoutonDeathCreate:SetAlpha(1);
+										CreaObjCheckBoxDeathSound:SetAlpha(1);
+										CreaObjBoutonLierDocument:SetAlpha(1);
+										UtilisationEffetTitle:SetAlpha(1);
+										CreaObjOptionE:SetAlpha(1);
+										CreaObjOptionPhraseA:SetAlpha(1);
+										CreaObjOptionPhraseAPerso:SetAlpha(1);
+										CreaObjOptionPhraseAEmote:SetAlpha(1);
+										CreaObjOptionChargeEpuise:SetAlpha(1);
+										CreaObjOptionPhraseBPerso:SetAlpha(1);
+										CreaObjOptionPhraseBEmote:SetAlpha(1);
+										CreaObjOptionPhraseTooltip:SetAlpha(1);
+										CreaObjOptionLierDocument:SetAlpha(1);
+										CreaObjBoutonSonA:Enable();
+										CreaObjBoutonSonB:Enable();
+										CreaObjBoutonSonA:SetAlpha(1);
+										CreaObjBoutonSonB:SetAlpha(1);
+										CreaObjEditBoxJ:SetAlpha(1);
+										CreaObjEditBoxN:SetAlpha(1);
+										CreaObjCheckBoxCooldown:Enable();
+										CreaObjCheckBoxCooldown:SetAlpha(1);
+										CreaObjEditBoxCooldown:SetAlpha(1);
+									else
+										CreaObjCheckBoxA3Edit:SetAlpha(0.5);
+										CreaObjEditBoxG:SetAlpha(0.5);
+										CreaObjEditBoxH:SetAlpha(0.5);
+										CreaObjBoutonUseCreate:Disable();
+										CreaObjCheckBoxPlaySound:Disable();
+										CreaObjBoutonUseCreate:SetAlpha(0.5);
+										CreaObjCheckBoxPlaySound:SetAlpha(0.5);
+										CreaObjEditBoxK:SetAlpha(0.5);
+										CreaObjEditBoxL:SetAlpha(0.5);
+										CreaObjEditBoxE:SetAlpha(0.5);
+										CreaObjBoutonDeathCreate:Disable();
+										CreaObjCheckBoxDeathSound:Disable();
+										CreaObjBoutonLierDocument:Disable();
+										CreaObjBoutonDeathCreate:SetAlpha(0.5);
+										CreaObjCheckBoxDeathSound:SetAlpha(0.5);
+										CreaObjBoutonLierDocument:SetAlpha(0.5);
+										UtilisationEffetTitle:SetAlpha(0.5);
+										CreaObjOptionE:SetAlpha(0.5);
+										CreaObjOptionPhraseA:SetAlpha(0.5);
+										CreaObjOptionPhraseAPerso:SetAlpha(0.5);
+										CreaObjOptionPhraseAEmote:SetAlpha(0.5);
+										CreaObjOptionChargeEpuise:SetAlpha(0.5);
+										CreaObjOptionPhraseBPerso:SetAlpha(0.5);
+										CreaObjOptionPhraseBEmote:SetAlpha(0.5);
+										CreaObjOptionPhraseTooltip:SetAlpha(0.5);
+										CreaObjOptionLierDocument:SetAlpha(0.5);
+										CreaObjBoutonSonA:Disable();
+										CreaObjBoutonSonB:Disable();
+										CreaObjBoutonSonA:SetAlpha(0.5);
+										CreaObjBoutonSonB:SetAlpha(0.5);
+										CreaObjEditBoxJ:SetAlpha(0.5);
+										CreaObjEditBoxN:SetAlpha(0.5);
+										CreaObjCheckBoxCooldown:Disable();
+										CreaObjCheckBoxCooldown:SetAlpha(0.5);
+										CreaObjEditBoxCooldown:SetAlpha(0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- USE :  Charges -->
+						<Button name="AideButtonCreaObjCharges" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-73"/></Offset></Anchor></Anchors>
+						</Button>
+						<EditBox name="CreaObjCheckBoxA3Edit" inherits="SaisieTemplateVerySmall" letters="3" numeric="true">
+							<Size>
+								<AbsDimension x="40" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-100" y="-72"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									if this:GetText() ~= "" then
+										this:SetText(tonumber(this:GetText()));
+									end
+								</OnTextChanged>
+								<OnEditFocusLost>
+									if this:GetText() == "" then
+										this:SetText("0");
+									end
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjEditBoxF:SetFocus();
+									else
+										CreaObjEditBoxG:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!--  USE : Phrases a l'utilisation : message  -->
+						<Button name="AideButtonCreaObjOnUseMessage" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-119"/></Offset></Anchor></Anchors>
+						</Button>
+						<EditBox name="CreaObjEditBoxG" inherits="SaisieTemplate" letters="0">
+							<Size>
+								<AbsDimension x="220" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="40" y="-115"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 200;
+								</OnLoad>
+								<OnTextChanged>
+									if string.find(this:GetText(),"[%|]") then
+										this:SetText(string.gsub(this:GetText(),"[%|]",""));
+									end
+								</OnTextChanged>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjCheckBoxA3Edit:SetFocus();
+									else
+										CreaObjEditBoxH:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!--  USE : Phrases a l'utilisation : Emote  -->
+						<Button name="AideButtonCreaObjOnUseEmote" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-139"/></Offset></Anchor></Anchors>
+						</Button>
+						<EditBox name="CreaObjEditBoxH" inherits="SaisieTemplate" letters="0">
+							<Size>
+								<AbsDimension x="220" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="40" y="-135"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 100;
+								</OnLoad>
+								<OnTextChanged>
+									if string.find(this:GetText(),"[%|]") then
+										this:SetText(string.gsub(this:GetText(),"[%|]",""));
+									end
+								</OnTextChanged>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjEditBoxG:SetFocus();
+									else
+										
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!--  USE : Creer a l'utilisation  -->
+						<Button name="AideButtonCreaObjOnUseCreate" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-159"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="CreaObjBoutonUseCreate" inherits="UIPanelButtonTemplate">
+							<Size>
+								<AbsDimension x="175" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-135" y="-156"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									if button == "LeftButton" then
+										if IsControlKeyDown() then
+											StaticPopupDialogs["TRP_OBJCREA_QTE"].text = setTRPColorToString(TRP_ENTETE.." Quantity ?");
+											TRP_ShowStaticPopup("TRP_OBJCREA_QTE",nil,nil,this,nil,nil,nil,true,1);
+										else
+											OpenListeObjets("CreaObjEditBoxI");
+										end
+									else
+										CreaObjEditBoxI:SetText("");
+										this.Qte = nil;
+									end
+									GameTooltip:Hide();
+								</OnClick>
+								<OnLoad>
+									this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+								</OnLoad>
+								<OnUpdate>
+									if CreaObjEditBoxI:GetText() and CreaObjEditBoxI:GetText() ~= "" then
+										this:SetText("Receive an item : |cff00ff00Yes !");
+									else
+										this:SetText("Receive an item : |cff000000No !");
+									end
+								</OnUpdate>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Receive an item when used",1,1,1);
+									GameTooltip:AddLine(" ",1,1,1);
+									if CreaObjEditBoxI:GetText() then
+										GameTooltip:AddLine("This item will be received :",1,0.75,0);
+										if string.len(CreaObjEditBoxI:GetText()) == 16 then
+											GameTooltip:AddLine("   |TInterface\\ICONS\\"..TRP_Module_ObjetsPerso[CreaObjEditBoxI:GetText()]["Icone"]..".blp:45:45|t", 0, 0.75, 1);
+											GameTooltip:AddLine("   ["..TRP_Module_ObjetsPerso[CreaObjEditBoxI:GetText()]["Nom"].."]",1,1,1);
+											GameTooltip:AddLine("   Author : |cff7777ff"..TRP_Module_ObjetsPerso[CreaObjEditBoxI:GetText()]["Auteur"],1,0.75,0);
+										else
+											GameTooltip:AddLine("   |TInterface\\ICONS\\"..TRP_Objects[CreaObjEditBoxI:GetText()]["Icone"]..".blp:45:45|t", 0, 0.75, 1);
+											GameTooltip:AddLine("   ["..TRP_Objects[CreaObjEditBoxI:GetText()]["Nom"].."]",1,1,1);
+											GameTooltip:AddLine("   |cff7777ffTRP Item",1,0.75,0);
+										end
+										if this.Qte then
+											GameTooltip:AddLine("   |cff00ffffQuantity : "..this.Qte,1,0.75,0);
+										else
+											GameTooltip:AddLine("   |cff00ffffQuantity : 1",1,0.75,0);
+										end
+										GameTooltip:AddLine(" ",1,0.75,0);
+										GameTooltip:AddLine("Left Click: Select another item.",0.25,1,0.25);
+										GameTooltip:AddLine("Ctrl + Left Click: Choose the quantity.",0.5,1,0.5);
+										GameTooltip:AddLine("Right Click: Do not receive item.",1,0.25,0.25);
+									else
+										GameTooltip:AddLine("No item will be received.",1,0.75,0);
+										GameTooltip:AddLine(" ",1,0.75,0);
+										GameTooltip:AddLine("Left Click: Select an item.",0.25,1,0.25);
+									end
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Button>
+						<!--  USE : Son a l'utilisation  -->
+						<Button name="AideButtonCreaObjOnUseSound" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-179"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjCheckBoxPlaySound" inherits="TRP_CheckButton_Template" checked="false">
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-290" y="-175"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnUpdate>
+									if this:GetChecked() then
+										CreaObjBoutonSonA:Show();
+										CreaObjEditBoxJ:Show();
+									else
+										CreaObjBoutonSonA:Hide();
+										CreaObjEditBoxJ:Hide();
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<Button name="CreaObjBoutonSonA" inherits="UIPanelButtonTemplate">
+							<Size>
+								<AbsDimension x="60" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-152" y="-176"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									OpenListeSound("CreaObjEditBoxJ");
+								</OnClick>
+								<OnLoad>
+									this:SetText("List");
+								</OnLoad>
+							</Scripts>
+						</Button>
+						<!--  USE : Son a l'util  : Reference-->
+						<EditBox name="CreaObjEditBoxJ" inherits="SaisieTemplateSmall" letters="0">
+							<Size>
+								<AbsDimension x="110" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="85" y="-175"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 75;
+								</OnLoad>
+								<OnEnterPressed>
+									TRPPlaySound(this:GetText());
+								</OnEnterPressed>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjEditBoxI:SetFocus();
+									else
+										CreaObjEditBoxK:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!--  USE : Une fois epuise : message  -->
+						<Button name="AideButtonCreaObjOnDeathMessage" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-224"/></Offset></Anchor></Anchors>
+						</Button>
+						<EditBox name="CreaObjEditBoxK" inherits="SaisieTemplate" letters="0">
+							<Size>
+								<AbsDimension x="220" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="40" y="-220"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 200;
+								</OnLoad>
+								<OnTextChanged>
+									if string.find(this:GetText(),"[%|]") then
+										this:SetText(string.gsub(this:GetText(),"[%|]",""));
+									end
+								</OnTextChanged>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjEditBoxJ:SetFocus();
+									else
+										CreaObjEditBoxL:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!--  USE : Une fois epuise : Emote  -->
+						<Button name="AideButtonCreaObjOnDeathEmote" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-244"/></Offset></Anchor></Anchors>
+						</Button>
+						<EditBox name="CreaObjEditBoxL" inherits="SaisieTemplate" letters="0">
+							<Size>
+								<AbsDimension x="220" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="40" y="-240"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 100;
+								</OnLoad>
+								<OnTextChanged>
+									if string.find(this:GetText(),"[%|]") then
+										this:SetText(string.gsub(this:GetText(),"[%|]",""));
+									end
+								</OnTextChanged>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjEditBoxK:SetFocus();
+									else
+										CreaObjEditBoxM:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!--  USE : Une fois epuise : creer  -->
+						<Button name="AideButtonCreaObjOnDeathCreate" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-264"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="CreaObjBoutonDeathCreate" inherits="UIPanelButtonTemplate">
+							<Size>
+								<AbsDimension x="175" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-135" y="-261"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									if button == "LeftButton" then
+										if IsControlKeyDown() then
+											StaticPopupDialogs["TRP_OBJCREA_QTE"].text = setTRPColorToString(TRP_ENTETE.." Quantity ?");
+											TRP_ShowStaticPopup("TRP_OBJCREA_QTE",nil,nil,this,nil,nil,nil,true,1);
+										else
+											OpenListeObjets("CreaObjEditBoxM");
+										end
+									else
+										CreaObjEditBoxM:SetText("");
+										this.Qte = nil;
+									end
+									GameTooltip:Hide();
+								</OnClick>
+								<OnLoad>
+									this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+								</OnLoad>
+								<OnUpdate>
+									if CreaObjEditBoxM:GetText() and CreaObjEditBoxM:GetText() ~= "" then
+										this:SetText("Receive an item : |cff00ff00Yes !");
+									else
+										this:SetText("Receive an item : |cff000000No !");
+									end
+								</OnUpdate>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Receive an item when discharged",1,1,1);
+									GameTooltip:AddLine(" ",1,1,1);
+									if CreaObjEditBoxM:GetText() then
+										GameTooltip:AddLine("This item will be received :",1,0.75,0);
+										GameTooltip:AddLine(" ",1,1,1);
+										if string.len(CreaObjEditBoxM:GetText()) == 16 then
+											GameTooltip:AddLine("   |TInterface\\ICONS\\"..TRP_Module_ObjetsPerso[CreaObjEditBoxM:GetText()]["Icone"]..".blp:45:45|t", 0, 0.75, 1);
+											GameTooltip:AddLine("   ["..TRP_Module_ObjetsPerso[CreaObjEditBoxM:GetText()]["Nom"].."]",1,1,1);
+											GameTooltip:AddLine("   Author : |cff7777ff"..TRP_Module_ObjetsPerso[CreaObjEditBoxM:GetText()]["Auteur"],1,0.75,0);
+										else
+											GameTooltip:AddLine("   |TInterface\\ICONS\\"..TRP_Objects[CreaObjEditBoxM:GetText()]["Icone"]..".blp:45:45|t", 0, 0.75, 1);
+											GameTooltip:AddLine("   ["..TRP_Objects[CreaObjEditBoxM:GetText()]["Nom"].."]",1,1,1);
+											GameTooltip:AddLine("   |cff7777ffTRP Item",1,0.75,0);
+										end
+										if this.Qte then
+											GameTooltip:AddLine("   |cff00ffffQuantity : "..this.Qte,1,0.75,0);
+										else
+											GameTooltip:AddLine("   |cff00ffffQuantity : 1",1,0.75,0);
+										end
+										GameTooltip:AddLine(" ",1,0.75,0);
+										GameTooltip:AddLine("Left Click: Select another item.",0.25,1,0.25);
+										GameTooltip:AddLine("Ctrl + Left Click: Choose the quantity.",0.5,1,0.5);
+										GameTooltip:AddLine("Right Click: Do not receive item.",1,0.25,0.25);
+									else
+										GameTooltip:AddLine("No item will be received.",1,0.75,0);
+										GameTooltip:AddLine(" ",1,0.75,0);
+										GameTooltip:AddLine("Left Click: Select item.",0.25,1,0.25);
+									end
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Button>
+						<!--  USE : Son Une fois epuise  -->
+						<Button name="AideButtonCreaObjOnDeathSound" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-284"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjCheckBoxDeathSound" inherits="TRP_CheckButton_Template" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-290" y="-280"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnUpdate>
+									if this:GetChecked() then
+										CreaObjBoutonSonB:Show();
+										CreaObjEditBoxN:Show();
+									else
+										CreaObjBoutonSonB:Hide();
+										CreaObjEditBoxN:Hide();
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<Button name="CreaObjBoutonSonB" inherits="UIPanelButtonTemplate">
+							<Size>
+								<AbsDimension x="60" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-152" y="-281"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									OpenListeSound("CreaObjEditBoxN");
+								</OnClick>
+								<OnLoad>
+									this:SetText("List");
+								</OnLoad>
+							</Scripts>
+						</Button>
+						<!--  USE : Son Une fois epuise  : Reference-->
+						<EditBox name="CreaObjEditBoxN" inherits="SaisieTemplateSmall" letters="0">
+							<Size>
+								<AbsDimension x="110" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="85" y="-280"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 75;
+								</OnLoad>
+								<OnEnterPressed>
+									TRPPlaySound(this:GetText());
+								</OnEnterPressed>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjEditBoxM:SetFocus();
+									else
+										CreaObjEditBoxE:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!--  USE : Phrase tooltip  -->
+						<Button name="AideButtonCreaObjTooltipUse" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-304"/></Offset></Anchor></Anchors>
+						</Button>
+						<EditBox name="CreaObjEditBoxE" inherits="SaisieTemplate" letters="0">
+							<Size>
+								<AbsDimension x="220" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="40" y="-325"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 50;
+								</OnLoad>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"%|",""))
+								</OnTextChanged>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjEditBoxN:SetFocus();
+									else
+										CreaObjEditBoxF:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!--  USE : Lier document check -->
+						<Button name="AideButtonCreaObjLierDocu" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-349"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="CreaObjBoutonLierDocument" inherits="UIPanelButtonTemplate">
+							<Size>
+								<AbsDimension x="185" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-130" y="-370"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									if button == "LeftButton" then
+										OpenListeDocuments("CreaObjEditBoxF");
+									else
+										CreaObjEditBoxF:SetText("");
+									end
+									GameTooltip:Hide();
+								</OnClick>
+								<OnLoad>
+									this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+								</OnLoad>
+								<OnUpdate>
+									if CreaObjEditBoxF:GetText() and CreaObjEditBoxF:GetText() ~= "" then
+										this:SetText("Open Document : |cff00ff00Yes !");
+									else
+										this:SetText("Open Document : |cff000000No !");
+									end
+								</OnUpdate>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Open Document",1,1,1);
+									GameTooltip:AddLine(" ",1,1,1);
+									if CreaObjEditBoxF:GetText() and TRP_Module_Documents[CreaObjEditBoxF:GetText()] then
+										GameTooltip:AddLine("This document will be open when used :",1,0.75,0);
+										GameTooltip:AddLine(" ",1,1,1);
+										GameTooltip:AddLine("   |TInterface\\ICONS\\"..TRP_Module_Documents[CreaObjEditBoxF:GetText()]["VignetteIcone"]..".blp:45:45|t", 0, 0.75, 1);
+										if TRP_Module_Documents[CreaObjEditBoxF:GetText()]["VignetteTitre"] ~= "" then
+											GameTooltip:AddLine("   Title : |cffffffff"..TRP_Module_Documents[CreaObjEditBoxF:GetText()]["VignetteTitre"], 0, 0.75, 1);
+										end
+										if TRP_Module_Documents[CreaObjEditBoxF:GetText()]["VignetteAuteur"] ~= "" then
+											GameTooltip:AddLine("   Author : |cffffffff"..TRP_Module_Documents[CreaObjEditBoxF:GetText()]["VignetteAuteur"], 0, 0.75, 1);
+										end
+										if TRP_Module_Documents[CreaObjEditBoxF:GetText()]["VignetteDate"] ~= "" then
+											GameTooltip:AddLine("   Date : |cffffffff"..TRP_Module_Documents[CreaObjEditBoxF:GetText()]["VignetteDate"], 0, 0.75, 1);
+										end
+										GameTooltip:AddLine("   Creator : |cff7777ff"..TRP_Module_Documents[CreaObjEditBoxF:GetText()]["Createur"], 1, 0.75, 0);
+										GameTooltip:AddLine(" ",1,0.75,0);
+										GameTooltip:AddLine("Left Click: Select another document.",0.25,1,0.25);
+										GameTooltip:AddLine("Right Click: Do not open the document.",1,0.25,0.25);
+									else
+										GameTooltip:AddLine("No document will be opened.",1,0.75,0);
+										GameTooltip:AddLine(" ",1,0.75,0);
+										GameTooltip:AddLine("Left Click: Select document.",0.25,1,0.25);
+									end
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Button>
+						<!--  USE : Son Une fois epuise  -->
+						<Button name="AideButtonCreaObjCooldown" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-394"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjCheckBoxCooldown" inherits="TRP_CheckButton_Template" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-290" y="-390"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnUpdate>
+									if this:GetChecked() then
+										CreaObjEditBoxCooldown:Show();
+									else
+										CreaObjEditBoxCooldown:Hide();
+									end
+								</OnUpdate>
+								<OnLoad>
+									CreaObjCheckBoxCooldownText:SetText("Cooldown");
+								</OnLoad>
+							</Scripts>
+						</CheckButton>
+						<EditBox name="CreaObjEditBoxCooldown" inherits="SaisieTemplateSmall" letters="6" numeric="true">
+							<Size>
+								<AbsDimension x="110" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="85" y="-390"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 6;
+								</OnLoad>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										CreaObjEditBoxM:SetFocus();
+									else
+										CreaObjEditBoxE:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+			<Scripts>
+				<OnEnter>
+					
+				</OnEnter>
+			</Scripts>
+		</ScrollFrame>
+		<!-- PANEL UTILISATION CONDITION -->
+		<ScrollFrame name="CreaObjPanelUtilisationCondition" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="UtilisationConditionTitle" inherits="GameFontNormalHuge" justifyH="LEFT" text="Condition for using :">
+								<Size>
+									<AbsDimension x="250" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-45"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- Caracteristique :  Conditions  -->
+						<Button name="AideButtonCreaObjConditions" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="108" y="-13"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjCheckBoxConditions" inherits="TRP_CheckButton_Template" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-200" y="-9"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									CreaObjCheckBoxConditionsText:SetText("Conditions");
+								</OnLoad>
+								<OnUpdate>
+									if this:GetChecked() then
+										UtilisationConditionTitle:SetAlpha(1);
+										CreaObjCheckBoxCiblage:Enable()
+										CreaObjCheckBoxCiblage:SetAlpha(1);
+										CreaObjCheckBoxUserCondSupp:Enable()
+										CreaObjCheckBoxInventaire:Enable()
+										CreaObjCheckBoxUserCondSupp:SetAlpha(1);
+										CreaObjCheckBoxInventaire:SetAlpha(1);
+										if CreaObjCheckBoxCiblage:GetChecked() then
+											CreaObjCheckBoxCiblageCondSupp:Enable();
+											CreaObjCheckBoxCiblageCondSupp:SetAlpha(1);
+											if CreaObjCheckBoxCiblageCondSupp:GetChecked() then
+												CreaObjEditBoxCiblageCondSupp:SetAlpha(1)
+											else
+												CreaObjEditBoxCiblageCondSupp:SetAlpha(0.5)
+											end
+										else
+											CreaObjCheckBoxCiblageCondSupp:Disable();
+											CreaObjCheckBoxCiblageCondSupp:SetAlpha(0.5);
+											CreaObjEditBoxCiblageCondSupp:SetAlpha(0.5);
+										end
+										if CreaObjCheckBoxUserCondSupp:GetChecked() then
+											CreaObjEditBoxUserCondSupp:SetAlpha(1)
+										else
+											CreaObjEditBoxUserCondSupp:SetAlpha(0.5)
+										end
+										if CreaObjCheckBoxInventaire:GetChecked() then
+											CreaObjScrollInventaire:SetAlpha(1)
+										else
+											CreaObjScrollInventaire:SetAlpha(0.5)
+										end	
+									else
+										UtilisationConditionTitle:SetAlpha(0.5);
+										CreaObjCheckBoxCiblage:Disable()
+										CreaObjCheckBoxUserCondSupp:Disable()
+										CreaObjCheckBoxUserCondSupp:SetAlpha(0.5);
+										CreaObjCheckBoxCiblage:SetAlpha(0.5);
+										CreaObjCheckBoxCiblageCondSupp:Disable();
+										CreaObjCheckBoxCiblageCondSupp:SetAlpha(0.5);
+										CreaObjEditBoxCiblageCondSupp:SetAlpha(0.5);
+										CreaObjEditBoxUserCondSupp:SetAlpha(0.5)
+										CreaObjCheckBoxInventaire:Disable();
+										CreaObjCheckBoxInventaire:SetAlpha(0.5)
+										CreaObjScrollInventaire:SetAlpha(0.5)
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- Caracteristique :  Ciblage  -->
+						<Button name="AideButtonCreaObjCiblage" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-74"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjCheckBoxCiblage" inherits="TRP_CheckButton_Template" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-290" y="-70"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									CreaObjCheckBoxCiblageText:SetText("Must have a target");
+								</OnLoad>
+								<OnUpdate>
+
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- Caracteristique :  Ciblage : Condition   -->
+						<Button name="AideButtonCreaObjCiblageCondSupp" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-94"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjCheckBoxCiblageCondSupp" inherits="TRP_CheckButton_Template" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-290" y="-90"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									CreaObjCheckBoxCiblageCondSuppText:SetText("Target conditions :");
+								</OnLoad>
+							</Scripts>
+						</CheckButton>
+						<EditBox name="CreaObjEditBoxCiblageCondSupp" inherits="SaisieTemplate" letters="0">
+							<Size>
+								<AbsDimension x="170" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-30" y="-112"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 50;
+								</OnLoad>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"%|",""));
+									if this:GetText() and string.find(this:GetText(),"%%t") and UnitName("target") then
+										this:SetText(string.gsub(this:GetText(),"%%t",UnitName("target")))
+									end
+								</OnTextChanged>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										
+									else
+										
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!-- Caracteristique :  Joueur : Conditions  -->
+						<Button name="AideButtonCreaObjUserCondSupp" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-134"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjCheckBoxUserCondSupp" inherits="TRP_CheckButton_Template" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-290" y="-130"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									CreaObjCheckBoxUserCondSuppText:SetText("User conditions :");
+								</OnLoad>
+							</Scripts>
+						</CheckButton>
+						<EditBox name="CreaObjEditBoxUserCondSupp" inherits="SaisieTemplate" letters="0">
+							<Size>
+								<AbsDimension x="170" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-30" y="-152"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 50;
+								</OnLoad>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"%|",""))
+								</OnTextChanged>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										
+									else
+										
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<!-- Caracteristique :  Inventaire : Conditions  -->
+						<Button name="AideButtonCreaObjInventaire" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-174"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjCheckBoxInventaire" inherits="TRP_CheckButton_Template" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-290" y="-170"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									CreaObjCheckBoxInventaireText:SetText("Components needed :");
+								</OnLoad>
+							</Scripts>
+						</CheckButton>
+						<ScrollFrame name="CreaObjScrollInventaire" inherits="UIPanelScrollFrameTemplate">
+							<Size>
+								<AbsDimension x="270" y="68"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset>
+										<AbsDimension x="25" y="-200"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Layers>
+								<Layer level="BACKGROUND">
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size>
+											<AbsDimension x="350" y="150"/>
+										</Size>
+										<Anchors>
+											<Anchor point="CENTER">
+												<Offset>
+													<AbsDimension x="15" y="-30"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+									</Texture>
+								</Layer>
+								<Layer level="OVERLAY">
+									<!-- Compteur de description -->
+									<FontString name="CreaObjOptionInventaireCount" inherits="GameFontNormal" justifyH="LEFT">
+										<Size>
+											<AbsDimension x="200" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOPLEFT"><Offset><AbsDimension x="0" y="-70"/></Offset></Anchor>
+										</Anchors>
+										<Color r="0.75" g="0.75" b="0"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<ScrollChild>
+								<EditBox name="CreaObjEditBoxInventaire" letters="0" multiLine="true" enableMouse="false" autoFocus="false">
+									<Size>
+										<AbsDimension x="270" y="68"/>
+									</Size>
+									<Scripts>
+										<OnTextChanged>
+											this:SetText(string.gsub(this:GetText(),"|",""));
+											if string.len(this:GetText()) > 100 then
+												this:SetText(string.sub(this:GetText(),0,100));
+											end
+											CreaObjOptionInventaireCount:SetText("( "..string.len(this:GetText()).." / 100 )");
+										</OnTextChanged>
+										<OnEscapePressed>
+											
+										</OnEscapePressed>
+										<OnEditFocusLost>
+											this:HighlightText(0,0);
+										</OnEditFocusLost>
+										<OnTabPressed>
+											if IsShiftKeyDown() then
+												
+											else
+												
+											end
+										</OnTabPressed>
+									</Scripts>
+									<FontString inherits="ChatFontNormal"/>
+								</EditBox>
+							</ScrollChild>
+							<Scripts>
+								<OnEnter>
+									CreaObjEditBoxInventaire:SetFocus();
+								</OnEnter>
+							</Scripts>
+						</ScrollFrame>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANEL BUTIN -->
+		<ScrollFrame name="CreaObjPanelButin" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="UtilisationButinTitle" inherits="GameFontNormalHuge" justifyH="LEFT" text="Butin :">
+								<Size>
+									<AbsDimension x="250" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-45"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANEL AVANCE -->
+		<ScrollFrame name="CreaObjPanelAdvance" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="UtilisationAdvanceTitle" inherits="GameFontNormalHuge" justifyH="LEFT" text="Advanced Information :">
+								<Size>
+									<AbsDimension x="250" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-5"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- Poids  -->
+							<FontString name="CreaObjOptionG" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="250" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-35"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<!-- Poids  -->
+							<FontString name="CreaObjOptionUnique" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="250" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-65"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- Caracteristique : Poids  -->
+						<Button name="AideButtonCreaObjPoids" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="8" y="-34"/></Offset></Anchor></Anchors>
+						</Button>
+						<EditBox name="CreaObjCheckBoxA1Edit" inherits="SaisieTemplateSmall" letters="8" numeric="true">
+							<Size>
+								<AbsDimension x="110" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-30" y="-32"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 8;
+								</OnLoad>
+								<OnEditFocusLost>
+									if this:GetText() == "" then
+										this:SetText("0");
+									end
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+							</Scripts>
+						</EditBox>
+						<!-- Caracteristique : Unique  -->
+						<Button name="AideButtonCreaObjUnique" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="8" y="-64"/></Offset></Anchor></Anchors>
+						</Button>
+						<EditBox name="CreaObjCheckBoxA2Edit" inherits="SaisieTemplateSmall" letters="3" numeric="true">
+							<Size>
+								<AbsDimension x="110" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT"><Offset><AbsDimension x="-30" y="-60"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 3;
+								</OnLoad>
+								<OnEditFocusLost>
+									if this:GetText() == "" then
+										this:SetText("0");
+									end
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+							</Scripts>
+						</EditBox>
+						<!-- Caracteristique :  Butin only  -->
+						<Button name="AideButtonCreaObjButinOnly" inherits="BoutonAideTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="8" y="-94"/></Offset></Anchor></Anchors>
+						</Button>
+						<CheckButton name="CreaObjButinOnly" inherits="TRP_CheckButton_Template" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-90"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									CreaObjButinOnlyText:SetText("Do not allow manual additions.");
+								</OnLoad>
+							</Scripts>
+						</CheckButton>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+	</Frames>
+</Frame>
+
+<!-- INVENTAIRE -->
+<Frame name="FicheJoueurPanelInventaireTemplate" virtual="true">
+	
+	<Frames>
+		<Frame name="CreateObjetFrame" inherits="CreateObjetPageTemplate">
+			<Size>
+				<AbsDimension x="400" y="512"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="0"/></Offset></Anchor></Anchors>
+		</Frame>
+		<!-- Inventaire  -->
+		<Frame name="InventaireFrame">
+			<Size>
+				<AbsDimension x="480" y="576"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER"/>
+			</Anchors>
+			
+			<Layers>
+				<Layer level="OVERLAY">
+
+				</Layer>
+			</Layers>
+			
+			<Frames>
+				<!-- ONGLET = SAC A DOS -->
+				<Button name="InventaireOngletSacADos" inherits="GraphicOngletTemplate">
+					<Size>
+						<AbsDimension x="34" y="34"/>
+					</Size>
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-160" y="-73"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnClick>
+							PanelOpen("FicheJoueurOngletInventaire",this:GetName())
+						</OnClick>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(COFFREFINANCES, 1, 1, 1);
+							local Num = 0;
+							local Qte = 0;
+							table.foreach(TRP_Module_Inventaire[Royaume][Joueur],
+								function(objet)
+									if TRP_Module_Inventaire[Royaume][Joueur][objet]["Sac"] == "-1" then
+										Num = Num + 1;
+										Qte = Qte + TRP_Module_Inventaire[Royaume][Joueur][objet]["Qte"];
+									end
+							end);
+							if Num > 0 then
+								GameTooltip:AddLine(" ", 1, 1, 1);
+								GameTooltip:AddLine(Num.." item types in total.", 0, 1, 0);
+								GameTooltip:AddLine(Qte.." items in total.", 0, 1, 0);
+							end
+							GameTooltip:Show();
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+					</Scripts>
+				</Button>
+				<!-- ONGLET = COFFRE -->
+				<Button name="InventaireOngletCoffre" inherits="GraphicOngletTemplate">
+					<Size>
+						<AbsDimension x="34" y="34"/>
+					</Size>
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-120" y="-73"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnClick>
+							if IsMounted() then
+								PanelOpen("FicheJoueurOngletInventaire",this:GetName())
+							else
+								TRPError(ObjectError["NOMOUNT"]);
+							end
+						</OnClick>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(COFFREVOYAGE, 1, 1, 1);
+							if not IsMounted() then
+								GameTooltip:AddLine(ObjectError["MUSTBOONMOUNT"], 1, 0, 0);
+							end
+							local Num = 0;
+							local Qte = 0;
+							table.foreach(TRP_Module_Inventaire[Royaume][Joueur],
+								function(objet)
+									if TRP_Module_Inventaire[Royaume][Joueur][objet]["Sac"] == "0" then
+										Num = Num + 1;
+										Qte = Qte + TRP_Module_Inventaire[Royaume][Joueur][objet]["Qte"];
+									end
+							end);
+							if Num > 0 then
+								GameTooltip:AddLine(" ", 1, 1, 1);
+								GameTooltip:AddLine(Num.." item types in total.", 0, 1, 0);
+								GameTooltip:AddLine(Qte.." items in total.", 0, 1, 0);
+							end
+							GameTooltip:Show();
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+					</Scripts>
+				</Button>
+				<!-- ONGLET = Planques -->
+				<Button name="InventaireOngletPlanques" inherits="GraphicOngletTemplate">
+					<Size>
+						<AbsDimension x="34" y="34"/>
+					</Size>
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-80" y="-73"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnLoad>
+							InventaireOngletPlanquesIcon:SetTexture("Interface\\Icons\\INV_Misc_Map07.blp");
+							this.TimeSinceLastUpdate = 0;
+						</OnLoad>
+						<OnClick>
+							if DetectPlanque() then
+								PanelOpen("FicheJoueurOngletInventaire",this:GetName())
+							else
+								if IconeZone[GetCurrentMapContinent()] == nil or IconeZone[GetCurrentMapContinent()][GetCurrentMapZone()] == nil then
+									TRPError("You can't create a hiding place here.");
+								else
+									TRP_ShowStaticPopup("TRP_CREATE_PLANQUE");
+								end
+							end
+						</OnClick>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(PLANQUES, 1, 1, 1);
+							if DetectPlanque() then
+								GameTooltip:AddLine("|cff00ff00"..PLANQUEACCES, 1, 1, 1);
+								local Num = 0;
+								local Qte = 0;
+								table.foreach(TRP_Module_Inventaire[Royaume][Joueur],
+									function(objet)
+										if TRP_Module_Inventaire[Royaume][Joueur][objet]["Sac"] == generatePlanqueID() then
+											Num = Num + 1;
+											Qte = Qte + TRP_Module_Inventaire[Royaume][Joueur][objet]["Qte"];
+										end
+								end);
+								if Num > 0 then
+									GameTooltip:AddLine(" ", 1, 1, 1);
+									GameTooltip:AddLine(Num.." item types in total.", 0, 1, 0);
+								GameTooltip:AddLine(Qte.." items in total.", 0, 1, 0);
+								end
+							else
+								GameTooltip:AddLine("|cff00ff00"..CREERPLANQUETOOL, 1, 1, 1);
+							end
+							GameTooltip:Show();
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							this.TimeSinceLastUpdate = this.TimeSinceLastUpdate + arg1; 	
+							if (this.TimeSinceLastUpdate > 0.2) then
+								this.TimeSinceLastUpdate = 0;
+								if WorldMapFrame:IsVisible() then
+									InventaireOngletPlanquesIcon:SetDesaturated(true);
+									InventaireOngletPlanques:Disable();
+								else
+									InventaireOngletPlanquesIcon:SetDesaturated(false);
+									InventaireOngletPlanques:Enable();
+								end
+								if DetectPlanque() then
+									if IconeZone[GetCurrentMapContinent()] and IconeZone[GetCurrentMapContinent()][GetCurrentMapZone()] then
+										InventaireOngletPlanquesIcon:SetTexture(IconeZone[GetCurrentMapContinent()][GetCurrentMapZone()]);
+									end
+								else
+									InventaireOngletPlanquesIcon:SetTexture("Interface\\Icons\\INV_Misc_Map07.blp");
+								end
+							end
+						</OnUpdate>
+					</Scripts>
+				</Button>
+				<!-- ONGLET = CREATION DOCUMENT-->
+				<Button name="FicheJoueurOngletDocument" inherits="GraphicOngletTemplate">
+					<Size>
+						<AbsDimension x="34" y="34"/>
+					</Size>
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="120" y="-73"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnClick>
+							PanelOpen("FicheJoueurOngletInventaire",this:GetName())
+						</OnClick>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPRIGHT");
+							GameTooltip:AddLine(DOCUMENT, 1, 1, 1);
+							GameTooltip:Show();
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+					</Scripts>
+				</Button>
+				<!-- ONGLET = CREATION OBJET -->
+				<Button name="InventaireOngletCreation" inherits="GraphicOngletTemplate">
+					<Size>
+						<AbsDimension x="34" y="34"/>
+					</Size>
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="160" y="-73"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnClick>
+							PanelOpen("FicheJoueurOngletInventaire",this:GetName())
+						</OnClick>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPRIGHT");
+							GameTooltip:AddLine(OUTILCREATION, 1, 1, 1);
+							GameTooltip:Show();
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+					</Scripts>
+				</Button>
+				<!-- PANEL COFFRE-->
+				<Frame name="MainInventaireFrame" inherits="InventaireFrameTemplateB" enableMouseWheel="true">
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="ARTWORK">
+
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString name="PanelInventaireListeEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="15"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<Button name="PanelInventaireListePlanque" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-200"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									PanelInventaireListePlanqueIcon:SetTexture("Interface\\ICONS\\Achievement_Zone_Kalimdor_01.blp");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Hiding places list",1,1,1);
+									GameTooltip:Show()
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide()
+								</OnLeave>
+								<OnClick>
+									listerPlanques();
+								</OnClick>
+							</Scripts>
+						</Button>
+						<Frame name="PanelCoffreSacFrame">
+							<Size><AbsDimension x="150" y="100"/></Size>
+							<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-110" y="-215"/></Offset></Anchor></Anchors>
+							<Layers>
+								<Layer level="BACKGROUND">
+									<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+										<Size><AbsDimension x="150" y="100"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+									</Texture>
+								</Layer>
+								<Layer level="BORDER">
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size><AbsDimension x="170" y="170"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="4" y="-27"/></Offset></Anchor></Anchors>
+									</Texture>
+								</Layer>
+								<Layer level="OVERLAY">
+									<FontString name="PanelCoffreSacFrameType" inherits="GameFontNormal" justifyH="CENTER">
+										<Size><AbsDimension x="335" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-5"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelCoffreSacFramePoids" inherits="GameFontNormalSmall" justifyH="CENTER">
+										<Size><AbsDimension x="335" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-70"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="PanelCoffreSacFramePoidsMax" inherits="GameFontNormalSmall" justifyH="CENTER">
+										<Size><AbsDimension x="335" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-85"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Frames>
+								<Button name="InventaireSlotSac" inherits="InventaireSlotTemplate">
+									<PushedTexture file="Interface\Buttons\UI-Quickslot2">
+								      <Size><AbsDimension x="70" y="70"/></Size>
+								      <Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-1"/></Offset></Anchor></Anchors>
+									</PushedTexture>
+									<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="5"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnEnter>
+											
+										</OnEnter>
+										<OnLeave>
+											GameTooltip:Hide()
+										</OnLeave>
+									</Scripts>
+								</Button>
+								<Button name="InventaireSlotSacButtonDeletePlanque" inherits="ButtonDeleteTemplate">
+									<Anchors><Anchor point="TOPRIGHT"><Offset><AbsDimension x="-1" y="0"/></Offset></Anchor></Anchors>
+									<Scripts>
+										<OnClick>
+											StaticPopupDialogs["TRP_INV_DELETE_PLANQUE"].text = setTRPColorToString(TRP_ENTETE.." \n "..DELETEPLANQUETEXT.." :\n\n"..DeleteMessages["DELETEPLANQUE"]);
+											TRP_ShowStaticPopup("TRP_INV_DELETE_PLANQUE");
+										</OnClick>
+										<OnEnter>
+											GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+											GameTooltip:AddLine("Destroy hiding place",1,1,1);
+											GameTooltip:AddLine("(the hiding place must be empty)",1,0.75,0);
+											GameTooltip:Show()
+										</OnEnter>
+										<OnLeave>
+											GameTooltip:Hide()
+										</OnLeave>
+									</Scripts>
+								</Button>
+							</Frames>
+						</Frame>
+						<Frame name="PanelCoffreFinancesFrame">
+							<Size><AbsDimension x="150" y="100"/></Size>
+							<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="110" y="-215"/></Offset></Anchor></Anchors>
+							<Layers>
+								<Layer level="BACKGROUND">
+									<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+										<Size><AbsDimension x="150" y="100"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+									</Texture>
+								</Layer>
+								<Layer level="BORDER">
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size><AbsDimension x="170" y="170"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="4" y="-27"/></Offset></Anchor></Anchors>
+									</Texture>
+								</Layer>
+								<Layer level="OVERLAY">
+									<FontString name="PanelCoffreFinancesFrameText" inherits="GameFontNormal" justifyH="CENTER">
+										<Size><AbsDimension x="335" y="0"/></Size>
+										<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-5"/></Offset></Anchor></Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Frames>
+								<Slider name="PanelObjetSliderCategorie" inherits="SliderWithTitle">
+									<Size>
+										<AbsDimension x="100" y="15"/>
+									</Size>
+									<Anchors>
+										<Anchor point="CENTER">
+											<Offset>
+												<AbsDimension x="0" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<Layers>
+									</Layers>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText();
+											getglobal(this:GetName().."Low"):SetText();
+											this:SetMinMaxValues(0, #TRP_ObjetCategorie);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											if this:GetValue() > 0 then
+												PanelObjetSliderCategorieText:SetText(TRP_ObjetCategorie[this:GetValue()].Nom);
+												PanelObjetSliderSousCategorie:Show();
+												PanelObjetSliderSousCategorie:SetMinMaxValues(0, #TRP_ObjetCategorie[this:GetValue()].SousCategorie);
+												PanelObjetSliderSousCategorie:SetValue(0);
+											else
+												PanelObjetSliderSousCategorie:SetValue(0);
+												PanelObjetSliderCategorieText:SetText("All");
+												PanelObjetSliderSousCategorie:Hide();
+											end
+											if this:IsVisible() then
+												if PanelCoffreSacFrameType:GetText() == COFFREFINANCES then
+													InventaireOpen("InventaireOngletSacADos");
+												elseif PanelCoffreSacFrameType:GetText() == COFFREVOYAGE then
+													if IsMounted() then
+														InventaireOpen("InventaireOngletCoffre");
+													else
+														TRPError("Vous \195\170tes descendu votre monture.");
+														InventaireOpen("InventaireOngletSacADos");
+													end
+												elseif PanelCoffreSacFrameType:GetText() == PLANQUE then
+													if DetectPlanque() ~= nil then
+														InventaireOpen("InventaireOngletPlanques");
+													else
+														TRPError("Vous vous \195\170tes \195\169loign\195\169 de votre planque.");
+														InventaireOpen("InventaireOngletSacADos");
+													end
+												end
+											end
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<!-- Caracteristique : Sous Categorie  -->
+								<Slider name="PanelObjetSliderSousCategorie" inherits="SliderWithTitle">
+									<Size>
+										<AbsDimension x="100" y="15"/>
+									</Size>
+									<Anchors>
+										<Anchor point="CENTER">
+											<Offset>
+												<AbsDimension x="0" y="-30"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<Layers>
+									</Layers>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText();
+											getglobal(this:GetName().."Low"):SetText();
+											this:SetMinMaxValues(0, 7);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											if this:GetValue() > 0 and this:IsVisible() then
+												PanelObjetSliderSousCategorieText:SetText(TRP_ObjetCategorie[PanelObjetSliderCategorie:GetValue()].SousCategorie[this:GetValue()]);
+											else
+												PanelObjetSliderSousCategorieText:SetText("Toutes");
+											end
+											if this:IsVisible() then
+												if PanelCoffreSacFrameType:GetText() == COFFREFINANCES then
+													InventaireOpen("InventaireOngletSacADos");
+												elseif PanelCoffreSacFrameType:GetText() == COFFREVOYAGE then
+													if IsMounted() then
+														InventaireOpen("InventaireOngletCoffre");
+													else
+														TRPError("Vous \195\170tes descendu votre monture.");
+														InventaireOpen("InventaireOngletSacADos");
+													end
+												elseif PanelCoffreSacFrameType:GetText() == PLANQUE then
+													if DetectPlanque() ~= nil then
+														InventaireOpen("InventaireOngletPlanques");
+													else
+														TRPError("Vous vous \195\170tes \195\169loign\195\169 de votre planque.");
+														InventaireOpen("InventaireOngletSacADos");
+													end
+												end
+											end
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+							</Frames>
+						</Frame>
+						<Button name="InventaireSlot1" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot2" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot3" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot4" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot5" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot6" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot7" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot8" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot9" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot10" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot11" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot12" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot13" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot14" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot15" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot16" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot17" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot18" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot19" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot20" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot21" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot22" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot23" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot24" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot25" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot26" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot27" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot28" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot29" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot30" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot31" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot32" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot33" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot34" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot35" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot36" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot37" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot38" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot39" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot40" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot41" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="InventaireSlot42" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Slider name="PanelCoffreSlider" inherits="OptionsSliderTemplate">
+							<Size>
+								<AbsDimension x="15" y="300"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="185" y="10"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText();
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(0, 6);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									if this:IsVisible() then
+										ChargerSliderCoffreVertical(this:GetValue());
+									end
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+					</Frames>
+					<Scripts>
+						<OnMouseWheel>
+							
+						</OnMouseWheel>
+					</Scripts>
+				</Frame>
+				<!-- PANEL OBJET PERSO-->
+				<Frame name="ObjetPersoFrame" inherits="InventaireFrameTemplateB" enableMouseWheel="true">
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="ArgentText" inherits="NumberFontNormalSmall" justifyH="RIGHT" text="">
+								<Anchors>
+									<Anchor point="RIGHT">
+										<Offset>
+											<AbsDimension x="-170" y="-149"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+							<FontString name="ObjetPersoRechercheText" inherits="NumberFontNormal" justifyH="LEFT">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-110" y="-190"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+							<FontString name="ObjetPersoEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<Button name="ObjetPersoSlot1" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot2" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot3" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot4" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot5" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot6" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot7" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-130"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot8" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot9" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot10" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot11" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot12" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot13" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot14" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-180"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot15" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot16" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot17" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot18" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot19" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot20" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot21" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-230"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot22" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot23" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot24" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot25" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot26" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot27" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot28" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-280"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot29" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot30" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot31" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot32" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot33" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot34" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot35" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-330"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot36" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot37" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="115" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot38" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="165" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot39" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="215" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot40" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="265" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot41" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="315" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Button name="ObjetPersoSlot42" inherits="ObjetPersoSlotTemplate">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="365" y="-380"/></Offset></Anchor></Anchors>
+						</Button>
+						<Slider name="PanelObjetPersoSlider" inherits="OptionsSliderTemplate">
+							<Size>
+								<AbsDimension x="15" y="300"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="185" y="10"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText();
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(0, 6);
+									this:SetValueStep(1);
+									this:SetOrientation("VERTICAL");
+								</OnLoad>
+								<OnValueChanged>
+									if this:IsVisible() then
+										ChargerSliderObjetPersoVertical(this:GetValue());
+									end
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+						<Button name="PanelObjetPersoListeAddButton" inherits="InventaireSlotTemplate">
+							<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-200"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									PanelObjetPersoListeAddButtonIcon:SetTexture("Interface\\ICONS\\Spell_ChargePositive.blp");
+									this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("New Object",1,1,1);
+									GameTooltip:AddLine("Left-click: Create a new object",0,1,0);
+									GameTooltip:AddLine("Right-click Create from ...",0,1,0);
+									GameTooltip:Show()
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide()
+								</OnLeave>
+								<OnClick>
+									if arg1 == "RightButton" then
+										OpenListeObjets("PanelObjetPersoFromHidden");							
+									else
+										createEmptyObjet();
+									end
+								</OnClick>
+							</Scripts>
+						</Button>
+						<EditBox name="PanelObjetPersoListeRecherche" inherits="SaisieTemplateSmall" autofocus="false">
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="-115" y="-210"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									if string.find(this:GetText(),"%[*%]*%%*%(*%)*") then
+										this:SetText(string.gsub(this:GetText(),"%[*%]*%%*%(*%)*",""))
+									end
+									if this:IsVisible() then
+										ShowObjetPerso();
+									end
+								</OnTextChanged>
+							</Scripts>
+						</EditBox>
+						<EditBox name="PanelObjetPersoFromHidden" inherits="SaisieTemplateSmall" autofocus="false" hidden="false" letters="16">
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="-115" y="-4010"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									if this:GetText() ~= "" then
+										createEmptyObjetWithOtherID(this:GetText());
+									end
+								</OnTextChanged>
+							</Scripts>
+						</EditBox>
+						<Slider name="PanelObjetPersoSliderCategorie" inherits="SliderWithTitle">
+							<Size>
+								<AbsDimension x="150" y="15"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="135" y="-480"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Layers>
+								<Layer level="OVERLAY">
+									<FontString name="PanelObjetPersoSliderCategorieText" inherits="GameFontNormal" justifyH="CENTER" text="">
+										<Size>
+											<AbsDimension x="200" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="CENTER">
+												<Offset>
+													<AbsDimension x="0" y="0"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(0, #TRP_ObjetCategorie);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									if this:GetValue() > 0 then
+										PanelObjetPersoSliderCategorieText:SetText("Category : "..TRP_ObjetCategorie[this:GetValue()].Nom);
+										PanelObjetPersoSliderSousCategorie:Show();
+										PanelObjetPersoSliderSousCategorie:SetMinMaxValues(0, #TRP_ObjetCategorie[this:GetValue()].SousCategorie);
+										PanelObjetPersoSliderSousCategorie:SetValue(0);
+									else
+										PanelObjetPersoSliderCategorieText:SetText("Category : ".."Toutes");
+										PanelObjetPersoSliderSousCategorie:Hide();
+									end
+									if this:IsVisible() then
+										ShowObjetPerso();
+									end
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+						<!-- Caracteristique : Sous Categorie  -->
+						<Slider name="PanelObjetPersoSliderSousCategorie" inherits="SliderWithTitle">
+							<Size>
+								<AbsDimension x="150" y="15"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="135" y="-520"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Layers>
+							</Layers>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(0, 7);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									if this:GetValue() > 0 and this:IsVisible() then
+										PanelObjetPersoSliderSousCategorieText:SetText("Subcategory : "..TRP_ObjetCategorie[PanelObjetPersoSliderCategorie:GetValue()].SousCategorie[this:GetValue()]);
+									else
+										PanelObjetPersoSliderSousCategorieText:SetText("Subcategory : ".."Toutes");
+									end
+									if this:IsVisible() then
+										ShowObjetPerso();
+									end
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+					</Frames>
+					<Scripts>
+						<OnMouseWheel>
+							
+						</OnMouseWheel>
+					</Scripts>
+				</Frame>
+			</Frames>
+		</Frame>
+
+	</Frames>
+	
+</Frame>
+
+</Ui>

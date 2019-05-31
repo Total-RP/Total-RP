@@ -1,0 +1,11 @@
+## Interface: 30300
+## Title: Total RP : Documents
+## Author: Telkostrasz
+## Version: 1.110
+## Notes: An Role-Playing Add-on. Version 1.1 (build 1110)
+## URL: http://forums.telkostrasz.be/index.php
+## RequiredDeps: totalRP
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: TRP_Module_Documents
+totalRP_Documents_Main.lua

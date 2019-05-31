@@ -1,0 +1,2645 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+
+<!-- Bouton Mini Map  -->
+<Button name="MinimapButton" parent="Minimap" frameStrata="LOW">
+    <Size>
+      <AbsDimension x="32" y="32"/>
+    </Size>
+    <Anchors>
+	    <Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="0"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	
+	<Layers>
+      <Layer level="BORDER">
+        <Texture name="MinimapButtonIcon" file="Interface\MINIMAP\MiniMap-TrackingBorder.blp">
+			<Size>
+				<AbsDimension x="53" y="53"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="11" y="-12"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</Texture>
+      </Layer>
+    </Layers>
+	
+    <NormalTexture file="Interface\TargetingFrame\UI-TargetingFrame-Seal.blp"/>
+    <HighlightTexture file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight" alphaMode="ADD"/>
+	<PushedTexture file="Interface\TargetingFrame\UI-TargetingFrame-Seal.blp" alphaMode="ADD"/>
+    <Scripts>
+		<OnClick>
+			if arg1 == "LeftButton" then
+				if MenuPrincipal:IsVisible() then
+					OpenMainMenu(false);
+				else
+					OpenMainMenu(true);
+				end
+			elseif arg1 == "RightButton" then
+				if TRPActionsBar:IsVisible() then
+					OpenActionsBar(false);
+				else
+					OpenActionsBar(true);
+				end
+			end
+		</OnClick>
+		<OnLoad>
+			totalRP_OnLoad();
+			this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+		</OnLoad>
+		<OnEvent>
+			totalRP_OnEvent();
+		</OnEvent>
+		<OnEnter>
+			GameTooltip:SetOwner(MinimapButton, "ANCHOR_LEFT");
+			GameTooltip:AddLine(TOTALRP, 1, 1, 1);
+			GameTooltip:AddLine("Left click: Open menu",1,0.75,0);
+			GameTooltip:AddLine("Right click: Show shortcuts bar",1,0.75,0);
+			local count = 0;
+			table.foreach(TRP_Module_Inventaire[Royaume][Joueur]["Sacs"]["InBox"], function()
+				count = count + 1;
+			end);
+			if count > 0 then
+				GameTooltip:AddLine(" ",1,0.75,0);
+				GameTooltip:AddLine("You have ".. count .." packages awaiting to be read. \ nGo to a mailbox!",0.25,1,0);
+			end
+			count = 0;
+			table.foreach(TRP_Module_Inventaire[Royaume][Joueur]["Sacs"]["OutBox"], function()
+				count = count + 1;
+			end);
+			if count > 0 then
+				GameTooltip:AddLine(" ",1,0.75,0);
+				GameTooltip:AddLine("You have ".. count .." packages awaiting to be sent. \ nGo to a mailbox!",0.25,1,0);
+			end
+			GameTooltip:Show();
+		</OnEnter>
+		<OnLeave>
+			GameTooltip:Hide()
+		</OnLeave>
+    </Scripts>
+</Button>
+
+<!-- TBouton TRP portrait  -->
+<CheckButton name="TargetPortraitButton" parent="UIParent" frameStrata="LOW" hidden="true">
+    <Size>
+      <AbsDimension x="32" y="32"/>
+    </Size>
+    <Anchors>
+	    <Anchor point="CENTER" relativeTo="TargetFrame" relativePoint="CENTER">
+			<Offset>
+				<AbsDimension x="-135" y="10"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+    <NormalTexture file="Interface\CharacterFrame\UI-Player-PlayTimeTired.blp"/>
+    <HighlightTexture file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight" alphaMode="ADD"/>
+    <Scripts>
+		<OnClick>
+			if UnitName("target") == Joueur then
+				if FicheJoueurPanelFiche:IsVisible() then
+					OpenMainMenu(false);
+				else
+					PanelOpen("FicheJoueurOngletFiche")
+				end
+			else
+				if TRP_Module_Registre[Royaume][UnitName("target")] == nil then
+					AjouterAuRegistre(UnitName("target"));
+				end
+				PanelOpen("FicheJoueurOngletRegistre","General",UnitName("target"))
+			end
+		</OnClick>
+		<OnEnter>
+			GameTooltip:SetOwner(TargetPortraitButton, "ANCHOR_RIGHT");
+			GameTooltip:AddLine(TOOLTIP_FICHE..UnitName("target"), 1, 1, 1);
+			GameTooltip:Show();
+		</OnEnter>
+		<OnLeave>
+			GameTooltip:Hide()
+		</OnLeave>
+    </Scripts>
+</CheckButton>
+
+<!-- Menu Principal -->
+<Frame name="MenuPrincipal" toplevel="true" parent="UIParent" movable="true" enableMouse="true" hidden="true">
+	<TitleRegion setAllPoints="true"/>
+	<Size>
+		<AbsDimension x="450" y="80"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="TOP"/>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\Stationery\StationeryTest1">
+				<Size>
+					<AbsDimension x="250" y="50"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="-15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0" right="1" top="0.4" bottom="0.55"/>
+			</Texture>
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="200" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="12"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0" right="1" top="0.4" bottom="0.55"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="290" y="88"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="7" y="-30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\CastingBar\UI-CastingBar-Border.blp">
+				<Size>
+					<AbsDimension x="256" y="75"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="17"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="FicheJoueurPanelTitle" inherits="GameFontNormal" justifyH="CENTER">
+				<Size>
+					<AbsDimension x="190" y="5"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="17"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<!-- ONGLET = FICHE -->
+		<Button name="FicheJoueurOngletFiche" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-60" y="-18"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen(this:GetName())
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(FICHE_STAT, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- ONGLET = INVENTAIRE -->
+		<Button name="FicheJoueurOngletInventaire" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-20" y="-18"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen(this:GetName())
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(INVENTAIRE, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- ONGLET = REGISTRE -->
+		<Button name="FicheJoueurOngletRegistre" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="20" y="-18"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen(this:GetName())
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(ANNUAIRE, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- ONGLET = OPTIONS -->
+		<Button name="FicheJoueurOngletOptions" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="60" y="-18"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen(this:GetName())
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPRIGHT");
+					GameTooltip:AddLine(OPTIONS, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+	</Frames>
+</Frame>
+
+<!-- Barre d'actions  -->
+<Frame name="TRPActionsBar" toplevel="true" parent="UIParent" enableMouse="true" hidden="false" movable="true">
+	<TitleRegion setAllPoints="true"/>
+	<Size>
+		<AbsDimension x="250" y="80"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-275"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="250" y="50"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="-15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0" right="1" top="0.4" bottom="0.55"/>
+			</Texture>
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="200" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="12"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0" right="1" top="0.4" bottom="0.55"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="290" y="88"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="7" y="-30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\CastingBar\UI-CastingBar-Border.blp">
+				<Size>
+					<AbsDimension x="256" y="75"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="17"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="BarreActionsTitle" inherits="GameFontNormal" justifyH="CENTER">
+				<Size>
+					<AbsDimension x="190" y="5"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="17"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<!-- ONGLET = SAC A DOS -->
+		<Button name="BarreActionsSacADos" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-40" y="-17"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					if MainInventaireFrame:IsVisible() and FicheJoueurPanelTitle:GetText() == INVENTAIRESACADOS then
+						CloseAll();
+						OpenMainMenu(true);
+					else
+						PanelOpen("FicheJoueurOngletInventaire","InventaireOngletSacADos")
+					end
+				</OnClick>
+				<OnUpdate>
+					if TRP_Module_Inventaire[Royaume][Joueur] and TRP_Module_Inventaire[Royaume][Joueur]["Sacs"] then
+						BarreActionsSacADosIcon:SetTexture("Interface\\Icons\\"..TRP_SacsADos[TRP_Module_Inventaire[Royaume][Joueur]["Sacs"]["SacADos"]]["Icone"]..".blp");
+					end
+				</OnUpdate>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Open your backpack", 1, 1, 1);
+					local Num = 0;
+					local Qte = 0;
+					table.foreach(TRP_Module_Inventaire[Royaume][Joueur],
+						function(objet)
+							if TRP_Module_Inventaire[Royaume][Joueur][objet]["Sac"] == "-1" then
+								Num = Num + 1;
+								Qte = Qte + TRP_Module_Inventaire[Royaume][Joueur][objet]["Qte"];
+							end
+					end);
+					if Num > 0 then
+						GameTooltip:AddLine(" ", 1, 1, 1);
+						GameTooltip:AddLine(Num.." item types in total.", 0, 1, 0);
+						GameTooltip:AddLine(Qte.." items in total.", 0, 1, 0);
+					end
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- ONGLET = COFFRE -->
+		<Button name="BarreActionsCoffre" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-17"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnUpdate>
+					if TRP_Module_Inventaire[Royaume][Joueur] and TRP_Module_Inventaire[Royaume][Joueur]["Sacs"] then
+						BarreActionsCoffreIcon:SetTexture("Interface\\Icons\\"..TRP_CoffreMonture[TRP_Module_Inventaire[Royaume][Joueur]["Sacs"]["Monture"]]["Icone"]..".blp");
+					end
+				</OnUpdate>
+				<OnClick>
+					if IsMounted() then
+						if MainInventaireFrame:IsVisible() and FicheJoueurPanelTitle:GetText() == INVENTAIRECOFFRE then
+							CloseAll();
+							OpenMainMenu(true);
+						else
+							PanelOpen("FicheJoueurOngletInventaire","InventaireOngletCoffre")
+						end
+					else
+						TRPError(ObjectError["NOMOUNT"]);
+					end
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Open your safe", 1, 1, 1);
+					if not IsMounted() then
+						GameTooltip:AddLine(ObjectError["MUSTBOONMOUNT"], 1, 0, 0);
+					end
+					local Num = 0;
+					local Qte = 0;
+					table.foreach(TRP_Module_Inventaire[Royaume][Joueur],
+						function(objet)
+							if TRP_Module_Inventaire[Royaume][Joueur][objet]["Sac"] == "0" then
+								Num = Num + 1;
+								Qte = Qte + TRP_Module_Inventaire[Royaume][Joueur][objet]["Qte"];
+							end
+					end);
+					if Num > 0 then
+						GameTooltip:AddLine(" ", 1, 1, 1);
+						GameTooltip:AddLine(Num.." item types in total.", 0, 1, 0);
+						GameTooltip:AddLine(Qte.." items in total.", 0, 1, 0);
+					end
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- ONGLET = Planques -->
+		<Button name="BarreActionsPlanques" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="40" y="-17"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnLoad>
+					this.TimeSinceLastUpdate = 0;
+				</OnLoad>
+				<OnUpdate>
+					this.TimeSinceLastUpdate = this.TimeSinceLastUpdate + arg1; 	
+					if (this.TimeSinceLastUpdate > 0.2) then
+						if WorldMapFrame:IsVisible() then
+							BarreActionsPlanquesIcon:SetDesaturated(true);
+							BarreActionsPlanques:Disable();
+						else
+							BarreActionsPlanquesIcon:SetDesaturated(false);
+							BarreActionsPlanques:Enable();
+						end
+						if DetectPlanque() then
+							if IconeZone[GetCurrentMapContinent()] and IconeZone[GetCurrentMapContinent()][GetCurrentMapZone()] then
+								BarreActionsPlanquesIcon:SetTexture(IconeZone[GetCurrentMapContinent()][GetCurrentMapZone()]);
+							end
+						else
+							BarreActionsPlanquesIcon:SetTexture("Interface\\Icons\\INV_Misc_Map07.blp");
+						end
+					end
+				</OnUpdate>
+				<OnClick>
+					if DetectPlanque() then
+						if MainInventaireFrame:IsVisible() and FicheJoueurPanelTitle:GetText() == INVENTAIREPLANQUES then
+							CloseAll();
+							OpenMainMenu(true);
+						else
+							PanelOpen("FicheJoueurOngletInventaire","InventaireOngletPlanques");
+						end
+					else
+						if IconeZone[GetCurrentMapContinent()] == nil or IconeZone[GetCurrentMapContinent()][GetCurrentMapZone()] == nil then
+							TRPError("You cannot create a hiding place here.");
+						else
+							TRP_ShowStaticPopup("TRP_CREATE_PLANQUE");
+						end
+					end
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					if DetectPlanque() then
+						GameTooltip:AddLine("|cff00ff00"..PLANQUEACCES, 1, 1, 1);
+						local Num = 0;
+						local Qte = 0;
+						table.foreach(TRP_Module_Inventaire[Royaume][Joueur],
+							function(objet)
+								if TRP_Module_Inventaire[Royaume][Joueur][objet]["Sac"] == generatePlanqueID() then
+									Num = Num + 1;
+									Qte = Qte + TRP_Module_Inventaire[Royaume][Joueur][objet]["Qte"];
+								end
+						end);
+						if Num > 0 then
+							GameTooltip:AddLine(" ", 1, 1, 1);
+							GameTooltip:AddLine(Num.." item types in total.", 0, 1, 0);
+							GameTooltip:AddLine(Qte.." items in total.", 0, 1, 0);
+						end
+					else
+						GameTooltip:AddLine("|cff00ff00"..CREERPLANQUETOOL, 1, 1, 1);
+					end
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton chapeau -->
+		<Button name="BarreActionsCasqueSwitch">
+			<Size><AbsDimension x="20" y="20"/></Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="115" y="-8"/></Offset></Anchor></Anchors>
+			<NormalTexture file="Interface\ICONS\INV_Helmet_13">
+				<Size><AbsDimension x="16" y="16"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="1" right="0" top="0" bottom="1"/>
+			</NormalTexture>
+			<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+				<Size><AbsDimension x="20" y="20"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</HighlightTexture>
+			<PushedTexture alphaMode="ADD" file="Interface\ICONS\INV_Helmet_13">
+				<Size><AbsDimension x="18" y="18"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="1" right="0" top="0" bottom="1"/>
+			</PushedTexture>
+			<Scripts>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					if ShowingHelm() then
+						GameTooltip:AddLine("Helmet is shown",0,1,0);
+						GameTooltip:AddLine("Click: Hide helm.",1,0.75,0);
+					else
+						GameTooltip:AddLine("Helmet is hidden",1,0.75,0);
+						GameTooltip:AddLine("Click: Show helm.",0,1,0);
+					end
+					GameTooltip:Show()
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+				<OnClick>
+					if ShowingHelm() then
+						ShowHelm(false);
+						GameTooltip:Hide();
+					else
+						ShowHelm(true);
+						GameTooltip:Hide();
+					end
+				</OnClick>
+			</Scripts>
+		</Button>
+		<!-- Bouton cape -->
+		<Button name="BarreActionsCapeSwitch">
+			<Size><AbsDimension x="20" y="20"/></Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="115" y="-28"/></Offset></Anchor></Anchors>
+			<NormalTexture file="Interface\ICONS\INV_Misc_Cape_18">
+				<Size><AbsDimension x="16" y="16"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="1" right="0" top="0" bottom="1"/>
+			</NormalTexture>
+			<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+				<Size><AbsDimension x="20" y="20"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</HighlightTexture>
+			<PushedTexture alphaMode="ADD" file="Interface\ICONS\INV_Misc_Cape_18">
+				<Size><AbsDimension x="18" y="18"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="1" right="0" top="0" bottom="1"/>
+			</PushedTexture>
+			<Scripts>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					if ShowingCloak() then
+						GameTooltip:AddLine("Cloak is shown",0,1,0);
+						GameTooltip:AddLine("Click: Hide Cloak",1,0.75,0);
+					else
+						GameTooltip:AddLine("Cloak is hidden",1,0.75,0);
+						GameTooltip:AddLine("Click: Show Cloak.",0,1,0);
+					end
+					GameTooltip:Show()
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+				<OnClick>
+					if ShowingCloak() then
+						ShowCloak(false);
+						GameTooltip:Hide();
+					else
+						ShowCloak(true);
+						GameTooltip:Hide();
+					end
+				</OnClick>
+			</Scripts>
+		</Button>
+		<!-- Bouton RP -->
+		<Button name="BarreActionsRPSwitch">
+			<Size><AbsDimension x="20" y="20"/></Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="92" y="-8"/></Offset></Anchor></Anchors>
+			<Layers>
+				<Layer level="OVERLAY">
+					<FontString name="BarreActionsRPSwitchText" inherits="NumberFontNormalSmall" justifyH="CENTER">
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="2" y="-1"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+				</Layer>
+			</Layers>
+			<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+				<Size><AbsDimension x="20" y="20"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</HighlightTexture>
+			<Scripts>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+						if TRP_Module_PlayerInfo[Royaume][Joueur]["StatutRP"] == 2 then
+						GameTooltip:AddLine("In Character (IC)",0,1,0);
+						GameTooltip:AddLine("Click: Enter OOC Mode.",1,0,0);
+					else
+						GameTooltip:AddLine("Out of Character (OOC)",1,0,0);
+						GameTooltip:AddLine("Click: Enter IC Mode.",0,1,0);
+					end
+					GameTooltip:Show()
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+				<OnUpdate>
+					if TRP_Module_PlayerInfo and TRP_Module_PlayerInfo[Royaume][Joueur]["StatutRP"] == 1 then
+						BarreActionsRPSwitchText:SetText("|cffff0000OOC");
+					else
+						BarreActionsRPSwitchText:SetText("|cff00ff00IC");
+					end
+				</OnUpdate>
+				<OnClick>
+					if TRP_Module_PlayerInfo[Royaume][Joueur]["StatutRP"] == 2 then
+						ChangeStatutRP(1);
+					else
+						ChangeStatutRP(2);
+					end
+					GameTooltip:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+		<!-- Bouton Abs -->
+		<Button name="BarreActionsAbsSwitch">
+			<Size><AbsDimension x="20" y="20"/></Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="92" y="-28"/></Offset></Anchor></Anchors>
+			<Layers>
+				<Layer level="OVERLAY">
+					<FontString name="BarreActionsAbsSwitchText" inherits="NumberFontNormalSmall" justifyH="CENTER">
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="2" y="-1"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+				</Layer>
+			</Layers>
+			<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+				<Size><AbsDimension x="20" y="20"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</HighlightTexture>
+			<Scripts>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					if not UnitIsAFK("player") and not UnitIsDND("player") then
+						GameTooltip:AddLine("Normal Mode",0,1,0);
+						GameTooltip:AddLine("Left click : Go AFK.",1,0.75,0);
+						GameTooltip:AddLine("Right click : Go DND. \"Do Not Disturb\".",1,0.25,0);
+					elseif UnitIsDND("player") then
+						GameTooltip:AddLine("Current Mode \"Do Not Disturb\"",1,0.25,0);
+						GameTooltip:AddLine("Click : Leave DND or AFK Mode",0,1,0);
+					else
+						GameTooltip:AddLine("Current Mode: AFK",1,0.75,0);
+					end
+					GameTooltip:Show()
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+				<OnUpdate>
+					if UnitIsDND("player") then
+						BarreActionsAbsSwitchText:SetText("|cffff2200DND");
+					elseif UnitIsAFK("player") then
+						BarreActionsAbsSwitchText:SetText("|cffff9900AFK");
+					else
+						BarreActionsAbsSwitchText:SetText("|cff00ff00OK");
+					end
+				</OnUpdate>
+				<OnClick>
+					changeAbsStatut(button);
+					GameTooltip:Hide();
+				</OnClick>
+				<OnLoad>
+					this:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+				</OnLoad>
+			</Scripts>
+		</Button>
+		<!-- Barre de raccourci fenetre chat  -->
+		<Frame name="ActivationChannelWindowsButtonsTemplate">
+			<Size>
+				<AbsDimension x="50" y="10"/> 
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-65" y="-55"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="116" y="18"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-1" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\CastingBar\UI-CastingBar-Border-Small">
+						<Size>
+							<AbsDimension x="150" y="105"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-1" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+			</Layers>
+			<Frames>
+				<!-- Bouton 1 -->
+				<Button name="ACWB_1">
+					<Size><AbsDimension x="15" y="15"/></Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-42" y="0"/></Offset></Anchor></Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="$parent_Background">
+								<Size>
+									<AbsDimension x="19" y="20"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-1" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+								<Size>
+									<AbsDimension x="44" y="45"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-9"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString inherits="NumberFontNormalSmall" justifyH="CENTER" text="3">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+						<Size><AbsDimension x="20" y="20"/></Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</HighlightTexture>
+					<Scripts>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if ChatFrame3:IsVisible() then
+								GameTooltip:AddLine("Chat Window n°3 : "..GetChatWindowInfo(3), 0, 1, 0);
+								GameTooltip:AddLine("Click: Hide this Chat Window", 1, 0.75, 0);
+							else
+								GameTooltip:AddLine("Chat Window n°3 : "..GetChatWindowInfo(3), 1, 0, 0);
+								GameTooltip:AddLine("Click: Show this Chat Window", 0, 1, 0);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							if ChatFrame3:IsVisible() then
+								ACWB_1_Background:SetTexture(0,1,0,0.5);
+							else
+								ACWB_1_Background:SetTexture(1,0,0,0.5);
+							end
+						</OnUpdate>
+						<OnClick>
+							if ChatFrame3:IsVisible() then
+								ChatFrame3:Hide();
+							else
+								ChatFrame3:Show();
+							end
+							GameTooltip:Hide();
+						</OnClick>
+						<OnLoad>
+							this:RegisterForClicks("LeftButtonUp");
+						</OnLoad>
+					</Scripts>
+				</Button>
+				<!-- Bouton 2 -->
+				<Button name="ACWB_2">
+					<Size><AbsDimension x="10" y="10"/></Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-21" y="0"/></Offset></Anchor></Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="$parent_Background">
+								<Size>
+									<AbsDimension x="19" y="20"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-1" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+								<Size>
+									<AbsDimension x="44" y="45"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-9"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString inherits="NumberFontNormalSmall" justifyH="CENTER" text="4">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+						<Size><AbsDimension x="20" y="20"/></Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</HighlightTexture>
+					<Scripts>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if ChatFrame4:IsVisible() then
+								GameTooltip:AddLine("Chat Window n°4 : "..GetChatWindowInfo(4), 0, 1, 0);
+								GameTooltip:AddLine("Click: Hide this Chat Window", 1, 0.75, 0);
+							else
+								GameTooltip:AddLine("Chat Window n°4 : "..GetChatWindowInfo(4), 1, 0, 0);
+								GameTooltip:AddLine("Click: Show this Chat Window", 0, 1, 0);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							if ChatFrame4:IsVisible() then
+								ACWB_2_Background:SetTexture(0,1,0,0.5);
+							else
+								ACWB_2_Background:SetTexture(1,0,0,0.5);
+							end
+						</OnUpdate>
+						<OnClick>
+							if ChatFrame4:IsVisible() then
+								ChatFrame4:Hide();
+							else
+								ChatFrame4:Show();
+							end
+							GameTooltip:Hide();
+						</OnClick>
+						<OnLoad>
+							this:RegisterForClicks("LeftButtonUp");
+						</OnLoad>
+					</Scripts>
+				</Button>
+				<!-- Bouton 3 -->
+				<Button name="ACWB_3">
+					<Size><AbsDimension x="10" y="10"/></Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="$parent_Background">
+								<Size>
+									<AbsDimension x="19" y="20"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-1" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+								<Size>
+									<AbsDimension x="44" y="45"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-9"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString inherits="NumberFontNormalSmall" justifyH="CENTER" text="5">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+						<Size><AbsDimension x="20" y="20"/></Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</HighlightTexture>
+					<Scripts>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if ChatFrame5:IsVisible() then
+								GameTooltip:AddLine("Chat Window n°5 : "..GetChatWindowInfo(5), 0, 1, 0);
+								GameTooltip:AddLine("Click: Hide this Chat Window", 1, 0.75, 0);
+							else
+								GameTooltip:AddLine("Chat Window n°5 : "..GetChatWindowInfo(5), 1, 0, 0);
+								GameTooltip:AddLine("Click: Show this Chat Window", 0, 1, 0);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							if ChatFrame5:IsVisible() then
+								ACWB_3_Background:SetTexture(0,1,0,0.5);
+							else
+								ACWB_3_Background:SetTexture(1,0,0,0.5);
+							end
+						</OnUpdate>
+						<OnClick>
+							if ChatFrame5:IsVisible() then
+								ChatFrame5:Hide();
+							else
+								ChatFrame5:Show();
+							end
+							GameTooltip:Hide();
+						</OnClick>
+						<OnLoad>
+							this:RegisterForClicks("LeftButtonUp");
+						</OnLoad>
+					</Scripts>
+				</Button>
+				<!-- Bouton 4-->
+				<Button name="ACWB_4">
+					<Size><AbsDimension x="10" y="10"/></Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="21" y="0"/></Offset></Anchor></Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="$parent_Background">
+								<Size>
+									<AbsDimension x="19" y="20"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-1" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+								<Size>
+									<AbsDimension x="44" y="45"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-9"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString inherits="NumberFontNormalSmall" justifyH="CENTER" text="6">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+						<Size><AbsDimension x="20" y="20"/></Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</HighlightTexture>
+					<Scripts>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if ChatFrame6:IsVisible() then
+								GameTooltip:AddLine("Chat Window n°6 : "..GetChatWindowInfo(6), 0, 1, 0);
+								GameTooltip:AddLine("Click: Hide this Chat Window", 1, 0.75, 0);
+							else
+								GameTooltip:AddLine("Chat Window n°6 : "..GetChatWindowInfo(6), 1, 0, 0);
+								GameTooltip:AddLine("Click: Show this Chat Window", 0, 1, 0);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							if ChatFrame6:IsVisible() then
+								ACWB_4_Background:SetTexture(0,1,0,0.5);
+							else
+								ACWB_4_Background:SetTexture(1,0,0,0.5);
+							end
+						</OnUpdate>
+						<OnClick>
+							if ChatFrame6:IsVisible() then
+								ChatFrame6:Hide();
+							else
+								ChatFrame6:Show();
+							end
+							GameTooltip:Hide();
+						</OnClick>
+						<OnLoad>
+							this:RegisterForClicks("LeftButtonUp");
+						</OnLoad>
+					</Scripts>
+				</Button>
+				<!-- Bouton 5-->
+				<Button name="ACWB_5">
+					<Size><AbsDimension x="10" y="10"/></Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="42" y="0"/></Offset></Anchor></Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="$parent_Background">
+								<Size>
+									<AbsDimension x="19" y="20"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-1" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+								<Size>
+									<AbsDimension x="44" y="45"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-9"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString inherits="NumberFontNormalSmall" justifyH="CENTER" text="7">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+						<Size><AbsDimension x="20" y="20"/></Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</HighlightTexture>
+					<Scripts>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if ChatFrame7:IsVisible() then
+								GameTooltip:AddLine("Chat Window n°7 : "..GetChatWindowInfo(7), 0, 1, 0);
+								GameTooltip:AddLine("Click: Hide this Chat Window", 1, 0.75, 0);
+							else
+								GameTooltip:AddLine("Chat Window n°7 : "..GetChatWindowInfo(7), 1, 0, 0);
+								GameTooltip:AddLine("Click: Show this Chat Window", 0, 1, 0);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							if ChatFrame7:IsVisible() then
+								ACWB_5_Background:SetTexture(0,1,0,0.5);
+							else
+								ACWB_5_Background:SetTexture(1,0,0,0.5);
+							end
+						</OnUpdate>
+						<OnClick>
+							if ChatFrame7:IsVisible() then
+								ChatFrame7:Hide();
+							else
+								ChatFrame7:Show();
+							end
+							GameTooltip:Hide();
+						</OnClick>
+						<OnLoad>
+							this:RegisterForClicks("LeftButtonUp");
+						</OnLoad>
+					</Scripts>
+				</Button>
+			</Frames>
+		</Frame>
+		<!-- Barre de raccourci fenetre chat  -->
+		<Frame name="ActivationPersoButtonsTemplate">
+			<Size>
+				<AbsDimension x="50" y="10"/> 
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="65" y="-55"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="116" y="18"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-1" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\CastingBar\UI-CastingBar-Border-Small">
+						<Size>
+							<AbsDimension x="150" y="105"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-1" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+			</Layers>
+			<Frames>
+				<!-- Bouton 1 -->
+				<Button name="PACWB_1">
+					<Size><AbsDimension x="15" y="15"/></Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-42" y="0"/></Offset></Anchor></Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="$parent_Background">
+								<Size>
+									<AbsDimension x="19" y="20"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-1" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+								<Size>
+									<AbsDimension x="44" y="45"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-9"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString inherits="NumberFontNormalSmall" justifyH="CENTER" text="1">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+						<Size><AbsDimension x="20" y="20"/></Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</HighlightTexture>
+					<Scripts>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["1"]["Prenom"] then
+								if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["1"]["Texte"] and TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["1"]["Texte"] ~= "" then
+									GameTooltip:AddLine("Profile 1 : "..TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["1"]["Texte"], 1, 0.75, 0);
+								else
+									GameTooltip:AddLine("Profile 1 : "..TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["1"]["Prenom"], 1, 0.75, 0);
+								end
+								GameTooltip:AddLine("Click: Load Profile", 0, 1, 0);
+							else
+								GameTooltip:AddLine("View Profile n°1 Unused", 0.5, 0.5, 0.5);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["1"]["Prenom"] then
+								PACWB_1_Background:SetTexture(0,1,0,0.5);
+								this:Enable();
+							else
+								PACWB_1_Background:SetTexture(0.5,0.5,0.5,0.75);
+								this:Disable();
+							end
+						</OnUpdate>
+						<OnClick>
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["1"]["Prenom"] then
+								LoadPerso("1")
+							end
+						</OnClick>
+						<OnLoad>
+							this:RegisterForClicks("LeftButtonUp");
+						</OnLoad>
+					</Scripts>
+				</Button>
+				<!-- Bouton 2 -->
+				<Button name="PACWB_2">
+					<Size><AbsDimension x="10" y="10"/></Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-21" y="0"/></Offset></Anchor></Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="$parent_Background">
+								<Size>
+									<AbsDimension x="19" y="20"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-1" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+								<Size>
+									<AbsDimension x="44" y="45"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-9"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString inherits="NumberFontNormalSmall" justifyH="CENTER" text="2">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+						<Size><AbsDimension x="20" y="20"/></Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</HighlightTexture>
+					<Scripts>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["2"]["Prenom"] then
+								if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["2"]["Texte"] and TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["2"]["Texte"] ~= "" then
+									GameTooltip:AddLine("Profile 2 : "..TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["2"]["Texte"], 1, 0.75, 0);
+								else
+									GameTooltip:AddLine("Profile 2 : "..TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["2"]["Prenom"], 1, 0.75, 0);
+								end
+								GameTooltip:AddLine("Click: Load Profile", 0, 1, 0);
+							else
+								GameTooltip:AddLine("View Profile n°2 Unused", 0.5, 0.5, 0.5);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["2"]["Prenom"] then
+								PACWB_2_Background:SetTexture(0,1,0,0.5);
+								this:Enable();
+							else
+								PACWB_2_Background:SetTexture(0.5,0.5,0.5,0.75);
+								this:Disable();
+							end
+						</OnUpdate>
+						<OnClick>
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["2"]["Prenom"] then
+								LoadPerso("2")
+							end
+						</OnClick>
+						<OnLoad>
+							this:RegisterForClicks("LeftButtonUp");
+						</OnLoad>
+					</Scripts>
+				</Button>
+				<!-- Bouton 3 -->
+				<Button name="PACWB_3">
+					<Size><AbsDimension x="10" y="10"/></Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="$parent_Background">
+								<Size>
+									<AbsDimension x="19" y="20"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-1" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+								<Size>
+									<AbsDimension x="44" y="45"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-9"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString inherits="NumberFontNormalSmall" justifyH="CENTER" text="3">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+						<Size><AbsDimension x="20" y="20"/></Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</HighlightTexture>
+					<Scripts>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["3"]["Prenom"] then
+								if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["3"]["Texte"] and TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["3"]["Texte"] ~= "" then
+									GameTooltip:AddLine("Profile 3 : "..TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["3"]["Texte"], 1, 0.75, 0);
+								else
+									GameTooltip:AddLine("Profile 3 : "..TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["3"]["Prenom"], 1, 0.75, 0);
+								end
+								GameTooltip:AddLine("Click: Load Profile", 0, 1, 0);
+							else
+								GameTooltip:AddLine("View Profile n°3 Unused", 0.5, 0.5, 0.5);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["3"]["Prenom"] then
+								PACWB_3_Background:SetTexture(0,1,0,0.5);
+								this:Enable();
+							else
+								PACWB_3_Background:SetTexture(0.5,0.5,0.5,0.75);
+								this:Disable();
+							end
+						</OnUpdate>
+						<OnClick>
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["3"]["Prenom"] then
+								LoadPerso("3")
+							end
+						</OnClick>
+						<OnLoad>
+							this:RegisterForClicks("LeftButtonUp");
+						</OnLoad>
+					</Scripts>
+				</Button>
+				<!-- Bouton 4-->
+				<Button name="PACWB_4">
+					<Size><AbsDimension x="10" y="10"/></Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="21" y="0"/></Offset></Anchor></Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="$parent_Background">
+								<Size>
+									<AbsDimension x="19" y="20"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-1" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+								<Size>
+									<AbsDimension x="44" y="45"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-9"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString inherits="NumberFontNormalSmall" justifyH="CENTER" text="4">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+						<Size><AbsDimension x="20" y="20"/></Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</HighlightTexture>
+					<Scripts>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["4"]["Prenom"] then
+								if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["4"]["Texte"] and TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["4"]["Texte"] ~= "" then
+									GameTooltip:AddLine("Profile 4 : "..TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["4"]["Texte"], 1, 0.75, 0);
+								else
+									GameTooltip:AddLine("Profile 4 : "..TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["4"]["Prenom"], 1, 0.75, 0);
+								end
+								GameTooltip:AddLine("Click: Load Profile", 0, 1, 0);
+							else
+								GameTooltip:AddLine("View Profile n°4 Unused", 0.5, 0.5, 0.5);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["4"]["Prenom"] then
+								PACWB_4_Background:SetTexture(0,1,0,0.5);
+								this:Enable();
+							else
+								PACWB_4_Background:SetTexture(0.5,0.5,0.5,0.75);
+								this:Disable();
+							end
+						</OnUpdate>
+						<OnClick>
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["4"]["Prenom"] then
+								LoadPerso("4")
+							end
+						</OnClick>
+						<OnLoad>
+							this:RegisterForClicks("LeftButtonUp");
+						</OnLoad>
+					</Scripts>
+				</Button>
+				<!-- Bouton 5-->
+				<Button name="PACWB_5">
+					<Size><AbsDimension x="10" y="10"/></Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="42" y="0"/></Offset></Anchor></Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture name="$parent_Background">
+								<Size>
+									<AbsDimension x="19" y="20"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="-1" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+								<Size>
+									<AbsDimension x="44" y="45"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="-9"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString inherits="NumberFontNormalSmall" justifyH="CENTER" text="5">
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</FontString>
+						</Layer>
+					</Layers>
+					<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+						<Size><AbsDimension x="20" y="20"/></Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</HighlightTexture>
+					<Scripts>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["5"]["Prenom"] then
+								if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["5"]["Texte"] and TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["5"]["Texte"] ~= "" then
+									GameTooltip:AddLine("Profile 5 : "..TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["5"]["Texte"], 1, 0.75, 0);
+								else
+									GameTooltip:AddLine("Profile 5 : "..TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["5"]["Prenom"], 1, 0.75, 0);
+								end
+								GameTooltip:AddLine("Click: Load Profile", 0, 1, 0);
+							else
+								GameTooltip:AddLine("View Profile n°5 Unused", 0.5, 0.5, 0.5);
+							end
+							GameTooltip:Show()
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+						<OnUpdate>
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["5"]["Prenom"] then
+								PACWB_5_Background:SetTexture(0,1,0,0.5);
+								this:Enable();
+							else
+								PACWB_5_Background:SetTexture(0.5,0.5,0.5,0.75);
+								this:Disable();
+							end
+						</OnUpdate>
+						<OnClick>
+							if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["5"]["Prenom"] then
+								LoadPerso("5")
+							end
+						</OnClick>
+						<OnLoad>
+							this:RegisterForClicks("LeftButtonUp");
+						</OnLoad>
+					</Scripts>
+				</Button>
+			</Frames>
+		</Frame>
+		<!-- Bouton Son -->
+		<Button name="BarreActionsPlaySound">
+			<Size><AbsDimension x="20" y="20"/></Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-115" y="-8"/></Offset></Anchor></Anchors>
+			<NormalTexture file="Interface\ICONS\INV_Misc_Ear_Human_01">
+				<Size><AbsDimension x="16" y="16"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="1" right="0" top="0" bottom="1"/>
+			</NormalTexture>
+			<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+				<Size><AbsDimension x="20" y="20"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</HighlightTexture>
+			<PushedTexture alphaMode="ADD" file="Interface\ICONS\INV_Misc_Ear_Human_01">
+				<Size><AbsDimension x="18" y="18"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="1" right="0" top="0" bottom="1"/>
+			</PushedTexture>
+			<Scripts>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					if TRP_Module_Configuration["Modules"]["Sons"]["Activate"] then
+						GameTooltip:AddLine("Click: Play a sound",1,0.75,0);
+						GameTooltip:AddLine("Shift + Click: Play a sound (with path)",1,0.75,0);
+						GameTooltip:AddLine(" ",1,0.75,0);
+						GameTooltip:AddLine("Ctrl + Click: Disable TRP sounds",1,0.25,0);
+					else
+						GameTooltip:AddLine("Ctrl + Click: Enable TRP sounds",0,1,0);
+					end
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide();
+				</OnLeave>
+				<OnUpdate>
+					if TRP_Module_Configuration["Modules"]["Sons"]["Activate"] then
+						this:SetAlpha(1);
+					else
+						this:SetAlpha(0.5);
+					end
+				</OnUpdate>
+				<OnClick>
+					if IsShiftKeyDown() and TRP_Module_Configuration["Modules"]["Sons"]["Activate"] then
+						TRP_ShowStaticPopup("TRP_SAISIESOUND");
+					elseif IsControlKeyDown() then
+						if TRP_Module_Configuration["Modules"]["Sons"]["Activate"] then
+							TRP_Module_Configuration["Modules"]["Sons"]["Activate"] = false;
+						else
+							TRP_Module_Configuration["Modules"]["Sons"]["Activate"] = true;
+						end
+					else
+						if TRPListePlaySound:IsVisible() then
+							TRPListePlaySound:Hide();
+						elseif TRP_Module_Configuration["Modules"]["Sons"]["Activate"] then
+							OpenListePlaySound();
+						end
+					end
+				</OnClick>
+			</Scripts>
+		</Button>
+		<!-- Bouton Parler/Emote -->
+		<Button name="BarreActionsEmote">
+			<Size><AbsDimension x="20" y="20"/></Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-115" y="-28"/></Offset></Anchor></Anchors>
+			<NormalTexture file="Interface\ICONS\Ability_Mage_Burnout">
+				<Size><AbsDimension x="16" y="16"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="1" right="0" top="0" bottom="1"/>
+			</NormalTexture>
+			<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\IconBorder-GlowRing">
+				<Size><AbsDimension x="20" y="20"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</HighlightTexture>
+			<PushedTexture alphaMode="ADD" file="Interface\ICONS\Ability_Mage_Burnout">
+				<Size><AbsDimension x="18" y="18"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="1" right="0" top="0" bottom="1"/>
+			</PushedTexture>
+			<Scripts>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					if UnitName("target") and not UnitIsPlayer("target") then
+						GameTooltip:AddLine(UnitName("target"),0,1,0);
+						GameTooltip:AddLine("Left-click: Make "..UnitName("target").." speak.",1,0.75,0);
+						GameTooltip:AddLine("Right Click: Make "..UnitName("target").." do an emote.",1,0.75,0);
+					else
+						GameTooltip:AddLine("Click: Make a non-targeted emote.",1,0.75,0);
+						GameTooltip:AddLine("Shift + Left Click: Make someone speak (choice of name).",1,0.75,0);
+						GameTooltip:AddLine("Shift + Right Click: Make someone do an emote (choice of name).",1,0.75,0);
+					end
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide();
+				</OnLeave>
+				<OnClick>
+					if UnitName("target") and not UnitIsPlayer("target") then
+						if arg1 == "LeftButton" then
+							StaticPopupDialogs["TRP_EMOTENPCDIRE"].text = TRP_ENTETE.."Enter the dialogue that "..UnitName("target").." will tell.\nThis is a spoken dialogue (/say).";
+							TRP_ShowStaticPopup("TRP_EMOTENPCDIRE",nil,nil,UnitName("target"));
+						else
+							StaticPopupDialogs["TRP_EMOTENPC"].text = TRP_ENTETE.."Enter the emote that "..UnitName("target").." will play.\nIs a emote /e.";
+							TRP_ShowStaticPopup("TRP_EMOTENPC",nil,nil,UnitName("target"));
+						end
+					else
+						if IsShiftKeyDown() then
+							if arg1 == "LeftButton" then
+								TRP_ShowStaticPopup("TRP_EMOTENAMEDIRE");
+							else
+								TRP_ShowStaticPopup("TRP_EMOTENAME");
+							end
+						else
+							TRP_ShowStaticPopup("TRP_EMOTEGLOBAL");
+						end
+					end
+				</OnClick>
+				<OnLoad>
+					this:RegisterForClicks("LeftButtonUp","RightButtonUp");
+				</OnLoad>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			
+		</OnLoad>
+	</Scripts>
+</Frame>
+
+<!-- Choix de son-->
+<Frame name="TRPListePlaySound" toplevel="true" parent="UIParent" enableMouse="true" enableMouseWheel="true" hidden="true" movable="true">
+	<TitleRegion setAllPoints="true"/>
+	<Backdrop bgFile="Interface\Tooltips\ChatBubble-Background" edgeFile="Interface\Tooltips\ChatBubble-Backdrop" tile="true">
+		<EdgeSize>
+			<AbsValue val="16"/>
+		</EdgeSize>
+		<TileSize>
+			<AbsValue val="32"/>
+		</TileSize>
+		<BackgroundInsets>
+			<AbsInset left="5" right="5" top="5" bottom="5"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Size>
+		<AbsDimension x="250" y="250"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="0"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+		</Layer>
+		<Layer level="BORDER">
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="210" y="310"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="5" y="-53"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="PanelListePlaySoundTitre" inherits="GameFontNormalLarge" justifyH="CENTER" text="">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="105"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListePlaySoundRecherche" inherits="NumberFontNormal" justifyH="LEFT" text="Search">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-75" y="-105"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListePlaySoundEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER" text="No Sound">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListePlaySoundType" inherits="NumberFontNormalHuge" justifyH="CENTER" hidden="true">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="ListePlaySoundSlot1" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot2" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot3" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot4" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot5" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot6" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot7" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot8" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot9" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot10" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot11" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot12" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot13" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot14" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot15" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot16" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot17" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot18" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot19" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot20" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot21" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot22" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot23" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot24" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot25" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot26" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot27" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot28" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot29" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot30" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot31" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot32" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot33" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot34" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot35" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot36" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot37" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot38" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot39" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot40" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot41" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot42" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot43" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot44" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot45" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot46" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot47" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot48" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePlaySoundSlot49" inherits="PlaySoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Slider name="ListePlaySoundSlider" inherits="OptionsSliderTemplate">
+			<Size>
+				<AbsDimension x="15" y="150"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="95" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnLoad>
+					ListePlaySoundSliderText:SetText("");
+					ListePlaySoundSliderHigh:SetText("");
+					ListePlaySoundSliderLow:SetText("");
+					this:SetMinMaxValues(0, 6);
+					this:SetValueStep(1);
+					this:SetOrientation("VERTICAL");
+				</OnLoad>
+				<OnValueChanged>
+					if this:IsVisible() then
+						ChargerSliderListePlaySound(this:GetValue());
+					end
+				</OnValueChanged>
+			</Scripts>
+		</Slider>
+		<EditBox name="TRPPlaySoundListRecherche" inherits="SaisieTemplateSmall" autofocus="false">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="25" y="-105"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					if this:IsVisible() then
+						calculerListePlaySound();
+					end
+				</OnTextChanged>
+				<OnEscapePressed>
+					this:ClearFocus();
+					if ChatFrameEditBox:IsVisible() then
+						ChatFrameEditBox:SetFocus();
+					end
+				</OnEscapePressed>
+			</Scripts>
+		</EditBox>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="110" y="110"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					TRPListePlaySound:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnMouseWheel>
+			
+		</OnMouseWheel>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+		<OnLoad>
+			PanelListePlaySoundTitre:SetText("Play sound :")
+		</OnLoad>
+	</Scripts>
+</Frame>
+
+<GameTooltip name="TRP_Perso_GameTooltip" frameStrata="TOOLTIP" hidden="true" parent="UIParent" inherits="GameTooltipTemplate">
+	<Layers>
+		<Layer level="ARTWORK">
+			
+		</Layer>
+	</Layers>
+	<Scripts>
+	</Scripts>
+</GameTooltip>
+
+<!-- Choix de son-->
+<Frame name="TRP_Objet_3D_Apercu" toplevel="true" parent="UIParent" enableMouse="false" hidden="true" >
+	<Backdrop bgFile="Interface\Tooltips\ChatBubble-Background" edgeFile="Interface\Tooltips\ChatBubble-Backdrop" tile="true">
+		<EdgeSize>
+			<AbsValue val="16"/>
+		</EdgeSize>
+		<TileSize>
+			<AbsValue val="32"/>
+		</TileSize>
+		<BackgroundInsets>
+			<AbsInset left="5" right="5" top="5" bottom="5"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Size>
+		<AbsDimension x="100" y="100"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="0"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Frames>
+		<PlayerModel name="TRP_Objet_3D_PlayerModel">
+			<Backdrop bgFile="Interface\Tooltips\ChatBubble-Background" edgeFile="Interface\Tooltips\ChatBubble-Backdrop" tile="true">
+				<EdgeSize>
+					<AbsValue val="16"/>
+				</EdgeSize>
+				<TileSize>
+					<AbsValue val="32"/>
+				</TileSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Size>
+				<AbsDimension x="75" y="75"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnUpdate>
+					local rot = this:GetFacing();
+					rot = rot + arg1*1;
+					if rot > math.pi*2 then
+						rot = 0;
+					end
+					this:SetFacing(rot);
+				</OnUpdate>
+				<OnLoad>
+					this:SetModel("World\\Generic\\dwarf\\passive doodads\\guns\\rifledwarven.mdx");
+					this:SetModelScale(1);
+					this:SetPosition(0,0,0)
+				</OnLoad>
+			</Scripts>
+		</PlayerModel >
+	</Frames>
+</Frame>
+
+<!-- Choix de son-->
+<Frame name="TRPListeModele" toplevel="true" parent="FicheJoueur" enableMouse="true" enableMouseWheel="true" hidden="true" >
+	<Backdrop bgFile="Interface\Tooltips\ChatBubble-Background" edgeFile="Interface\Tooltips\ChatBubble-Backdrop" tile="true">
+		<EdgeSize>
+			<AbsValue val="16"/>
+		</EdgeSize>
+		<TileSize>
+			<AbsValue val="32"/>
+		</TileSize>
+		<BackgroundInsets>
+			<AbsInset left="5" right="5" top="5" bottom="5"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Size>
+		<AbsDimension x="250" y="250"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="0"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+		</Layer>
+		<Layer level="BORDER">
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="210" y="310"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="5" y="-53"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="PanelListeModeleTitre" inherits="GameFontNormalLarge" justifyH="CENTER" text="">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="105"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeModeleRecherche" inherits="NumberFontNormal" justifyH="LEFT" text="Search">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-75" y="-105"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeModeleEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER" text="No Model">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeModeleType" inherits="NumberFontNormalHuge" justifyH="CENTER" hidden="true">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="ListeModeleSlot1" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot2" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot3" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot4" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot5" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot6" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot7" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot8" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot9" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot10" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot11" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot12" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot13" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot14" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot15" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot16" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot17" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot18" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot19" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot20" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot21" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot22" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot23" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot24" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot25" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot26" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot27" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot28" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="0"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot29" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot30" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot31" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot32" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot33" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot34" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot35" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="-25"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot36" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot37" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot38" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot39" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot40" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot41" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot42" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="-50"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot43" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-75" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot44" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot45" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-25" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot46" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot47" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="25" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot48" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeModeleSlot49" inherits="ModeleSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="75" y="-75"/></Offset></Anchor></Anchors>
+		</Button>
+		<Slider name="ListeModeleSlider" inherits="OptionsSliderTemplate">
+			<Size>
+				<AbsDimension x="15" y="150"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="95" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnLoad>
+					ListeModeleSliderText:SetText("");
+					ListeModeleSliderHigh:SetText("");
+					ListeModeleSliderLow:SetText("");
+					this:SetMinMaxValues(0, 6);
+					this:SetValueStep(1);
+					this:SetOrientation("VERTICAL");
+				</OnLoad>
+				<OnValueChanged>
+					if this:IsVisible() then
+						ChargerSliderListeModele(this:GetValue());
+					end
+				</OnValueChanged>
+			</Scripts>
+		</Slider>
+		<EditBox name="TRPModeleListRecherche" inherits="SaisieTemplateSmall" autofocus="true">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="25" y="-105"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					if this:IsVisible() then
+						calculerListeModele();
+					end
+				</OnTextChanged>
+				<OnEscapePressed>
+					this:ClearFocus();
+				</OnEscapePressed>
+			</Scripts>
+		</EditBox>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="110" y="110"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					TRPListeModele:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnMouseWheel>
+			
+		</OnMouseWheel>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+		<OnLoad>
+			PanelListeModeleTitre:SetText("Choose a 3D Model :")
+		</OnLoad>
+	</Scripts>
+</Frame>
+
+</Ui>

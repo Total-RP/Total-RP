@@ -1,0 +1,19 @@
+## Interface: 30300
+## Title: Total RP
+## Author: Telkostrasz
+## Version: 1.107
+## Notes: A Role-Playing Add-on. Version 1.1 (build 1107) - English Version 1.000
+## URL: http://forums.telkostrasz.be/index.php
+## RequiredDeps: totalRP_PlayerInfo, totalRP_Registre, totalRP_Documents, totalRP_Configuration, totalRP_Inventaire, totalRP_Interface
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: TRP_Registre,TRP_Relations,TRP_PlayerInfo,TRP_Notes,PlayerConfigurationTRP,TRP_Documents,TRP_Inventaire,TRP_ObjectPerso
+totalRP_VariablesGlobales.lua
+totalRP_ListeIcone.lua
+totalRP_texte.lua
+totalRP_texte_aide.lua
+totalRP_API.lua
+totalRP_Menu.lua
+totalRP_Communication.lua
+totalRP.lua
+totalRP.xml

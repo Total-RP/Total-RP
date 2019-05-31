@@ -1,0 +1,11 @@
+## Interface: 30300
+## Title: Total RP : Configuration
+## Author: Telkostrasz
+## Version: 1.106
+## Notes: A Role-Playing Add-on. Version 1.1 (build 1106) - English Version 1.000
+## URL: http://forums.telkostrasz.be/index.php
+## RequiredDeps: totalRP
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: TRP_Module_Configuration
+totalRP_Configuration_Main.lua

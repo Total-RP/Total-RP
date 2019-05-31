@@ -1,0 +1,2466 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+
+<!-- Fiche Personnage TEMPLATE  -->
+<Frame name="ConfigTemplate" virtual="true">
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="350" y="415"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER"><Offset><AbsDimension x="0" y="-15"/></Offset></Anchor>
+				</Anchors>
+				<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="400" y="700"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-135"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="TRPOptionFrameCredit1" inherits="GameFontNormalSmall" justifyH="CENTER">
+				<Size>
+					<AbsDimension x="500" y="0"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="-235"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString name="TRPOptionFrameCredit2" inherits="GameFontNormalSmall" justifyH="CENTER">
+				<Size>
+					<AbsDimension x="500" y="0"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="-245"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</Layer>
+	</Layers>
+</Frame>
+
+<!-- OPTIONS SYSTEMES -->
+<Frame name="PanelConfigurationFrame" inherits="ConfigTemplate" virtual="true">
+	<Size>
+		<AbsDimension x="512" y="512"/>
+	</Size>
+	<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+	<Frames>
+		<!-- ONGLETS  -->
+		<!-- Bouton onglet General -->
+		<Button name="PanelConfigurationOngletGeneral" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="150"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletOptions","General");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(GENERAL_TEXT, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Registre -->
+		<Button name="PanelConfigurationOngletRegistre" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="110"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletOptions","Registre");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(ANNUAIRE, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Inventaire -->
+		<Button name="PanelConfigurationOngletInventaire" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="70"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletOptions","Inventaire");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(INVENTAIRE, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Documents -->
+		<Button name="PanelConfigurationOngletDocuments" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="30"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletOptions","Documents");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(DOCUMENT, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Tooltip -->
+		<Button name="PanelConfigurationOngletTooltip" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="-10"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletOptions","Tooltip");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(TOOLTIPTEXTE, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Barre action -->
+		<Button name="PanelConfigurationOngletAction" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="-50"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletOptions","Actions");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Shortcuts Bar", 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Communication -->
+		<Button name="PanelConfigurationOngletCommunication" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="-90"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletOptions","Communication");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Communication", 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- Bouton onglet Sons -->
+		<Button name="PanelConfigurationOngletSons" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="-130"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletOptions","Sons");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(SONSTEXT, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- PANELS  -->
+		<!-- PANELS  GENERAL -->
+		<ScrollFrame name="PanelConfigurationPanelGeneral" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="ConfigGeneralTitre" inherits="GameFontNormalHuge" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-10"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigGeneralMinimap" inherits="GameFontNormal" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-80"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- Mode debug  -->
+						<CheckButton name="ConfigGeneralDebugCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-45"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["General"]["bDebug"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Debug Message :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["DEBUG"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if this:GetChecked() then
+										ConfigGeneralDebugFrame:Show();
+									else
+										ConfigGeneralDebugFrame:Hide();
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<EditBox name="ConfigGeneralDebugFrame" inherits="SaisieTemplateVerySmall" letters="1" numeric="true">
+							<Size>
+								<AbsDimension x="40" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="100" y="-45"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									if this:GetText() ~= "" and not string.find(this:GetText(),"[1-7]") then
+										this:SetText("");
+									end
+									TRP_Module_Configuration["Modules"]["General"]["DebugFrame"] = this:GetText();
+								</OnTextChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Debug Message Chat Frame :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["DEBUGFRAME"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+							</Scripts>
+						</EditBox>
+						<!--Minimap but pos  -->
+						<Slider name="ConfigGeneralMinimapPosSlider" inherits="SliderWithTitle">
+							<Size><AbsDimension x="120" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-75" y="-110"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText("");
+									getglobal(this:GetName().."Low"):SetText("");
+									this:SetOrientation("Horizontal");
+									this:SetMinMaxValues(1, 150);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									TRP_Module_Configuration["Modules"]["General"]["MiniMapIconPosition"] = this:GetValue();
+									IconePosition();
+								</OnValueChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Minimap Icon Position :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["ICONPOS"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Slider>
+						<!--Minimap but rot  -->
+						<Slider name="ConfigGeneralMinimapRotSlider" inherits="SliderWithTitle">
+							<Size><AbsDimension x="120" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="75" y="-110"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText("");
+									getglobal(this:GetName().."Low"):SetText("");
+									this:SetOrientation("Horizontal");
+									this:SetMinMaxValues(1, 360);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									TRP_Module_Configuration["Modules"]["General"]["MiniMapIconDegree"] = this:GetValue();
+									IconePosition();
+								</OnValueChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Minimap Icon Rotation :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["ICONROT"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Slider>
+						<!-- Fermer en combat  -->
+						<CheckButton name="ConfigGeneralCloseCombatCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-140"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["General"]["bCloseInCombat"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Close in Combat :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["COMBATCLOSE"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- Rappel de nouvelle version -->
+						<CheckButton name="ConfigGeneralRappelVersionCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-170"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["General"]["bNotifyNewVersion"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Notification when new version :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["NEWVERSION"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANELS  REGISTRE -->
+		<ScrollFrame name="PanelConfigurationPanelRegistre" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="ConfigRegistreTitre" inherits="GameFontNormalHuge" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-10"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigRegistreResume" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="325" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-45"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigRegistreAlignements" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="325" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-145"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigRegistreGeneral" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="325" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-210"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- Resume activer  -->
+						<CheckButton name="ConfigRegistreUseResumeCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-60"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Registre"]["bRSPDescriStyle"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigRegistreUseResumeCheckText:SetText(RESUMEINFOSHOW);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("View information summary :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["CHECKRESUME"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- Resume auto close  -->
+						<CheckButton name="ConfigRegistreResumeAutoCloseCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-80"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Registre"]["bRSPDescriStylePersistant"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigRegistreResumeAutoCloseCheckText:SetText(RESUMEINFOPERS);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Persistent summary :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["RESUMEPERSIS"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if ConfigRegistreUseResumeCheck:GetChecked() then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigRegistreResumeAutoCloseCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigRegistreResumeAutoCloseCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- Resume alpha   -->
+						<Slider name="ConfigRegistreResumeAlphaSlider" inherits="SliderWithTitle">
+							<Size><AbsDimension x="120" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-120"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText("");
+									getglobal(this:GetName().."Low"):SetText("");
+									this:SetOrientation("Horizontal");
+									this:SetMinMaxValues(1, 100);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									ConfigRegistreResumeAlphaSliderText:SetText("Summary opacity : "..tostring(this:GetValue()).."%")
+									TRP_Module_Configuration["Modules"]["Registre"]["bRSPDescriStyleAlpha"] = this:GetValue();
+									TRPCadreResumeRSPStyle:SetAlpha(TRP_Module_Configuration["Modules"]["Registre"]["bRSPDescriStyleAlpha"]/100);
+								</OnValueChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Summary opacity :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["RESUMEOPACITE"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if ConfigRegistreUseResumeCheck:GetChecked() then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigRegistreResumeAlphaSliderText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigRegistreResumeAlphaSliderText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</Slider>
+						<!-- Alignement Send  -->
+						<CheckButton name="ConfigRegistreAlignSendCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-160"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Registre"]["bSendAlignement"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigRegistreAlignSendCheckText:SetText(PARA_REG_CHECKK);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Share Alignements :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["ALIGNEPUBLIC"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- Alignement Show  -->
+						<CheckButton name="ConfigRegistreAlignShowCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-180"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Registre"]["bShowAlignement"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigRegistreAlignShowCheckText:SetText(PARA_REG_CHECKL);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("View Alignements :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["ALIGNAFFICHE"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- General notify  -->
+						<CheckButton name="ConfigRegistreNotifyAjoutCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-225"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Registre"]["bNotifyAjout"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigRegistreNotifyAjoutCheckText:SetText(PARA_REG_CHECKE);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Additions Notification :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["NOTIFYAJOUT"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- General notify  -->
+						<CheckButton name="ConfigRegistreRSPCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-245"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Registre"]["bCompatibiliteRSP"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigRegistreRSPCheckText:SetText(PARA_REG_CHECKD);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("FlagRSP Compatibility :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["COMPATFLAG"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- General notify  -->
+						<CheckButton name="ConfigRegistreForceCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-265"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Registre"]["bForceUpdate"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigRegistreForceCheckText:SetText(PARA_REG_CHECKC);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Force information update :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["FORCEMAJ"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- General notify  -->
+						<CheckButton name="ConfigRegistreRappelCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-285"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Registre"]["bRappel"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigRegistreRappelCheckText:SetText(CONFIGRAPPEL);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Info reminder :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["RAPPELINFO"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANELS  INVENTAIRE -->
+		<ScrollFrame name="PanelConfigurationPanelInventaire" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="ConfigInventaireTitre" inherits="GameFontNormalHuge" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-10"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigRegistreConfirmation" inherits="GameFontNormal" justifyH="LEFT" text="Prooooo">
+								<Size>
+									<AbsDimension x="325" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-45"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigInventaireFrameText" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="325" y="150"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-60"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- Niveau filtrage   -->
+						<Slider name="ConfigInventaireNiveauSlider" inherits="SliderWithTitle">
+							<Size><AbsDimension x="120" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-80"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("Level filter");
+									getglobal(this:GetName().."High"):SetText("");
+									getglobal(this:GetName().."Low"):SetText("");
+									this:SetOrientation("Horizontal");
+									this:SetMinMaxValues(1, 4);
+									this:SetValueStep(1);
+									ConfigInventaireFrameText:SetText("Chat window for messages :")
+								</OnLoad>
+								<OnValueChanged>
+									TRP_Module_Configuration["Modules"]["Inventaire"]["Niveau"] = this:GetValue();
+									setTooltipInventaireLevel(this,this:GetValue());
+								</OnValueChanged>
+								<OnEnter>
+									setTooltipInventaireLevel(this,this:GetValue());
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Slider>
+						<EditBox name="ConfigInventaireFrameGet" inherits="SaisieTemplateVerySmall" letters="2" numeric="true">
+							<Size>
+								<AbsDimension x="40" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="80" y="-125"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									if this:GetText() and (this:GetText() == "" or string.find(this:GetText(),"[1-7]")) then
+										TRP_Module_Configuration["Modules"]["Inventaire"]["Frame"] = tonumber(this:GetText());
+									else
+										TRP_Module_Configuration["Modules"]["Inventaire"]["Frame"] = "";
+										this:SetText("");
+									end
+								</OnTextChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Chat windows for message :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["INVFRAME"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+							</Scripts>
+						</EditBox>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANELS  DOCUMENTS -->
+		<ScrollFrame name="PanelConfigurationPanelDocuments" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="ConfigDocumentsTitre" inherits="GameFontNormalHuge" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-10"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigDocumentsConfirmation" inherits="GameFontNormal" justifyH="LEFT" text="Prooooo">
+								<Size>
+									<AbsDimension x="325" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-45"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigDocumentsConfirmTexte" inherits="GameFontNormalSmall" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="200" y="150"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-90"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- Niveau filtrage   -->
+						<Slider name="ConfigDocumentsNiveauSlider" inherits="SliderWithTitle">
+							<Size><AbsDimension x="120" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-80"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("Level filter");
+									getglobal(this:GetName().."High"):SetText("");
+									getglobal(this:GetName().."Low"):SetText("");
+									this:SetOrientation("Horizontal");
+									this:SetMinMaxValues(1, 4);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									TRP_Module_Configuration["Modules"]["Documents"]["Niveau"] = this:GetValue();
+									setTooltipDocuLevel(this,this:GetValue());
+								</OnValueChanged>
+								<OnEnter>
+									setTooltipDocuLevel(this,this:GetValue());
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Slider>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANELS  TOOLTIP -->
+		<ScrollFrame name="PanelConfigurationPanelTooltip" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="ConfigTooltipTitre" inherits="GameFontNormalHuge" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-10"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigTooltipElements" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="325" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-65"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigTooltipInventaire" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="325" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-365"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- tooltip activer  -->
+						<CheckButton name="ConfigTooltipUseCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-40"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipUseCheckText:SetText("Use the TRP characters tooltip");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Use the TRP characters tooltip :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["USEPERSOTOOL"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : statut  -->
+						<CheckButton name="ConfigTooltipStatutCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-80"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["StatutRP"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipStatutCheckText:SetText("Role-Play Status");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Role-Play Status :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLSTATUT"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipStatutCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipStatutCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : Sous Titre  -->
+						<CheckButton name="ConfigTooltipSousTitreCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-100"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["SousTitre"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipSousTitreCheckText:SetText("Title");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Title :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLST"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipSousTitreCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipSousTitreCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : Actuellement  -->
+						<CheckButton name="ConfigTooltipActuellementCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-120"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["Actuellement"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipActuellementCheckText:SetText("\"Current\" description");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("\"Current\" description :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLACTUELLE"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipActuellementCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipActuellementCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : Description  -->
+						<CheckButton name="ConfigTooltipDescriptionCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-140"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["Description"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipDescriptionCheckText:SetText("First 200 char. of description");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("First 200 char. of description :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLDESCRI"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipDescriptionCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipDescriptionCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : Relation  -->
+						<CheckButton name="ConfigTooltipRelationCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-160"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["Relation"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipRelationCheckText:SetText("Relationship");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Relationship :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLRELATION"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipRelationCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipRelationCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : Alignement  -->
+						<CheckButton name="ConfigTooltipAlignementCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-180"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["Alignement"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipAlignementCheckText:SetText("Alignments");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Alignements :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLALIGNEMENT"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] and TRP_Module_Configuration["Modules"]["Registre"]["bShowAlignement"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipAlignementCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipAlignementCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : Humeur  -->
+						<CheckButton name="ConfigTooltipHumeurCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-200"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["Humeur"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipHumeurCheckText:SetText("Mood");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Mood :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLHUMEUR"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipHumeurCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipHumeurCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : Guilde  -->
+						<CheckButton name="ConfigTooltipGuildeCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-220"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["Guilde"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipGuildeCheckText:SetText("Guild information");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Guild Information :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLGUILD"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipGuildeCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipGuildeCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : Barre de vie  -->
+						<CheckButton name="ConfigTooltipBarreVieCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-240"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["BarreDeVie"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipBarreVieCheckText:SetText("Life bar");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Life bar :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["BARREVIE"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipBarreVieCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipBarreVieCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!--tooltip couper slider   -->
+						<Slider name="ConfigTooltipCouperSlider" inherits="SliderWithTitle">
+							<Size><AbsDimension x="120" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-285"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText("");
+									getglobal(this:GetName().."Low"):SetText("");
+									this:SetOrientation("Horizontal");
+									this:SetMinMaxValues(1, 100);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									ConfigTooltipCouperSliderText:SetText("Cut the name after "..tostring(this:GetValue()).." characters.")
+									TRP_Module_Configuration["Modules"]["Tooltip"]["Couper"] = this:GetValue();
+								</OnValueChanged>
+								<OnEnter>
+									if this:IsEnabled() then
+										GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+										GameTooltip:AddLine("Cut the name after "..tostring(this:GetValue()).." characters :",1,0.75,0);
+										GameTooltip:AddLine(" ",1,0.75,0);
+										decouperForTooltip(TRPCheckOptionTooltip["TOOLCOUPERNOM"],35,1,1,1);
+										GameTooltip:Show();
+									end
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipCouperSliderText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipCouperSliderText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</Slider>
+						<!--tooltip couper slider titre   -->
+						<Slider name="ConfigTooltipCouperTitreSlider" inherits="SliderWithTitle">
+							<Size><AbsDimension x="120" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-320"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText("");
+									getglobal(this:GetName().."Low"):SetText("");
+									this:SetOrientation("Horizontal");
+									this:SetMinMaxValues(1, 100);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									ConfigTooltipCouperTitreSliderText:SetText("Cut the title after "..tostring(this:GetValue()).." characters.")
+									TRP_Module_Configuration["Modules"]["Tooltip"]["CouperTitre"] = this:GetValue();
+								</OnValueChanged>
+								<OnEnter>
+									if this:IsEnabled() then
+										GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+										GameTooltip:AddLine("Cut the title after "..tostring(this:GetValue()).." characters :",1,0.75,0);
+										GameTooltip:AddLine(" ",1,0.75,0);
+										decouperForTooltip(TRPCheckOptionTooltip["TOOLCOUPERNOM"],35,1,1,1);
+										GameTooltip:Show();
+									end
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipCouperTitreSliderText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipCouperTitreSliderText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</Slider>
+						<!-- tooltip composition : Images  -->
+						<CheckButton name="ConfigTooltipImagesCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-340"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["UseImageIn"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipImagesCheckText:SetText("Factions and PvP status Icons");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Factions and PvP status Icons :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLIMAGE"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if TRP_Module_Configuration["Modules"]["Tooltip"]["Use"] then
+										this:Enable();
+										this:SetAlpha(1);
+										ConfigTooltipImagesCheckText:SetTextColor(1,0.85,0);
+									else
+										this:Disable();
+										this:SetAlpha(0.5);
+										ConfigTooltipImagesCheckText:SetTextColor(0.5,0.5,0.5);
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : Aide inventaire  -->
+						<CheckButton name="ConfigTooltipAideInvCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-380"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["AideInventaire"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipAideInvCheckText:SetText("Help for item shortcuts");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Help for item shortcuts :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLINVAIDE"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- tooltip composition : Docu inventaire  -->
+						<CheckButton name="ConfigTooltipDocuInvCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-400"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Tooltip"]["DocuInventaire"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigTooltipDocuInvCheckText:SetText("Document thumbnail");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Document thumbnail :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["TOOLINVDOCU"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANELS  ACTIONS -->
+		<ScrollFrame name="PanelConfigurationPanelActions" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="ConfigActionsTitre" inherits="GameFontNormalHuge" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-10"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- tooltip activer  -->
+						<CheckButton name="ConfigActionLockCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-40"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Actions"]["Lock"] = (this:GetChecked() == 1);
+									TRPActionsBar:EnableMouse(not TRP_Module_Configuration["Modules"]["Actions"]["Lock"]);
+								</OnClick>
+								<OnLoad>
+									ConfigActionLockCheckText:SetText("Locking location");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Locking location :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["RACCLOCK"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- Réinit pos barre racc -->
+						<Button name="ConfigActionsReinit" inherits="UIPanelButtonTemplate">
+							<Size>
+								<AbsDimension x="110" y="20"/>
+							</Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-10" y="-80"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									this:SetText("Reset");
+								</OnLoad>
+								<OnClick>
+									if not TRPActionsBar:IsVisible() then
+										OpenActionsBar(true)
+									end
+									TRPActionsBar:EnableMouse(false);
+									TRPActionsBar:ClearAllPoints();
+									TRPActionsBar:SetPoint("CENTER",0,-275);
+									TRPActionsBar:EnableMouse(not TRP_Module_Configuration["Modules"]["Actions"]["Lock"]);
+								</OnClick>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Reset location :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["RACCREINIT"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Button>
+						<!--Minimap but rot  -->
+						<Slider name="ConfigActionsAlphaSlider" inherits="SliderWithTitle">
+							<Size><AbsDimension x="120" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-10" y="-130"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."High"):SetText("+");
+									getglobal(this:GetName().."Low"):SetText("-");
+									this:SetOrientation("Horizontal");
+									this:SetMinMaxValues(1, 100);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									TRP_Module_Configuration["Modules"]["Actions"]["Alpha"] = this:GetValue();
+									ConfigActionsAlphaSliderText:SetText("Opacity : "..TRP_Module_Configuration["Modules"]["Actions"]["Alpha"].."%");
+									TRPActionsBar:SetAlpha(TRP_Module_Configuration["Modules"]["Actions"]["Alpha"]/100);
+								</OnValueChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Opacity :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["RACCALPHA"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Slider>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANELS  COMMUNICATION -->
+		<ScrollFrame name="PanelConfigurationPanelCommunication" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="ConfigCommuTitre" inherits="GameFontNormalHuge" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-10"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigCommuTitre2" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="15" y="-95"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigCommuTitre3" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="15" y="-265"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- Mode debug  -->
+						<CheckButton name="ConfigCommuParentheseCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-45"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Communication"]["AutoParenthese"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigCommuParentheseCheckText:SetText("Automatic parenthesis");
+									ConfigCommuTitre2:SetText("Improved chat frames :");
+									ConfigCommuTitre3:SetText("Lore Compatibility :");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Automatic parenthesis :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["COMMUPARENT"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- Utiliser le chat spécial  -->
+						<CheckButton name="ConfigCommuUseTRPChatCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-70"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Communication"]["UseTRPChat"] = (this:GetChecked() == 1);
+									if TRP_Module_Configuration["Modules"]["Communication"]["UseTRPChat"] then
+										TRPHookAll();
+									else
+										TRP_ShowStaticPopup("TRP_AVERT_USE_CHAT");
+									end
+								</OnClick>
+								<OnLoad>
+									ConfigCommuUseTRPChatCheckText:SetText("Improved chat frames");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Improved chat frames :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["CHATAMELIO"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if this:GetChecked() then
+										ConfigCommuTitre2:SetAlpha(1);
+										ConfigCommuHRPDetectCheck:SetAlpha(1);
+										ConfigCommuHRPDetectCheckText:SetTextColor(1,0.85,0);
+										ConfigCommuHRPDetectCheck:Enable();
+										ConfigCommuEmoteDetectCheck:SetAlpha(1);
+										ConfigCommuEmoteDetectCheckText:SetTextColor(1,0.85,0);
+										ConfigCommuEmoteDetectCheck:Enable();
+										ConfigCommuSpamDetectCheck:SetAlpha(1);
+										ConfigCommuSpamDetectCheckText:SetTextColor(1,0.85,0);
+										ConfigCommuSpamDetectCheck:Enable();
+										ConfigCommuNameInChatCheck:SetAlpha(1);
+										ConfigCommuNameInChatCheckText:SetTextColor(1,0.85,0);
+										ConfigCommuNameInChatCheck:Enable();
+										ConfigCommuSpamDetectFrame:SetAlpha(1);
+										ConfigCommuHRPDetectFrame:SetAlpha(1);
+										ConfigCommuSpamListButton:SetAlpha(1);
+										ConfigCommuColorNameCheck:SetAlpha(1);
+										ConfigCommuColorNameCheckText:SetTextColor(1,0.85,0);
+										ConfigCommuColorNameCheck:Enable();
+									else
+										ConfigCommuTitre2:SetAlpha(0.5);
+										ConfigCommuHRPDetectCheck:SetAlpha(0.5);
+										ConfigCommuHRPDetectCheckText:SetTextColor(0.5,0.5,0.5);
+										ConfigCommuHRPDetectCheck:Disable();
+										ConfigCommuEmoteDetectCheck:SetAlpha(0.5);
+										ConfigCommuEmoteDetectCheckText:SetTextColor(0.5,0.5,0.5);
+										ConfigCommuEmoteDetectCheck:Disable();
+										ConfigCommuSpamDetectCheck:SetAlpha(0.5);
+										ConfigCommuSpamDetectCheckText:SetTextColor(0.5,0.5,0.5);
+										ConfigCommuSpamDetectCheck:Disable();
+										ConfigCommuNameInChatCheck:SetAlpha(0.5);
+										ConfigCommuNameInChatCheckText:SetTextColor(0.5,0.5,0.5);
+										ConfigCommuNameInChatCheck:Disable();
+										ConfigCommuSpamDetectFrame:SetAlpha(0.5);
+										ConfigCommuHRPDetectFrame:SetAlpha(0.5);
+										ConfigCommuSpamListButton:SetAlpha(0.5);
+										ConfigCommuColorNameCheck:SetAlpha(0.5);
+										ConfigCommuColorNameCheckText:SetTextColor(0.5,0.5,0.5);
+										ConfigCommuColorNameCheck:Disable();
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- Detecteur d'hrp -->
+						<CheckButton name="ConfigCommuHRPDetectCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-110"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Communication"]["HRPDetect"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigCommuHRPDetectCheckText:SetText("OOC chat detection");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("OOC chat detection :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["HRPDETECT"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if this:GetChecked() then
+										ConfigCommuHRPDetectFrame:Show();
+									else
+										ConfigCommuHRPDetectFrame:Hide();
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<EditBox name="ConfigCommuHRPDetectFrame" inherits="SaisieTemplateVerySmall" letters="1" numeric="true">
+							<Size>
+								<AbsDimension x="40" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="125" y="-110"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									if this:GetText() ~= "" and not string.find(this:GetText(),"[1-7]") then
+										this:SetText("");
+									end
+									TRP_Module_Configuration["Modules"]["Communication"]["HRPDetectFrame"] = this:GetText();
+								</OnTextChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Chat Window for OOC :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["HRPDETECTFRAME"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+							</Scripts>
+						</EditBox>
+						<!-- Detecteur d'emote -->
+						<CheckButton name="ConfigCommuEmoteDetectCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-135"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Communication"]["EmoteDetect"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigCommuEmoteDetectCheckText:SetText("Emote Detection");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Emote Detection :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["EMOTEDETECT"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- Detecteur de spam-->
+						<CheckButton name="ConfigCommuSpamDetectCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-160"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Communication"]["SpamDetect"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigCommuSpamDetectCheckText:SetText("Spam Detection");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Spam Detection :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["SPAMDETECT"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if this:GetChecked() then
+										ConfigCommuSpamDetectFrame:Show();
+										ConfigCommuSpamListButton:Show();
+									else
+										ConfigCommuSpamDetectFrame:Hide();
+										ConfigCommuSpamListButton:Hide();
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<EditBox name="ConfigCommuSpamDetectFrame" inherits="SaisieTemplateVerySmall" letters="1" numeric="true">
+							<Size>
+								<AbsDimension x="40" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="125" y="-160"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									if this:GetText() ~= "" and not string.find(this:GetText(),"[1-7]") then
+										this:SetText("");
+									end
+									TRP_Module_Configuration["Modules"]["Communication"]["SpamDetectFrame"] = this:GetText();
+								</OnTextChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Chat Window for Spam :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["SPAMDETECTFRAME"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+							</Scripts>
+						</EditBox>
+						<!-- Nom dans le chat-->
+						<CheckButton name="ConfigCommuNameInChatCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-185"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Communication"]["NameInChat"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigCommuNameInChatCheckText:SetText("Show last names in chat");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Show last names in chat :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["NAMEINCHAT"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<Button name="ConfigCommuSpamListButton" inherits="UIPanelButtonTemplate">
+							<Size>
+								<AbsDimension x="60" y="20"/>
+							</Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="65" y="-160"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									this:SetText("Advance");
+								</OnLoad>
+								<OnClick>
+									ConfigCommuSpamListFrame:Show();
+									ShadeSecondPlan(0.5);
+								</OnClick>
+							</Scripts>
+						</Button>
+						<!-- Color name -->
+						<CheckButton name="ConfigCommuColorNameCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-210"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Communication"]["UseColorName"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigCommuColorNameCheckText:SetText("Colored names in chat");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Colored names in chat :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["NAMECOLOR"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!-- Icone relation -->
+						<CheckButton name="ConfigCommuIconeCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-235"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Communication"]["IconeRelation"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigCommuIconeCheckText:SetText("Relationship Icon in chat");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Relationship Icon in chat :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["ICONRELATION"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</CheckButton>
+						<!--Lore -->
+						<CheckButton name="ConfigCommuLoreFrameCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-280"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Communication"]["LoreFrameCheck"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigCommuLoreFrameCheckText:SetText("Translation in other windows");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Translation in other windows :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["LOREFRAMECHECK"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if Lore_ChatFrame_OnEvent then
+										ConfigCommuLoreFrameCheck:Show();
+										ConfigCommuTitre3:Show();
+										ConfigCommuLoreColorButton:Show();
+										if this:GetChecked() then
+											ConfigCommuLoreFrameEditbox:Show();
+										else
+											ConfigCommuLoreFrameEditbox:Hide();
+										end
+									else
+										ConfigCommuLoreFrameCheck:Hide();
+										ConfigCommuLoreFrameEditbox:Hide();
+										ConfigCommuTitre3:Hide();
+										ConfigCommuLoreColorButton:Hide();
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<EditBox name="ConfigCommuLoreFrameEditbox" inherits="SaisieTemplateVerySmall" letters="1" numeric="true">
+							<Size>
+								<AbsDimension x="40" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="125" y="-280"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									if this:GetText() ~= "" and not string.find(this:GetText(),"[1-7]") then
+										this:SetText("");
+									end
+									TRP_Module_Configuration["Modules"]["Communication"]["LoreFrame"] = this:GetText();
+								</OnTextChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Window for translations :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["LOREFRAMECHECK"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+							</Scripts>
+						</EditBox>
+						<Button name="ConfigCommuLoreColorButton" inherits="UIPanelButtonTemplate">
+							<Size>
+								<AbsDimension x="150" y="20"/>
+							</Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-305"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnUpdate>
+									local tab = TRP_Module_Configuration["Modules"]["Communication"];
+									this:SetText("|cff"..deciToHexa(tab["LoreColorR"])..deciToHexa(tab["LoreColorG"])..deciToHexa(tab["LoreColorB"]).."Color Chooser");
+								</OnUpdate>
+								<OnClick>
+									ColorPickerFrame.func = function() 
+										TRP_Module_Configuration["Modules"]["Communication"]["LoreColorR"],TRP_Module_Configuration["Modules"]["Communication"]["LoreColorG"],TRP_Module_Configuration["Modules"]["Communication"]["LoreColorB"] = ColorPickerFrame:GetColorRGB();
+									end;
+									ColorPickerFrame:SetColorRGB(TRP_Module_Configuration["Modules"]["Communication"]["LoreColorR"],TRP_Module_Configuration["Modules"]["Communication"]["LoreColorG"],TRP_Module_Configuration["Modules"]["Communication"]["LoreColorB"]);
+									ShowUIPanel(ColorPickerFrame);
+								</OnClick>
+							</Scripts>
+						</Button>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANELS  SONS -->
+		<ScrollFrame name="PanelConfigurationPanelSons" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="350" y="400"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="ConfigSonsTitre" inherits="GameFontNormalHuge" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-10"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="ConfigSonsTitre2" inherits="GameFontNormal" justifyH="LEFT">
+								<Size>
+									<AbsDimension x="350" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="15" y="-75"/></Offset></Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!-- Activer Sons  -->
+						<CheckButton name="ConfigSonsActivateCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-45"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Sons"]["Activate"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigSonsActivateCheckText:SetText("Enable TRP sounds");
+									ConfigSonsTitre2:SetText("Sound Settings :");
+									ConfigSonsTitre:SetText(SONSTEXT);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Enable TRP sounds :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["ACTIVATESOUND"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if this:GetChecked() then
+										ConfigSonsTitre2:SetAlpha(1);
+										ConfigSonsAntiSpamCheck:SetAlpha(1);
+										ConfigSonsAntiSpamCheckText:SetTextColor(1,0.85,0);
+										ConfigSonsAntiSpamCheck:Enable();
+										ConfigSonsLogCheck:SetAlpha(1);
+										ConfigSonsLogCheckText:SetTextColor(1,0.85,0);
+										ConfigSonsLogCheck:Enable();
+									else
+										ConfigSonsTitre2:SetAlpha(0.5);
+										ConfigSonsAntiSpamCheck:SetAlpha(0.5);
+										ConfigSonsAntiSpamCheckText:SetTextColor(0.5,0.5,0.5);
+										ConfigSonsAntiSpamCheck:Disable();
+										ConfigSonsLogCheck:SetAlpha(0.5);
+										ConfigSonsLogCheckText:SetTextColor(0.5,0.5,0.5);
+										ConfigSonsLogCheck:Disable();
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<!-- Anti Spam -->
+						<CheckButton name="ConfigSonsAntiSpamCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-90"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Sons"]["AntiSpam"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigSonsAntiSpamCheckText:SetText("Anti-flood Sound");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Anti-flood Sound :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["SONSATFLOOD"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if this:GetChecked() then
+										ConfigSonsAntiSpamTime:Show();
+									else
+										ConfigSonsAntiSpamTime:Hide();
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<EditBox name="ConfigSonsAntiSpamTime" inherits="SaisieTemplateVerySmall" letters="2" numeric="true">
+							<Size>
+								<AbsDimension x="40" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="125" y="-90"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									if this:GetText() and this:GetText() ~= "" then
+										TRP_Module_Configuration["Modules"]["Sons"]["AntiSpamCooldown"] = tonumber(this:GetText());
+									else
+										TRP_Module_Configuration["Modules"]["Sons"]["AntiSpamCooldown"] = 0;
+									end
+								</OnTextChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Waiting time between each sound  :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["SONSCOOLDOWN"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+							</Scripts>
+						</EditBox>
+						<!-- Journal -->
+						<CheckButton name="ConfigSonsLogCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="-100" y="-115"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									TRP_Module_Configuration["Modules"]["Sons"]["Log"] = (this:GetChecked() == 1);
+								</OnClick>
+								<OnLoad>
+									ConfigSonsLogCheckText:SetText("Sound Log");
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Sound Log :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["SONSLOG"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnUpdate>
+									if this:GetChecked() then
+										ConfigSonsLogFrame:Show();
+									else
+										ConfigSonsLogFrame:Hide();
+									end
+								</OnUpdate>
+							</Scripts>
+						</CheckButton>
+						<EditBox name="ConfigSonsLogFrame" inherits="SaisieTemplateVerySmall" letters="1" numeric="true">
+							<Size>
+								<AbsDimension x="40" y="18"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP"><Offset><AbsDimension x="125" y="-115"/></Offset></Anchor>
+							</Anchors>
+							<Scripts>
+								<OnTextChanged>
+									if this:GetText() ~= "" and not string.find(this:GetText(),"[1-7]") then
+										this:SetText("");
+									end
+									TRP_Module_Configuration["Modules"]["Sons"]["LogFrame"] = this:GetText();
+								</OnTextChanged>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+									GameTooltip:AddLine("Sound Log Chat window :",1,0.75,0);
+									GameTooltip:AddLine(" ",1,0.75,0);
+									decouperForTooltip(TRPCheckOptionTooltip["SONSLOGFRAME"],35,1,1,1);
+									GameTooltip:Show();
+								</OnEnter>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+							</Scripts>
+						</EditBox>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+	</Frames>
+</Frame>
+
+<Frame name="ConfigCommuSpamListFrame" toplevel="true" parent="MenuPrincipal" enableMouse="true" hidden="true">
+	<Size x="250" y="250"/>
+	<Anchors>
+		<Anchor point="CENTER"><Offset><AbsDimension x="0" y="-250"/></Offset></Anchor>
+	</Anchors>
+	<Backdrop bgFile="Interface\Tooltips\ChatBubble-Background" edgeFile="Interface\Tooltips\ChatBubble-Backdrop" tile="true">
+		<EdgeSize>
+			<AbsValue val="16"/>
+		</EdgeSize>
+		<TileSize>
+			<AbsValue val="32"/>
+		</TileSize>
+		<BackgroundInsets>
+			<AbsInset left="5" right="5" top="5" bottom="5"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Frames>
+		<ScrollFrame name="NomBidonAMonScroll" inherits="UIPanelScrollFrameTemplate">
+			<Backdrop bgFile="Interface\Tooltips\ChatBubble-Background" edgeFile="Interface\Tooltips\ChatBubble-Backdrop" tile="true">
+				<EdgeSize>
+					<AbsValue val="16"/>
+				</EdgeSize>
+				<TileSize>
+					<AbsValue val="32"/>
+				</TileSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Size>
+				<AbsDimension x="200" y="200"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("List of words considered as Spam :",1,0.75,0);
+					GameTooltip:AddLine(" ",1,0.75,0);
+					decouperForTooltip(TRPCheckOptionTooltip["SPAMLISTEXPLAIN"],35,1,1,1);
+					GameTooltip:AddLine(" ",1,0.75,0);
+					decouperForTooltip(TRPCheckOptionTooltip["SPAMLISTEXPLAINB"],35,1,1,1);
+					GameTooltip:Show();
+					ConfigCommuSpamListFrameEditbox:SetFocus();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide();
+				</OnLeave>
+			</Scripts>
+			<ScrollChild>
+				<EditBox name="ConfigCommuSpamListFrameEditbox" multiLine="true" topLevel="false" enableMouse="false" autoFocus="false">
+					<Size>
+						<AbsDimension x="200" y="200"/>
+					</Size>
+					<Scripts>
+						<OnTextChanged>
+							TRP_Module_Configuration["Modules"]["Communication"]["SpamDetectList"] = this:GetText();
+						</OnTextChanged>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine("List of words considered as Spam :",1,0.75,0);
+							GameTooltip:AddLine(" ",1,0.75,0);
+							decouperForTooltip(TRPCheckOptionTooltip["SPAMLISTEXPLAIN"],35,1,1,1);
+							GameTooltip:AddLine(" ",1,0.75,0);
+							decouperForTooltip(TRPCheckOptionTooltip["SPAMLISTEXPLAINB"],35,1,1,1);
+							GameTooltip:Show();
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide();
+						</OnLeave>
+						<OnEscapePressed>
+							ConfigCommuSpamListFrame:Hide();
+							ShadeSecondPlan(1);
+						</OnEscapePressed>
+					</Scripts>
+					<FontString inherits="GameFontNormal" justifyH="CENTER">
+						<Color r="0.95" g="0.95" b="0.95"/>
+					</FontString>
+				</EditBox>
+			</ScrollChild>
+		</ScrollFrame>
+	</Frames>
+</Frame>
+
+</Ui>

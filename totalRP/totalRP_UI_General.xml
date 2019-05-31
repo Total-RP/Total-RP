@@ -1,0 +1,3254 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+
+<!-- TEMPLATE PAGE DES PANELS DU PERSONNAGE -->
+<Frame name="FicheJoueurTemplate" virtual="true">
+	<Size>
+		<AbsDimension x="512" y="512"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER"/>
+	</Anchors>
+	
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture name="FicheJoueurFond" file="Interface\Stationery\Stationery_UC1">
+				<Size>
+					<AbsDimension x="425" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-42" y="-2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture name="FicheJoueurFondDroite" file="Interface\Stationery\Stationery_UC2">
+				<Size>
+					<AbsDimension x="112" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="225" y="-2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="590" y="870"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="15" y="-155"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+		</Layer>
+		<Layer level="OVERLAY">
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="TOPRIGHT">
+					<Offset>
+						<AbsDimension x="0" y="-10"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					MenuPrincipal:Hide();
+					FicheJoueur:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+		<!-- Frame d'aide -->
+		<Frame name="TRPAideFrame">
+			<Size>
+				<AbsDimension x="100" y="100"/> 
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER"><Offset><AbsDimension x="400" y="0"/></Offset></Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\Stationery\Stationery_ill1">
+						<Size>
+							<AbsDimension x="275" y="384"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+						</Anchors>
+						<TexCoords left="0" right="1" top="0" bottom="0.75"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="310" y="650"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="10" y="-107"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="OVERLAY">
+					<FontString name="AideCreaObjText" inherits="GameFontNormalLarge" justifyH="CENTER">
+						<Size>
+							<AbsDimension x="250" y="0"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER"><Offset><AbsDimension x="0" y="175"/></Offset></Anchor>
+						</Anchors>
+						<Color r="0.95" g="0.95" b="0.95"/>
+					</FontString>
+				</Layer>
+			</Layers>
+			<Frames>
+				<Button inherits="UIPanelCloseButton">
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="-170"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnClick>
+							TRPAideFrame:Hide();
+						</OnClick>
+					</Scripts>
+				</Button>
+				<!-- Aide scroll  -->
+				<ScrollFrame name="CreaObjScrollAide" inherits="UIPanelScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="250" y="300"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<ScrollChild>
+						<EditBox name="CreaObjScrollAideText" letters="0" multiLine="true" enableMouse="false" autoFocus="false">
+							<Size>
+								<AbsDimension x="250" y="300"/>
+							</Size>
+							<Scripts>
+								<OnEditFocusGained>
+									this:ClearFocus();
+								</OnEditFocusGained>
+							</Scripts>
+							<FontString inherits="GameFontNormalSmall" justifyH="CENTER">
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</EditBox>
+					</ScrollChild>
+				</ScrollFrame>
+			</Frames>
+		</Frame>
+	</Frames>
+</Frame>
+
+<!-- PAGE DES PANELS DU JOUEUR  -->
+<Frame name="FicheJoueur" inherits="FicheJoueurTemplate" toplevel="true" parent="UIParent" movable="false" enableMouse="false" hidden="true">
+	<TitleRegion setAllPoints="true"/>
+	<Size>
+		<AbsDimension x="512" y="512"/>
+	</Size>
+	<Anchors>
+	    <Anchor point="TOP" relativeTo="MenuPrincipal" relativePoint="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-40"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	
+	<Frames>
+		<Frame name="FichePrincipaleFrames">
+			<Size><AbsDimension x="512" y="512"/></Size>
+			<Anchors><Anchor point="CENTER"/></Anchors>
+			<Frames>
+				<!-- PANELS FICHE  -->
+				<Frame name="FicheJoueurPanelFiche" inherits="FicheJoueurPanelRegistreTemplate">
+					<Size>
+						<AbsDimension x="512" y="512"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Frame>
+				<!-- PANELS INVENTAIRE  -->
+				<Frame name="FicheJoueurPanelInventaire" inherits="FicheJoueurPanelInventaireTemplate">
+					<Size>
+						<AbsDimension x="512" y="512"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Frame>
+				<!-- PANELS REGISTRE  -->
+				<Frame name="FicheJoueurPanelRegistre" inherits="RegistreFichePersonnage">
+					<Size>
+						<AbsDimension x="512" y="512"/>
+					</Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-25"/></Offset></Anchor></Anchors>
+				</Frame>
+				<!-- PANELS REGISTRE  -->
+				<Frame name="FicheJoueurPanelDocuments" inherits="PanelDocumentsFrame">
+					<Size>
+						<AbsDimension x="512" y="512"/>
+					</Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+				</Frame>
+				<!-- PANELS CONFIGURATION  -->
+				<Frame name="FicheJoueurPanelConfiguration" inherits="PanelConfigurationFrame">
+					<Size>
+						<AbsDimension x="512" y="512"/>
+					</Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+					
+					<Frames>
+						
+					</Frames>
+				</Frame>
+			</Frames>
+		</Frame>
+	</Frames>
+</Frame>
+
+<!-- BOITE D'INFO  -->
+<Frame name="InfoBox" inherits="InfoBoxTemplate" toplevel="true" parent="MenuPrincipal" enableMouse="true" hidden="true" movable="false">
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Scripts>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+	</Scripts>
+</Frame>
+
+<!-- Save Template -->
+<Frame name="SavePersonnage" toplevel="true" parent="MenuPrincipal" enableMouse="true" hidden="true" movable="false">
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="350" y="250"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="400" y="425"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-70"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="260" y="175"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="3" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="300" y="300"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-45"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString inherits="GameFontNormalHuge" justifyH="CENTER" text="Save Profile">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="110"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button inherits="UIPanelButtonTemplate" text="Ok">
+			<Size>
+				<AbsDimension x="50" y="30"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-100"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					SavePersonnage:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="SavePersoSlot1" inherits="UIPanelButtonTemplate" text="1 : Empty">
+			<Size>
+				<AbsDimension x="120" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="70"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["1"]["Prenom"] then
+						SavePersonnage:Hide();
+						StaticPopupDialogs["TRP_ECRASE_SLOT"].text = setTRPColorToString(TRP_ENTETE.." \n "..ENREGISTRER.." :\n\n"..ERASEPERSO);
+						TRP_ShowStaticPopup("TRP_ECRASE_SLOT",nil,nil,"1");
+					else
+						TRP_ShowStaticPopup("TRP_SAVE_PERSO",nil,nil,"1");
+					end
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_CURSOR");
+					GameTooltip:AddLine(getInfoSaveNum("1"), 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="SavePersoSlot2" inherits="UIPanelButtonTemplate" text="2 : Empty">
+			<Size>
+				<AbsDimension x="120" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="40"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["2"]["Prenom"] then
+						SavePersonnage:Hide();
+						StaticPopupDialogs["TRP_ECRASE_SLOT"].text = setTRPColorToString(TRP_ENTETE.." \n "..ENREGISTRER.." :\n\n"..ERASEPERSO);
+						TRP_ShowStaticPopup("TRP_ECRASE_SLOT",nil,nil,"2");
+					else
+						TRP_ShowStaticPopup("TRP_SAVE_PERSO",nil,nil,"2");
+					end
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_CURSOR");
+					GameTooltip:AddLine(getInfoSaveNum("2"), 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="SavePersoSlot3" inherits="UIPanelButtonTemplate" text="3 : Empty">
+			<Size>
+				<AbsDimension x="120" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="10"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["3"]["Prenom"] then
+						SavePersonnage:Hide();
+						StaticPopupDialogs["TRP_ECRASE_SLOT"].text = setTRPColorToString(TRP_ENTETE.." \n "..ENREGISTRER.." :\n\n"..ERASEPERSO);
+						TRP_ShowStaticPopup("TRP_ECRASE_SLOT",nil,nil,"3");
+					else
+						TRP_ShowStaticPopup("TRP_SAVE_PERSO",nil,nil,"3");
+					end
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_CURSOR");
+					GameTooltip:AddLine(getInfoSaveNum("3"), 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="SavePersoSlot4" inherits="UIPanelButtonTemplate" text="4 : Empty">
+			<Size>
+				<AbsDimension x="120" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-20"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["4"]["Prenom"] then
+						SavePersonnage:Hide();
+						StaticPopupDialogs["TRP_ECRASE_SLOT"].text = setTRPColorToString(TRP_ENTETE.." \n "..ENREGISTRER.." :\n\n"..ERASEPERSO);
+						TRP_ShowStaticPopup("TRP_ECRASE_SLOT",nil,nil,"4");
+					else
+						TRP_ShowStaticPopup("TRP_SAVE_PERSO",nil,nil,"4");
+					end
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_CURSOR");
+					GameTooltip:AddLine(getInfoSaveNum("4"), 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="SavePersoSlot5" inherits="UIPanelButtonTemplate" text="5 : Empty">
+			<Size>
+				<AbsDimension x="120" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-50"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					if TRP_Module_PlayerInfo[Royaume][Joueur]["Sauvegarde"]["5"]["Prenom"] then
+						SavePersonnage:Hide();
+						StaticPopupDialogs["TRP_ECRASE_SLOT"].text = setTRPColorToString(TRP_ENTETE.." \n "..ENREGISTRER.." :\n\n"..ERASEPERSO);
+						TRP_ShowStaticPopup("TRP_ECRASE_SLOT",nil,nil,"5");
+					else
+						TRP_ShowStaticPopup("TRP_SAVE_PERSO",nil,nil,"5");
+					end
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_CURSOR");
+					GameTooltip:AddLine(getInfoSaveNum("5"), 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnShow>
+			AfficheSavePerso();
+		</OnShow>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+	</Scripts>
+</Frame>
+
+<!-- Load Template -->
+<Frame name="LoadPersonnage" toplevel="true" parent="MenuPrincipal" enableMouse="true" hidden="true" movable="false">
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="350" y="250"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="400" y="425"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-70"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="260" y="175"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="3" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="300" y="300"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-45"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString inherits="GameFontNormalHuge" justifyH="CENTER" text="Load Profile">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="110"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button inherits="UIPanelButtonTemplate" text="Ok">
+			<Size>
+				<AbsDimension x="50" y="30"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-100"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					LoadPersonnage:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="LoadPersoSlot1" inherits="UIPanelButtonTemplate" text="1 : Empty">
+			<Size>
+				<AbsDimension x="120" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="70"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					LoadPerso("1")
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_CURSOR");
+					GameTooltip:AddLine(getInfoSaveNum("1"), 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="LoadPersoSlot2" inherits="UIPanelButtonTemplate" text="2 : Empty">
+			<Size>
+				<AbsDimension x="120" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="40"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					LoadPerso("2")
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_CURSOR");
+					GameTooltip:AddLine(getInfoSaveNum("2"), 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="LoadPersoSlot3" inherits="UIPanelButtonTemplate" text="3 : Empty">
+			<Size>
+				<AbsDimension x="120" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="10"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					LoadPerso("3")
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_CURSOR");
+					GameTooltip:AddLine(getInfoSaveNum("3"), 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="LoadPersoSlot4" inherits="UIPanelButtonTemplate" text="4 : Empty">
+			<Size>
+				<AbsDimension x="120" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-20"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					LoadPerso("4")
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_CURSOR");
+					GameTooltip:AddLine(getInfoSaveNum("4"), 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="LoadPersoSlot5" inherits="UIPanelButtonTemplate" text="5 : Empty">
+			<Size>
+				<AbsDimension x="120" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-50"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					LoadPerso("5")
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_CURSOR");
+					GameTooltip:AddLine(getInfoSaveNum("5"), 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnShow>
+			AfficheLoadPerso();
+		</OnShow>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+	</Scripts>
+</Frame>
+
+<!-- PANEL Choix Icones-->
+<Frame name="TRPListeIcones" toplevel="true" parent="MenuPrincipal" enableMouse="true" enableMouseWheel="true" hidden="true" >
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="450" y="400"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-5" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="365" y="325"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="420" y="550"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-75"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="515" y="675"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-100"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="PanelListeIconeTitre" inherits="GameFontNormalLarge" justifyH="CENTER">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="195"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeIconesSaisie" inherits="NumberFontNormal" justifyH="RIGHT" hidden="true">
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-6" y="-6"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeIconesRecherche" inherits="NumberFontNormal" justifyH="LEFT">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-100" y="-160"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeIconesEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="ListeIconesSlot1" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot2" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot3" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot4" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot5" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot6" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot7" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot8" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot9" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot10" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot11" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot12" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot13" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot14" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot15" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot16" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot17" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot18" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot19" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot20" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot21" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot22" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot23" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot24" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot25" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot26" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot27" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot28" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot29" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot30" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot31" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot32" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot33" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot34" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot35" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot36" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot37" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot38" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot39" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot40" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot41" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeIconesSlot42" inherits="IconeSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Slider name="ListeIconesSlider" inherits="OptionsSliderTemplate">
+			<Size>
+				<AbsDimension x="15" y="300"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="185" y="15"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnLoad>
+					ListeIconesSliderText:SetText("");
+					ListeIconesSliderHigh:SetText("");
+					ListeIconesSliderLow:SetText("");
+					this:SetMinMaxValues(0, 6);
+					this:SetValueStep(1);
+					this:SetOrientation("VERTICAL");
+				</OnLoad>
+				<OnValueChanged>
+					if this:IsVisible() then
+						ChargerSliderListeIcones(this:GetValue());
+					end
+				</OnValueChanged>
+			</Scripts>
+		</Slider>
+		<EditBox name="TRPIconeListHideSaisie" letters="0" multiLine="true" enableMouse="false" autoFocus="false" hidden="true">
+			<Size>
+				<AbsDimension x="270" y="68"/>
+			</Size>
+			<Scripts>
+				<OnEscapePressed>
+					TRPListeIcones:Hide();
+				</OnEscapePressed>
+			</Scripts>
+			<FontString inherits="ChatFontNormal"/>
+		</EditBox>
+		<EditBox name="TRPIconeListRecherche" inherits="SaisieTemplateSmall" autofocus="true">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-160"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					if this:IsVisible() then
+						calculerListeIcone();
+					end
+				</OnTextChanged>
+				<OnEscapePressed>
+					TRPListeIcones:Hide();
+				</OnEscapePressed>
+			</Scripts>
+		</EditBox>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="205" y="195"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					TRPListeIcones:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnMouseWheel>
+			
+		</OnMouseWheel>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+	</Scripts>
+</Frame>
+
+<!-- PANEL Commentaire box -->
+<Frame name="CommentaireBox" inherits="CommentaireBoxTemplate" toplevel="true" parent="MenuPrincipal" enableMouse="true" hidden="true">
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Scripts>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+	</Scripts>
+</Frame>
+
+<!-- PANEL Choix Icones-->
+<Frame name="TRPListeObjets" toplevel="true" parent="MenuPrincipal" enableMouse="true" enableMouseWheel="true" hidden="true" >
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="450" y="400"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-5" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="365" y="325"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="420" y="550"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-75"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="515" y="675"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-100"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="PanelListeObjetTitre" inherits="GameFontNormalLarge" justifyH="CENTER" text="Choose an item :">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="195"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeObjetsSaisie" inherits="NumberFontNormal" justifyH="RIGHT" hidden="true">
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-6" y="-6"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeObjetsRecherche" inherits="NumberFontNormal" justifyH="LEFT" text="Search">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-100" y="-160"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeObjetsEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER" text="No Item">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="ListeObjetsSlot1" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot2" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot3" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot4" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot5" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot6" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot7" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot8" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot9" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot10" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot11" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot12" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot13" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot14" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot15" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot16" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot17" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot18" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot19" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot20" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot21" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot22" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot23" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot24" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot25" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot26" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot27" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot28" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot29" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot30" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot31" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot32" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot33" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot34" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot35" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot36" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot37" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot38" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot39" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot40" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot41" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeObjetsSlot42" inherits="ObjetSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Slider name="ListeObjetsSlider" inherits="OptionsSliderTemplate">
+			<Size>
+				<AbsDimension x="15" y="300"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="185" y="15"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnLoad>
+					ListeObjetsSliderText:SetText("");
+					ListeObjetsSliderHigh:SetText("");
+					ListeObjetsSliderLow:SetText("");
+					this:SetMinMaxValues(0, 6);
+					this:SetValueStep(1);
+					this:SetOrientation("VERTICAL");
+				</OnLoad>
+				<OnValueChanged>
+					if this:IsVisible() then
+						ChargerSliderListeObjets(this:GetValue());
+					end
+				</OnValueChanged>
+			</Scripts>
+		</Slider>
+		<EditBox name="TRPObjetListHideSaisie" letters="0" multiLine="true" enableMouse="false" autoFocus="false" hidden="true">
+			<Size>
+				<AbsDimension x="270" y="68"/>
+			</Size>
+			<Scripts>
+				<OnEscapePressed>
+					TRPListeObjets:Hide();
+				</OnEscapePressed>
+			</Scripts>
+			<FontString inherits="ChatFontNormal"/>
+		</EditBox>
+		<EditBox name="TRPObjetListRecherche" inherits="SaisieTemplateSmall" autofocus="true">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-160"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					if this:IsVisible() then
+						calculerListeObjet();
+					end
+				</OnTextChanged>
+				<OnEscapePressed>
+					TRPListeObjets:Hide();
+				</OnEscapePressed>
+			</Scripts>
+		</EditBox>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="205" y="195"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					TRPListeObjets:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnMouseWheel>
+			
+		</OnMouseWheel>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+	</Scripts>
+</Frame>
+
+<!-- PANEL Choix Icones-->
+<Frame name="TRPListeDocuments" toplevel="true" parent="MenuPrincipal" enableMouse="true" enableMouseWheel="true" hidden="true" >
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="450" y="400"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-5" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="365" y="325"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="420" y="550"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-75"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="515" y="675"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-100"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="PanelListeDocumentTitre" inherits="GameFontNormalLarge" justifyH="CENTER" text="Choose a document :">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="195"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeDocumentsSaisie" inherits="NumberFontNormal" justifyH="RIGHT" hidden="true">
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-6" y="-6"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeDocumentsRecherche" inherits="NumberFontNormal" justifyH="LEFT" text="Search">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-100" y="-160"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeDocumentsEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER" text="No Document">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="ListeDocumentsSlot1" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot2" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot3" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot4" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot5" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot6" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot7" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot8" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot9" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot10" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot11" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot12" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot13" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot14" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot15" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot16" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot17" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot18" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot19" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot20" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot21" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot22" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot23" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot24" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot25" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot26" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot27" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot28" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot29" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot30" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot31" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot32" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot33" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot34" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot35" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot36" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot37" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot38" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot39" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot40" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot41" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeDocumentsSlot42" inherits="DocumentSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Slider name="ListeDocumentsSlider" inherits="OptionsSliderTemplate">
+			<Size>
+				<AbsDimension x="15" y="300"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="185" y="15"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnLoad>
+					ListeDocumentsSliderText:SetText("");
+					ListeDocumentsSliderHigh:SetText("");
+					ListeDocumentsSliderLow:SetText("");
+					this:SetMinMaxValues(0, 6);
+					this:SetValueStep(1);
+					this:SetOrientation("VERTICAL");
+				</OnLoad>
+				<OnValueChanged>
+					if this:IsVisible() then
+						ChargerSliderListeDocuments(this:GetValue());
+					end
+				</OnValueChanged>
+			</Scripts>
+		</Slider>
+		<EditBox name="TRPDocumentListHideSaisie" letters="0" multiLine="true" enableMouse="false" autoFocus="false" hidden="true">
+			<Size>
+				<AbsDimension x="270" y="68"/>
+			</Size>
+			<Scripts>
+				<OnEscapePressed>
+					TRPListeDocuments:Hide();
+				</OnEscapePressed>
+			</Scripts>
+			<FontString inherits="ChatFontNormal"/>
+		</EditBox>
+		<EditBox name="TRPDocumentListRecherche" inherits="SaisieTemplateSmall" autofocus="true">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-160"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					if this:IsVisible() then
+						calculerListeDocument();
+					end
+				</OnTextChanged>
+				<OnEscapePressed>
+					TRPListeDocuments:Hide();
+				</OnEscapePressed>
+			</Scripts>
+		</EditBox>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="205" y="195"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					TRPListeDocuments:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnMouseWheel>
+			
+		</OnMouseWheel>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+	</Scripts>
+</Frame>
+
+<!-- Panel Consulter  -->
+<Frame name="PanelDocumentsConsulte" toplevel="true" parent="MenuPrincipal" enableMouse="true" enableMouseWheel="true" hidden="true" >
+	<Size><AbsDimension x="330" y="440"/></Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-285"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture name="DocumentFond1" file="Interface\Stationery\StationeryTest1">
+				<Size>
+					<AbsDimension x="256" y="256"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER"><Offset><AbsDimension x="-25" y="35"/></Offset></Anchor>
+				</Anchors>
+			</Texture>
+			<Texture name="DocumentFond2" file="Interface\Stationery\StationeryTest2">
+				<Size>
+					<AbsDimension x="64" y="256"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER"><Offset><AbsDimension x="135" y="35"/></Offset></Anchor>
+				</Anchors>
+			</Texture>
+			<Texture name="DocumentFond3" file="Interface\Stationery\StationeryTest1">
+				<Size>
+					<AbsDimension x="256" y="128"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER"><Offset><AbsDimension x="-25" y="-157"/></Offset></Anchor>
+				</Anchors>
+				<TexCoords left="0" right="1" top="0" bottom="0.5"/>
+			</Texture>
+			<Texture name="DocumentFond4" file="Interface\Stationery\StationeryTest2">
+				<Size>
+					<AbsDimension x="64" y="128"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER"><Offset><AbsDimension x="135" y="-157"/></Offset></Anchor>
+				</Anchors>
+				<TexCoords left="0" right="1" top="0" bottom="0.5"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="345" y="655"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="8" y="-138"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+
+		</Layer>
+	</Layers>
+	<Frames>
+		<Frame name="PanelDocumentImagesFrame">
+			<Size><AbsDimension x="330" y="440"/></Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture name="DocumentImage1" file="">
+						<Size>
+							<AbsDimension x="256" y="256"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture name="DocumentImage2" file="">
+						<Size>
+							<AbsDimension x="256" y="256"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="ARTWORK">
+					<Texture name="DocumentImage3" file="">
+						<Size>
+							<AbsDimension x="256" y="256"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="OVERLAY">
+					<FontString name="PanelDocumentConsulteTitre1" inherits="GameFontNormalLarge" justifyH="CENTER">
+						<Size><AbsDimension x="300" y="200"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="125"/></Offset></Anchor></Anchors>
+						<Color r="1" g="1" b="1"/>
+					</FontString>
+					<FontString name="PanelDocumentConsulteAuteur1" inherits="GameFontNormalLarge" justifyH="LEFT">
+						<Size><AbsDimension x="300" y="200"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-180"/></Offset></Anchor></Anchors>
+						<Color r="1" g="1" b="1"/>
+					</FontString>
+					<FontString name="PanelDocumentConsulteTitreCache" inherits="GameFontNormalLarge" justifyH="LEFT" hidden="true">
+						<Size><AbsDimension x="300" y="200"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-180"/></Offset></Anchor></Anchors>
+						<Color r="1" g="1" b="1"/>
+					</FontString>
+				</Layer>
+			</Layers>
+			<Frames>
+			
+			</Frames>
+		</Frame>
+		<ScrollFrame name="PanelDocumentConsulteScroll" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="270" y="250"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="2" y="-25"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<EditBox name="PanelDocumentConsulteScrollText" multiLine="true" enableMouse="false" autoFocus="false">
+					<Size>
+						<AbsDimension x="270" y="250"/>
+					</Size>
+					<Scripts>
+						<OnEditFocusGained>
+							PanelDocumentConsulteScrollText:ClearFocus();
+						</OnEditFocusGained>
+					</Scripts>
+					<FontString inherits="GameFontNormal">
+						<Color r="0.95" g="0.95" b="0.95"/>
+					</FontString>
+				</EditBox>
+			</ScrollChild>
+		</ScrollFrame>
+		<Button name="DocuConsulteClose" inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="140" y="155"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					PanelDocumentsConsulte:Hide();
+				</OnClick>
+				<OnShow>
+					DocuConsulteClose:SetAlpha(0.5);
+				</OnShow>
+				<OnEnter>
+					DocuConsulteClose:SetAlpha(1);
+				</OnEnter>
+				<OnLeave>
+					DocuConsulteClose:SetAlpha(0.5);
+				</OnLeave>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnMouseWheel>
+			
+		</OnMouseWheel>
+		<OnHide>
+			ShadeSecondPlan(1);
+			FicheJoueurPanelTitle:SetText(PanelDocumentConsulteTitreCache:GetText());
+		</OnHide>
+		<OnShow>
+			ShadeSecondPlan(0.5);
+		</OnShow>
+	</Scripts>
+</Frame>
+
+<!-- BOITE D'INFO Template -->
+<Frame name="SendMailBox" toplevel="true" parent="MenuPrincipal" enableMouse="true" hidden="true">
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Scripts>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+		<OnShow>
+			ShadeSecondPlan(0.5);
+		</OnShow>
+	</Scripts>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="350" y="250"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="400" y="425"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-70"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString inherits="GameFontNormalHuge" justifyH="CENTER" text="Prepare a package">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="110"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString inherits="GameFontNormal" justifyH="CENTER" text="Send to">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="75"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString inherits="GameFontNormal" justifyH="CENTER" text="Quantity">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="40"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString inherits="GameFontNormal" justifyH="CENTER" text="Comment">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString name="SendMailBoxMax" inherits="GameFontNormal" justifyH="CENTER" text="" hidden="true">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString name="SendMailBoxSlot" inherits="GameFontNormal" justifyH="CENTER" text="" hidden="true">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString name="SendMailBoxID" inherits="GameFontNormal" justifyH="CENTER" text="" hidden="true">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="$parentOK" inherits="UIPanelButtonTemplate" text="OK">
+			<Size>
+				<AbsDimension x="50" y="30"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-100"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					proceedEnvoiCourrier();
+				</OnClick>
+			</Scripts>
+		</Button>
+		<EditBox name="EnvoiCourrierSaisieDestinataire" inherits="SaisieTemplateSmall" multiLine="false" enableMouse="false" autoFocus="false">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="60"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnEditFocusGained>
+					OpenListePersonnages("EnvoiCourrierSaisieDestinataire");
+				</OnEditFocusGained>
+			</Scripts>
+			<FontString inherits="GameFontNormal" justifyH="CENTER">
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</EditBox>
+		<EditBox name="EnvoiCourrierSaisieQte" inherits="SaisieTemplateVerySmall" multiLine="false" enableMouse="false" autoFocus="false" numeric="true" letters="3">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="25"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					if tonumber(this:GetText()) ~= nil and tonumber(this:GetText()) > tonumber(SendMailBoxMax:GetText()) then
+						this:SetText(SendMailBoxMax:GetText());
+					end
+				</OnTextChanged>
+				<OnEscapePressed>
+					SendMailBox:Hide();
+				</OnEscapePressed>
+			</Scripts>
+			<FontString inherits="GameFontNormal" justifyH="CENTER">
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</EditBox>
+		<EditBox name="EnvoiCourrierSaisieCommentaire" inherits="SaisieTemplate" multiLine="false" enableMouse="false" autoFocus="false">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-10"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					if string.len(this:GetText()) > 200 then
+						this:SetText(string.sub(this:GetText(),1,200));
+					end
+				</OnTextChanged>
+				<OnEscapePressed>
+					SendMailBox:Hide();
+				</OnEscapePressed>
+			</Scripts>
+			<FontString inherits="GameFontNormal" justifyH="CENTER">
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</EditBox>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="160" y="110"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					SendMailBox:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+</Frame>
+
+<!-- PANEL Choix Icones-->
+<Frame name="TRPListePersonnages" toplevel="true" parent="MenuPrincipal" enableMouse="true" enableMouseWheel="true" hidden="true" >
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="450" y="400"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-5" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="365" y="325"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="420" y="550"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-75"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="515" y="675"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-100"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="PanelListePersonnagesTitre" inherits="GameFontNormalLarge" justifyH="CENTER" text="Choose a character :">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="195"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListePersonnagesSaisie" inherits="NumberFontNormal" justifyH="RIGHT" hidden="true">
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-6" y="-6"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListePersonnagesRecherche" inherits="NumberFontNormal" justifyH="LEFT" text="Search">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-100" y="-160"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListePersonnagesEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER" text="No Character">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListePersonnagesType" inherits="NumberFontNormalHuge" justifyH="CENTER" hidden="true">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="ListePersonnagesSlot1" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot2" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot3" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot4" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot5" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot6" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot7" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot8" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot9" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot10" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot11" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot12" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot13" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot14" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot15" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot16" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot17" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot18" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot19" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot20" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot21" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot22" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot23" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot24" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot25" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot26" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot27" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot28" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot29" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot30" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot31" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot32" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot33" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot34" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot35" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot36" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot37" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot38" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot39" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot40" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot41" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListePersonnagesSlot42" inherits="PersonnageSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Slider name="ListePersonnagesSlider" inherits="OptionsSliderTemplate">
+			<Size>
+				<AbsDimension x="15" y="300"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="185" y="15"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnLoad>
+					ListePersonnagesSliderText:SetText("");
+					ListePersonnagesSliderHigh:SetText("");
+					ListePersonnagesSliderLow:SetText("");
+					this:SetMinMaxValues(0, 6);
+					this:SetValueStep(1);
+					this:SetOrientation("VERTICAL");
+				</OnLoad>
+				<OnValueChanged>
+					if this:IsVisible() then
+						ChargerSliderListePersonnages(this:GetValue());
+					end
+				</OnValueChanged>
+			</Scripts>
+		</Slider>
+		<EditBox name="TRPPersonnageListHideSaisie" letters="0" multiLine="true" enableMouse="false" autoFocus="false" hidden="true">
+			<Size>
+				<AbsDimension x="270" y="68"/>
+			</Size>
+			<Scripts>
+				<OnEscapePressed>
+					TRPListePersonnages:Hide();
+				</OnEscapePressed>
+			</Scripts>
+			<FontString inherits="ChatFontNormal"/>
+		</EditBox>
+		<EditBox name="TRPPersonnageListRecherche" inherits="SaisieTemplateSmall" autofocus="true">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-160"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					if this:IsVisible() then
+						calculerListePersonnage();
+					end
+				</OnTextChanged>
+				<OnEscapePressed>
+					TRPListePersonnages:Hide();
+				</OnEscapePressed>
+			</Scripts>
+		</EditBox>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="205" y="195"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					TRPListePersonnages:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnMouseWheel>
+			
+		</OnMouseWheel>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+	</Scripts>
+</Frame>
+
+<!-- BOITE D'INFO Template -->
+<Frame name="SendPersoBox" toplevel="true" parent="MenuPrincipal" enableMouse="true" hidden="true">
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Scripts>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+		<OnShow>
+			ShadeSecondPlan(0.5);
+		</OnShow>
+	</Scripts>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="350" y="250"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="400" y="425"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-70"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString inherits="GameFontNormalHuge" justifyH="CENTER" text="Send to one of your characters of the same realm">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="95"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString inherits="GameFontNormal" justifyH="CENTER" text="Send to">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString inherits="GameFontNormal" justifyH="CENTER" text="Quantity">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString name="SendPersoBoxMax" inherits="GameFontNormal" justifyH="CENTER" text="" hidden="true">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString name="SendPersoBoxSlot" inherits="GameFontNormal" justifyH="CENTER" text="" hidden="true">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString name="SendPersoBoxID" inherits="GameFontNormal" justifyH="CENTER" text="" hidden="true">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+			<FontString name="SendPersoBoxRoyaume" inherits="GameFontNormal" justifyH="CENTER" text="" hidden="true">
+				<Size>
+					<AbsDimension x="300" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="$parentOK" inherits="UIPanelButtonTemplate" text="OK">
+			<Size>
+				<AbsDimension x="50" y="30"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-100"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					proceedEnvoiPerso();
+				</OnClick>
+			</Scripts>
+		</Button>
+		<EditBox name="EnvoiPersoSaisieDestinataire" inherits="SaisieTemplateSmall" multiLine="false" enableMouse="false" autoFocus="false">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="15"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnEditFocusGained>
+					OpenListePersonnages("EnvoiPersoSaisieDestinataire",true);
+				</OnEditFocusGained>
+			</Scripts>
+			<FontString inherits="GameFontNormal" justifyH="CENTER">
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</EditBox>
+		<EditBox name="EnvoiPersoSaisieQte" inherits="SaisieTemplateVerySmall" multiLine="false" enableMouse="false" autoFocus="false" numeric="true" letters="3">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-35"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					if tonumber(this:GetText()) ~= nil and tonumber(this:GetText()) > tonumber(SendPersoBoxMax:GetText()) then
+						this:SetText(SendPersoBoxMax:GetText());
+					end
+				</OnTextChanged>
+				<OnEscapePressed>
+					SendPersoBox:Hide();
+				</OnEscapePressed>
+			</Scripts>
+			<FontString inherits="GameFontNormal" justifyH="CENTER">
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</EditBox>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="160" y="110"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					SendPersoBox:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+</Frame>
+
+<!-- PANEL Choix Icones-->
+<Frame name="TRPListeSound" toplevel="true" parent="MenuPrincipal" enableMouse="true" enableMouseWheel="true" hidden="true" >
+	<Size>
+		<AbsDimension x="500" y="500"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="-300"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="450" y="400"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-5" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-Battlefield-BotLeft">
+				<Size>
+					<AbsDimension x="365" y="325"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1" top="0.2" bottom="0.6"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="420" y="550"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-75"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="515" y="675"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-100"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="PanelListeSoundTitre" inherits="GameFontNormalLarge" justifyH="CENTER" text="Choose a sound :">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="195"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeSoundSaisie" inherits="NumberFontNormal" justifyH="RIGHT" hidden="true">
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-6" y="-6"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeSoundRecherche" inherits="NumberFontNormal" justifyH="LEFT" text="Search">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="-100" y="-160"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeSoundEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER" text="No Sound">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPListeSoundType" inherits="NumberFontNormalHuge" justifyH="CENTER" hidden="true">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="ListeSoundSlot1" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot2" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot3" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot4" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot5" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot6" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot7" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="145"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot8" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot9" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot10" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot11" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot12" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot13" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot14" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="95"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot15" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot16" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot17" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot18" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot19" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot20" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot21" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="45"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot22" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot23" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot24" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot25" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot26" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot27" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot28" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-5"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot29" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot30" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot31" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot32" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot33" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot34" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot35" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-55"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot36" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-150" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot37" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-100" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot38" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-50" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot39" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot40" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="50" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot41" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="100" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Button name="ListeSoundSlot42" inherits="SoundSlotTemplate">
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="150" y="-105"/></Offset></Anchor></Anchors>
+		</Button>
+		<Slider name="ListeSoundSlider" inherits="OptionsSliderTemplate">
+			<Size>
+				<AbsDimension x="15" y="300"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="185" y="15"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnLoad>
+					ListeSoundSliderText:SetText("");
+					ListeSoundSliderHigh:SetText("");
+					ListeSoundSliderLow:SetText("");
+					this:SetMinMaxValues(0, 6);
+					this:SetValueStep(1);
+					this:SetOrientation("VERTICAL");
+				</OnLoad>
+				<OnValueChanged>
+					if this:IsVisible() then
+						ChargerSliderListeSound(this:GetValue());
+					end
+				</OnValueChanged>
+			</Scripts>
+		</Slider>
+		<EditBox name="TRPSoundListHideSaisie" letters="0" multiLine="true" enableMouse="false" autoFocus="false" hidden="true">
+			<Size>
+				<AbsDimension x="270" y="68"/>
+			</Size>
+			<Scripts>
+				<OnEscapePressed>
+					TRPListeSound:Hide();
+				</OnEscapePressed>
+			</Scripts>
+			<FontString inherits="ChatFontNormal"/>
+		</EditBox>
+		<EditBox name="TRPSoundListRecherche" inherits="SaisieTemplateSmall" autofocus="true">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-160"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					if this:IsVisible() then
+						calculerListeSound();
+					end
+				</OnTextChanged>
+				<OnEscapePressed>
+					TRPListeSound:Hide();
+				</OnEscapePressed>
+			</Scripts>
+		</EditBox>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="205" y="195"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					TRPListeSound:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnMouseWheel>
+			
+		</OnMouseWheel>
+		<OnHide>
+			ShadeSecondPlan(1);
+		</OnHide>
+	</Scripts>
+</Frame>
+
+<!-- PANEL Choix Icones-->
+<Frame name="TRPModifyPetInfo" toplevel="true" parent="UIParent" enableMouse="true" enableMouseWheel="true" hidden="true" >
+	<Size>
+		<AbsDimension x="250" y="300"/> 
+	</Size>
+	<Backdrop bgFile="Interface\Tooltips\ChatBubble-Background" edgeFile="Interface\Tooltips\ChatBubble-Backdrop" tile="true">
+		<EdgeSize>
+			<AbsValue val="16"/>
+		</EdgeSize>
+		<TileSize>
+			<AbsValue val="32"/>
+		</TileSize>
+		<BackgroundInsets>
+			<AbsInset left="5" right="5" top="5" bottom="5"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset>
+				<AbsDimension x="0" y="0"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Scripts>
+		<OnLoad>
+			TRPModifyPetInfoDescri:SetText("Description :")
+		</OnLoad>
+		<OnUpdate>
+			if TRPModifyPetInfoNomSaisie:GetText() and TRPModifyPetInfoNomSaisie:GetText() ~= "" then
+				TRPModifyPetInfoNomGet:SetText(TRPModifyPetInfoNomSaisie:GetText())
+			else
+				TRPModifyPetInfoNomGet:SetText(tostring(TRPModifyPetInfo.creatureName));
+			end
+			TRPModifyPetInfoDescriGet:SetText("Max characters :\n "
+			..(string.len(TRPModifyPetInfoNomSaisie:GetText())+string.len(TRPModifyPetInfoDescriSaisie:GetText()))
+			.." / "..(240-string.len(TRPModifyPetInfo.creatureName)));
+		</OnUpdate>
+	</Scripts>
+	<Layers>
+		<Layer level="OVERLAY">
+			<FontString name="TRPModifyPetInfoNom" inherits="gameFontNormalLarge" justifyH="CENTER" text="">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="125"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPModifyPetInfoDescri" inherits="gameFontNormalLarge" justifyH="CENTER" text="">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPModifyPetInfoNomGet" inherits="NumberFontNormalLarge" justifyH="CENTER">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="100"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="TRPModifyPetInfoDescriGet" inherits="NumberFontNormalLarge" justifyH="CENTER">
+				<Size>
+					<AbsDimension x="175" y="100"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="-90"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<EditBox name="TRPModifyPetInfoNomSaisie" inherits="SaisieTemplate" letters="0">
+			<Size>
+				<AbsDimension x="200" y="18"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER"><Offset><AbsDimension x="0" y="75"/></Offset></Anchor>
+			</Anchors>
+			<Scripts>
+				<OnTextChanged>
+					local max = 240-string.len(TRPModifyPetInfo.creatureName);
+					local total = string.len(this:GetText()) + string.len(TRPModifyPetInfoDescriSaisie:GetText())
+					if total > max then
+						this:SetText(string.sub(this:GetText(),0,string.len(this:GetText())-(total-max)));
+					end
+				</OnTextChanged>
+				<OnEditFocusLost>
+					this:HighlightText(0,0);
+				</OnEditFocusLost>
+				<OnEditFocusGained>
+					this:HighlightText();
+				</OnEditFocusGained>
+				<OnTabPressed>
+					
+				</OnTabPressed>
+			</Scripts>
+		</EditBox>
+		<ScrollFrame name="unNomBidonleRetour" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="200" y="85"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-8" y="-20"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="235" y="93"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="8" y="1"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="270" y="155"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="15" y="-25"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+			</Layers>
+			<ScrollChild>
+				<EditBox name="TRPModifyPetInfoDescriSaisie" letters="0" multiLine="true" enableMouse="false" autoFocus="false">
+					<Size>
+						<AbsDimension x="200" y="85"/>
+					</Size>
+					<Scripts>
+						<OnTextChanged>
+							local max = 240-string.len(TRPModifyPetInfo.creatureName);
+							local total = string.len(this:GetText()) + string.len(TRPModifyPetInfoNomSaisie:GetText())
+							if total > max then
+								this:SetText(string.sub(this:GetText(),0,string.len(this:GetText())-(total-max)));
+							end
+						</OnTextChanged>
+						<OnEditFocusGained>
+							this:HighlightText();
+						</OnEditFocusGained>
+						<OnEditFocusLost>
+							this:HighlightText(0,0);
+						</OnEditFocusLost>
+					</Scripts>
+					<FontString inherits="ChatFontNormal"/>
+				</EditBox>
+			</ScrollChild>
+			<Scripts>
+				<OnEnter>
+					TRPModifyPetInfoDescriSaisie:SetFocus();
+				</OnEnter>
+			</Scripts>
+		</ScrollFrame>
+		<Button name="TRPModifyPetInfoBoutonSave" inherits="UIPanelButtonTemplate">
+			<Size>
+				<AbsDimension x="100" y="18"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER"><Offset><AbsDimension x="-55" y="-125"/></Offset></Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					
+				</OnClick>
+				<OnLoad>
+					this:SetText("Save");
+				</OnLoad>
+			</Scripts>
+		</Button>
+		<Button name="TRPModifyPetInfoBoutonAnnuler" inherits="UIPanelButtonTemplate">
+			<Size>
+				<AbsDimension x="100" y="18"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER"><Offset><AbsDimension x="55" y="-125"/></Offset></Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					TRPModifyPetInfo:Hide();
+				</OnClick>
+				<OnLoad>
+					this:SetText("Cancel");
+				</OnLoad>
+			</Scripts>
+		</Button>
+	</Frames>
+</Frame>
+</Ui>

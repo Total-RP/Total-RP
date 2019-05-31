@@ -1,0 +1,3319 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+
+<!-- Fiche Personnage TEMPLATE  -->
+<Frame name="RegistreFichePersonnageTemplate" virtual="true">
+	<Layers>
+		<Layer level="BACKGROUND">
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="350" y="415"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER"><Offset><AbsDimension x="0" y="-15"/></Offset></Anchor>
+				</Anchors>
+				<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="400" y="700"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="10" y="-135"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="RegistreFichePersonnageNomHidden" inherits="NumberFontNormalHuge" justifyH="CENTER" hidden="true">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="240"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="RegistreFicheNomComplet" inherits="GameFontNormalLarge" justifyH="CENTER" text="">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="247"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="1" g="1" b="1"/>
+			</FontString>
+			<FontString name="RegistreFicheSousTitre" inherits="GameFontNormal" justifyH="CENTER" text="">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="232"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="1" g="1" b="1"/>
+			</FontString>
+		</Layer>
+	</Layers>
+</Frame>
+
+<!-- Fiche Personnage  -->
+<Frame name="RegistreFichePersonnage" inherits="RegistreFichePersonnageTemplate" virtual="true">
+	<Frames>
+		<!-- Bouton onglet Liste -->
+		<Button name="RegistreFicheButtonPanelListe" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="150"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletRegistre","Liste");
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(LISTE, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- PANEL CONSULTER -->
+		<Frame name="RegistrePanelConsulte">
+			<Size>
+				<AbsDimension x="400" y="512"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER"/>
+			</Anchors>
+			<Frames>
+				<!-- Bouton onglet General -->
+				<Button name="RegistreFicheButtonPanelGeneral" inherits="GraphicOngletTemplate">
+					<Size>
+						<AbsDimension x="34" y="34"/>
+					</Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="110"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnClick>
+							PanelOpen("FicheJoueurOngletRegistre","General",RegistreFichePersonnageNomHidden:GetText());
+						</OnClick>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(GENERAL_TEXT, 1, 1, 1);
+							GameTooltip:Show();
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+					</Scripts>
+				</Button>
+				<!-- Bouton onglet descri -->
+				<Button name="RegistreFicheButtonPanelDescription" inherits="GraphicOngletTemplate">
+					<Size>
+						<AbsDimension x="34" y="34"/>
+					</Size>
+					<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="-197" y="70"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnClick>
+							PanelOpen("FicheJoueurOngletRegistre","Description",RegistreFichePersonnageNomHidden:GetText());
+						</OnClick>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(NOTESDESCRI, 1, 1, 1);
+							GameTooltip:Show();
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+					</Scripts>
+				</Button>
+				<!-- Bouton Delete -->
+				<Button name="FichePersonnageBoutonDelete" inherits="UIPanelButtonTemplate">
+					<Size>
+						<AbsDimension x="70" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="-35" y="-495"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnClick>
+							confirmDeletePersonnage(RegistreFichePersonnageNomHidden:GetText());
+						</OnClick>
+					</Scripts>
+				</Button>
+				<!-- Bouton Generer Note -->
+				<Button name="FichePersonnageBoutonNotesGen" inherits="UIPanelButtonTemplate">
+					<Size>
+						<AbsDimension x="100" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="50" y="-495"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnClick>
+							GenererNotes(RegistreFichePersonnageNomHidden:GetText());
+						</OnClick>
+					</Scripts>
+				</Button>
+				<!-- SOUS PANEL GENERAL  -->
+				<ScrollFrame name="RegistreSousPanelGeneral" inherits="UIPanelScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="330" y="400"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="-3" y="-17"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<ScrollChild>
+						<Frame>
+							<Size>
+								<AbsDimension x="350" y="350"/> 
+							</Size>
+							<Layers>
+								<Layer level="BACKGROUND">
+									<!-- Fond de BASE  -->
+									<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+										<Size>
+											<AbsDimension x="300" y="125"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-5"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+									</Texture>
+									<!-- Fond de PHYSIQUE  -->
+									<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+										<Size>
+											<AbsDimension x="300" y="123"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-137"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+									</Texture>
+									<!-- Fond de ALIGNEMENT  -->
+									<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+										<Size>
+											<AbsDimension x="300" y="70"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-270"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+									</Texture>
+									<!-- Fond de RELATION  -->
+									<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+										<Size>
+											<AbsDimension x="260" y="70"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-350"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+									</Texture>
+								</Layer>
+								<Layer level="BORDER">
+									<!-- Bord Base  -->
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size>
+											<AbsDimension x="340" y="210"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="2" y="2"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+									</Texture>
+									<!-- Bord physique  -->
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size>
+											<AbsDimension x="340" y="208"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="2" y="-130"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+									</Texture>
+									<!-- Bord alignement  -->
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size>
+											<AbsDimension x="340" y="120"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="2" y="-265"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+									</Texture>
+									<!-- Bord relation  -->
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size>
+											<AbsDimension x="300" y="120"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="2" y="-345"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+									</Texture>
+								</Layer>
+								<Layer level="OVERLAY">
+									<FontString name="RegistreFicheBase" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-15"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="RegistreFichePhysique" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-145"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="RegistreFichePrenom" inherits="GameFontNormal" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-40"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+									<FontString name="RegistreFicheNom" inherits="GameFontNormal" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-60"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+									<FontString name="RegistreFicheAge" inherits="GameFontNormal" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-80"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+									<FontString name="RegistreFicheNaissance" inherits="GameFontNormal" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="TOP" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-100"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+									<FontString name="RegistreFicheTaille" inherits="GameFontNormal" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-170"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+									<FontString name="RegistreFicheCorpulence" inherits="GameFontNormal" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-190"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+									<FontString name="RegistreFicheSilhouette" inherits="GameFontNormal" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-210"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+									<FontString name="RegistreFicheVetement" inherits="GameFontNormal" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-230"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+									<FontString name="RegistreFicheAlignement" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-280"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+									<FontString name="RegistreFicheAlignementText" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-310"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+									<FontString name="RegistreFicheRelation" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="400" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="-6" y="-360"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Frames>
+								<Slider name="RegistreFicheRelationSlider" inherits="OptionsSliderTemplate">
+									<Size>
+										<AbsDimension x="150" y="15"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP">
+											<Offset>
+												<AbsDimension x="-6" y="-380"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<Scripts>
+										<OnLoad>
+											getglobal(this:GetName().."Text"):SetText("");
+											getglobal(this:GetName().."High"):SetText();
+											getglobal(this:GetName().."Low"):SetText();
+											this:SetMinMaxValues(1, 7);
+											this:SetValueStep(1);
+										</OnLoad>
+										<OnValueChanged>
+											ChangeSliderValue();
+											SetAttributTo(RegistreFichePersonnageNomHidden:GetText(),"Relation",this:GetValue())
+										</OnValueChanged>
+									</Scripts>
+								</Slider>
+								<Button name="RegistreFicheBoutonGlobal" inherits="UIPanelButtonTemplate" text="">
+									<Size>
+										<AbsDimension x="100" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP">
+											<Offset>
+												<AbsDimension x="-6" y="-395"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<Scripts>
+										<OnClick>
+											GlobaliserRelation();
+										</OnClick>
+										<OnEnter>
+											GameTooltip:SetOwner(this, "ANCHOR_TOPRIGHT");
+											GameTooltip:AddLine(GLOBALISERRELATION, 1, 1, 1);
+											GameTooltip:AddLine(GLOBALISERTEXT,1,0.75,0);
+											GameTooltip:Show();
+										</OnEnter>
+										<OnLeave>
+											GameTooltip:Hide()
+										</OnLeave>
+									</Scripts>
+								</Button>
+							</Frames>
+						</Frame>
+					</ScrollChild>
+				</ScrollFrame>
+				<!-- PANEL DESCRIPTION -->
+				<Frame name="RegistreSousPanelDescription">
+					<Size>
+						<AbsDimension x="350" y="350"/> 
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="8" y="5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Frames>
+						<ScrollFrame name="RegistreFicheDescriScroll" inherits="UIPanelScrollFrameTemplate">
+							<Size>
+								<AbsDimension x="270" y="140"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="-6" y="-40"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Layers>
+								<Layer level="BACKGROUND">
+									<!-- Fond  -->
+									<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+										<Size>
+											<AbsDimension x="130" y="30"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="0" y="36"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+									</Texture>
+								</Layer>
+								<Layer level="BORDER">
+									<!-- Bord  -->
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size>
+											<AbsDimension x="150" y="50"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="4" y="38"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+									</Texture>
+								</Layer>
+								<Layer level="ARTWORK">
+									<!-- Fond  -->
+									<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+										<Size>
+											<AbsDimension x="300" y="150"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="0" y="5"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+									</Texture>
+								</Layer>
+								<Layer level="OVERLAY">
+									<!-- Bord  -->
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size>
+											<AbsDimension x="340" y="255"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="8" y="15"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+									</Texture>
+									<FontString name="RegistreFicheDescription" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="0" y="30"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<ScrollChild>
+								<EditBox name="RegistreFicheDescriScrollText" multiLine="true" enableMouse="false" autoFocus="false">
+									<Size>
+										<AbsDimension x="270" y="140"/>
+									</Size>
+									<Scripts>
+										<OnEditFocusGained>
+											RegistreFicheDescriScrollText:ClearFocus();
+										</OnEditFocusGained>
+									</Scripts>
+									<FontString inherits="GameFontNormal">
+										<Color r="0.95" g="0.95" b="0.95"/>
+									</FontString>
+								</EditBox>
+							</ScrollChild>
+						</ScrollFrame>
+						<ScrollFrame name="RegistreFicheNotesScroll" inherits="UIPanelScrollFrameTemplate">
+							<Size>
+								<AbsDimension x="270" y="140"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="-6" y="-130"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Layers>
+								<Layer level="BACKGROUND">
+									<!-- Fond  -->
+									<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+										<Size>
+											<AbsDimension x="130" y="30"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="0" y="36"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+									</Texture>
+								</Layer>
+								<Layer level="BORDER">
+									<!-- Bord  -->
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size>
+											<AbsDimension x="150" y="50"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="4" y="38"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+									</Texture>
+								</Layer>
+								<Layer level="ARTWORK">
+									<!-- Fond  -->
+									<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+										<Size>
+											<AbsDimension x="300" y="150"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="0" y="5"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+									</Texture>
+								</Layer>
+								<Layer level="OVERLAY">
+									<!-- Bord  -->
+									<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+										<Size>
+											<AbsDimension x="340" y="255"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="8" y="15"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+									</Texture>
+									<FontString name="RegistreFicheNotes" inherits="GameFontNormalLarge" justifyH="CENTER">
+										<Size>
+											<AbsDimension x="335" y="0"/>
+										</Size>
+										<Anchors>
+											<Anchor point="TOP">
+												<Offset>
+													<AbsDimension x="0" y="30"/>
+												</Offset>
+											</Anchor>
+										</Anchors>
+										<Color r="1" g="1" b="1"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<ScrollChild>
+								<EditBox name="RegistreFicheNotesScrollText" multiLine="true" enableMouse="false" autoFocus="false">
+									<Size>
+										<AbsDimension x="270" y="140"/>
+									</Size>
+									<Scripts>
+										<OnTextChanged>
+											TRP_Module_PlayerInfo_Notes[Royaume][RegistreFichePersonnageNomHidden:GetText()] = this:GetText();
+											if RegistreFichePersonnageNomHidden:GetText() == UnitName("target") then
+												changeTarget();
+											end
+										</OnTextChanged>
+									</Scripts>
+									<FontString inherits="GameFontNormal">
+									</FontString>
+								</EditBox>
+							</ScrollChild>
+						</ScrollFrame>
+					</Frames>
+				</Frame>
+				<!-- PANEL MODELE PERSO  -->
+				<Frame name="RegistreFrameModelePerso">
+					<Size>
+						<AbsDimension x="330" y="400"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="260" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture file="Interface\Stationery\Stationery_UC1">
+								<Size>
+									<AbsDimension x="200" y="400"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<TexCoords left="0" right="0.75" top="0" bottom="0.75"/>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+								<Size>
+									<AbsDimension x="230" y="675"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="5" y="20"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+							<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+								<Size>
+									<AbsDimension x="150" y="300"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-25"/></Offset></Anchor>
+								</Anchors>
+								<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+							</Texture>
+							<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+								<Size>
+									<AbsDimension x="172" y="505"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="5" y="-10"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+							<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+								<Size>
+									<AbsDimension x="150" y="60"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP"><Offset><AbsDimension x="0" y="-328"/></Offset></Anchor>
+								</Anchors>
+								<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+							</Texture>
+						</Layer>
+						<Layer level="ARTWORK">
+							<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+								<Size>
+									<AbsDimension x="172" y="100"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="5" y="-325"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString name="RegistreFicheStatutRP" inherits="GameFontNormal" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="335" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="0" y="-40"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="RegistreFicheHumeur" inherits="GameFontNormal" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="335" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="0" y="-340"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="RegistreFicheHumeurText" inherits="GameFontNormalLarge" justifyH="CENTER">
+								<Size>
+									<AbsDimension x="335" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="0" y="-360"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<DressUpModel name="RegistreFicheModelPerso" scale="0.8">
+							<Size>
+								<AbsDimension x="172" y="400"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnUpdate>
+									RegistreFicheModelPerso_OnUpdate(arg1,animationPlayed);
+								</OnUpdate>
+							</Scripts>
+						</DressUpModel>
+					</Frames>
+				</Frame>
+			</Frames>
+		</Frame>
+		<!-- PANEL LISTE  -->
+		<Frame name="RegistrePanelListe" enableMouseWheel="true">
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-3" y="-17"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="300" y="265"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP">
+								<Offset>
+									<AbsDimension x="5" y="-5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="340" y="450"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP">
+								<Offset>
+									<AbsDimension x="12" y="10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="OVERLAY">
+					<Texture name="ListeButtonPerso0Icon" file="Interface\BattlefieldFrame\Battleground-Alliance">
+						<Size><AbsDimension x="32" y="32"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="39" y="-10"/></Offset></Anchor></Anchors>
+					</Texture>
+					<Texture name="ListeButtonPerso1Icon" file="Interface\BattlefieldFrame\Battleground-Alliance">
+						<Size><AbsDimension x="32" y="32"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="39" y="-35"/></Offset></Anchor></Anchors>
+					</Texture>
+					<Texture name="ListeButtonPerso2Icon" file="Interface\BattlefieldFrame\Battleground-Alliance">
+						<Size><AbsDimension x="32" y="32"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="39" y="-60"/></Offset></Anchor></Anchors>
+					</Texture>
+					<Texture name="ListeButtonPerso3Icon" file="Interface\BattlefieldFrame\Battleground-Alliance">
+						<Size><AbsDimension x="32" y="32"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="39" y="-85"/></Offset></Anchor></Anchors>
+					</Texture>
+					<Texture name="ListeButtonPerso4Icon" file="Interface\BattlefieldFrame\Battleground-Alliance">
+						<Size><AbsDimension x="32" y="32"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="39" y="-110"/></Offset></Anchor></Anchors>
+					</Texture>
+					<Texture name="ListeButtonPerso5Icon" file="Interface\BattlefieldFrame\Battleground-Alliance">
+						<Size><AbsDimension x="32" y="32"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="39" y="-135"/></Offset></Anchor></Anchors>
+					</Texture>
+					<Texture name="ListeButtonPerso6Icon" file="Interface\BattlefieldFrame\Battleground-Alliance">
+						<Size><AbsDimension x="32" y="32"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="39" y="-160"/></Offset></Anchor></Anchors>
+					</Texture>
+					<Texture name="ListeButtonPerso7Icon" file="Interface\BattlefieldFrame\Battleground-Alliance">
+						<Size><AbsDimension x="32" y="32"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="39" y="-185"/></Offset></Anchor></Anchors>
+					</Texture>
+					<Texture name="ListeButtonPerso8Icon" file="Interface\BattlefieldFrame\Battleground-Alliance">
+						<Size><AbsDimension x="32" y="32"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="39" y="-210"/></Offset></Anchor></Anchors>
+					</Texture>
+					<Texture name="ListeButtonPerso9Icon" file="Interface\BattlefieldFrame\Battleground-Alliance">
+						<Size><AbsDimension x="32" y="32"/></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="39" y="-235"/></Offset></Anchor></Anchors>
+					</Texture>
+					<FontString name="FicheListeRecherche" inherits="GameFontNormal" justifyH="CENTER" text="">
+						<Size>
+							<AbsDimension x="450" y="0"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP">
+								<Offset>
+									<AbsDimension x="5" y="-345"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Color r="0.95" g="0.95" b="0.95"/>
+					</FontString>
+					<FontString name="ListeButtonPerso0Text" inherits="GameFontNormal" justifyH="LEFT" text="Personnage 0">
+						<Size><AbsDimension x="180" y="10"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="45" y="175"/></Offset></Anchor></Anchors>
+					</FontString>
+					<FontString name="ListeButtonPerso1Text" inherits="GameFontNormal" justifyH="LEFT" text="Personnage 1">
+						<Size><AbsDimension x="180" y="10"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="45" y="150"/></Offset></Anchor></Anchors>
+					</FontString>
+					<FontString name="ListeButtonPerso2Text" inherits="GameFontNormal" justifyH="LEFT" text="Personnage 2">
+						<Size><AbsDimension x="180" y="10"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="45" y="125"/></Offset></Anchor></Anchors>
+					</FontString>
+					<FontString name="ListeButtonPerso3Text" inherits="GameFontNormal" justifyH="LEFT" text="Personnage 3">
+						<Size><AbsDimension x="180" y="10"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="45" y="100"/></Offset></Anchor></Anchors>
+					</FontString>
+					<FontString name="ListeButtonPerso4Text" inherits="GameFontNormal" justifyH="LEFT" text="Personnage 4">
+						<Size><AbsDimension x="180" y="10"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="45" y="75"/></Offset></Anchor></Anchors>
+					</FontString>
+					<FontString name="ListeButtonPerso5Text" inherits="GameFontNormal" justifyH="LEFT" text="Personnage 5">
+						<Size><AbsDimension x="180" y="10"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="45" y="50"/></Offset></Anchor></Anchors>
+					</FontString>
+					<FontString name="ListeButtonPerso6Text" inherits="GameFontNormal" justifyH="LEFT" text="Personnage 6">
+						<Size><AbsDimension x="180" y="10"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="45" y="25"/></Offset></Anchor></Anchors>
+					</FontString>
+					<FontString name="ListeButtonPerso7Text" inherits="GameFontNormal" justifyH="LEFT" text="Personnage 7">
+						<Size><AbsDimension x="180" y="10"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="45" y="0"/></Offset></Anchor></Anchors>
+					</FontString>
+					<FontString name="ListeButtonPerso8Text" inherits="GameFontNormal" justifyH="LEFT" text="Personnage 8">
+						<Size><AbsDimension x="180" y="10"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="45" y="-25"/></Offset></Anchor></Anchors>
+					</FontString>
+					<FontString name="ListeButtonPerso9Text" inherits="GameFontNormal" justifyH="LEFT" text="Personnage 9">
+						<Size><AbsDimension x="180" y="10"/></Size>
+						<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="45" y="-50"/></Offset></Anchor></Anchors>
+					</FontString>
+					<FontString name="PanelRegistreListeEmpty" inherits="NumberFontNormalHuge" justifyH="CENTER">
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="0" y="60"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+				</Layer>
+			</Layers>
+			<Frames>
+				<Button name="RegistreFicheButtonListeEpurer" inherits="GraphicOngletTemplate">
+					<Size>
+						<AbsDimension x="34" y="34"/>
+					</Size>
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="150" y="-360"/></Offset></Anchor></Anchors>
+					<Scripts>
+						<OnClick>
+							StaticPopup_Show ("TRP_REG_EPURER_LISTE");
+						</OnClick>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(EPURERLISTE, 1, 1, 1);
+							GameTooltip:AddLine(EPURERLISTE_TOOLTIP, 1, 0.75, 0);
+							GameTooltip:Show();
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide()
+						</OnLeave>
+					</Scripts>
+				</Button>
+				<Slider name="ListeButtonSlider" inherits="OptionsSliderTemplate">
+					<Size>
+						<AbsDimension x="15" y="250"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="140" y="-12"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnLoad>
+							getglobal(this:GetName().."Text"):SetText();
+							getglobal(this:GetName().."High"):SetText();
+							getglobal(this:GetName().."Low"):SetText();
+							this:SetMinMaxValues(0, 6);
+							this:SetValueStep(1);
+						</OnLoad>
+						<OnValueChanged>
+							if this:IsVisible() then
+								ChargerListeVertical(this:GetValue());
+							end
+						</OnValueChanged>
+					</Scripts>
+				</Slider>
+				<Button name="ListeButtonPerso0" inherits="UIPanelButtonTemplate" text="Fiche0">
+					<Size><AbsDimension x="50" y="20"/></Size>
+					<Layers><Layer level="OVERLAY">
+				        <FontString name="ListeButtonPerso0Date" inherits="GameFontNormal" justifyH="CENTER" hidden="true"/>
+					</Layer></Layers>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-15"/></Offset></Anchor></Anchors>
+					<Scripts><OnLeave>GameTooltip:Hide()</OnLeave>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(CONSULTERFICHE, 1, 1, 1);
+							GameTooltip:AddLine("Added on "..ListeButtonPerso0Date:GetText(), 1, 0.75, 0);
+							GameTooltip:Show();
+							cacherCroixDeletePerso();
+							ListeButtonPerso0Delete:Show();
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="ListeButtonPerso1" inherits="UIPanelButtonTemplate" text="Fiche1">
+					<Size><AbsDimension x="50" y="20"/></Size>
+					<Layers><Layer level="OVERLAY">
+				        <FontString name="ListeButtonPerso1Date" inherits="GameFontNormal" justifyH="CENTER" hidden="true"/>
+					</Layer></Layers>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-40"/></Offset></Anchor></Anchors>
+					<Scripts><OnLeave>GameTooltip:Hide()</OnLeave>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(CONSULTERFICHE, 1, 1, 1);
+							GameTooltip:AddLine("Added on "..ListeButtonPerso1Date:GetText(), 1, 0.75, 0);
+							GameTooltip:Show();
+							cacherCroixDeletePerso();
+							ListeButtonPerso1Delete:Show();
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="ListeButtonPerso2" inherits="UIPanelButtonTemplate" text="Fiche2">
+					<Size><AbsDimension x="50" y="20"/></Size>
+					<Layers><Layer level="OVERLAY">
+				        <FontString name="ListeButtonPerso2Date" inherits="GameFontNormal" justifyH="CENTER" hidden="true"/>
+					</Layer></Layers>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-65"/></Offset></Anchor></Anchors>
+					<Scripts><OnLeave>GameTooltip:Hide()</OnLeave>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(CONSULTERFICHE, 1, 1, 1);
+							GameTooltip:AddLine("Added on "..ListeButtonPerso2Date:GetText(), 1, 0.75, 0);
+							GameTooltip:Show();
+							cacherCroixDeletePerso();
+							ListeButtonPerso2Delete:Show();
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="ListeButtonPerso3" inherits="UIPanelButtonTemplate" text="Fiche3">
+					<Size><AbsDimension x="50" y="20"/></Size>
+					<Layers><Layer level="OVERLAY">
+				        <FontString name="ListeButtonPerso3Date" inherits="GameFontNormal" justifyH="CENTER" hidden="true"/>
+					</Layer></Layers>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-90"/></Offset></Anchor></Anchors>
+					<Scripts><OnLeave>GameTooltip:Hide()</OnLeave>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(CONSULTERFICHE, 1, 1, 1);
+							GameTooltip:AddLine("Added on "..ListeButtonPerso3Date:GetText(), 1, 0.75, 0);
+							GameTooltip:Show();
+							cacherCroixDeletePerso();
+							ListeButtonPerso3Delete:Show();
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="ListeButtonPerso4" inherits="UIPanelButtonTemplate" text="Fiche4">
+					<Size><AbsDimension x="50" y="20"/></Size>
+					<Layers><Layer level="OVERLAY">
+				        <FontString name="ListeButtonPerso4Date" inherits="GameFontNormal" justifyH="CENTER" hidden="true"/>
+					</Layer></Layers>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-115"/></Offset></Anchor></Anchors>
+					<Scripts><OnLeave>GameTooltip:Hide()</OnLeave>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(CONSULTERFICHE, 1, 1, 1);
+							GameTooltip:AddLine("Added on "..ListeButtonPerso4Date:GetText(), 1, 0.75, 0);
+							GameTooltip:Show();
+							cacherCroixDeletePerso();
+							ListeButtonPerso4Delete:Show();
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="ListeButtonPerso5" inherits="UIPanelButtonTemplate" text="Fiche5">
+					<Size><AbsDimension x="50" y="20"/></Size>
+					<Layers><Layer level="OVERLAY">
+				        <FontString name="ListeButtonPerso5Date" inherits="GameFontNormal" justifyH="CENTER" hidden="true"/>
+					</Layer></Layers>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-140"/></Offset></Anchor></Anchors>
+					<Scripts><OnLeave>GameTooltip:Hide()</OnLeave>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(CONSULTERFICHE, 1, 1, 1);
+							GameTooltip:AddLine("Added on "..ListeButtonPerso5Date:GetText(), 1, 0.75, 0);
+							GameTooltip:Show();
+							cacherCroixDeletePerso();
+							ListeButtonPerso5Delete:Show();
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="ListeButtonPerso6" inherits="UIPanelButtonTemplate" text="Fiche6">
+					<Size><AbsDimension x="50" y="20"/></Size>
+					<Layers><Layer level="OVERLAY">
+				        <FontString name="ListeButtonPerso6Date" inherits="GameFontNormal" justifyH="CENTER" hidden="true"/>
+					</Layer></Layers>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-165"/></Offset></Anchor></Anchors>
+					<Scripts><OnLeave>GameTooltip:Hide()</OnLeave>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(CONSULTERFICHE, 1, 1, 1);
+							GameTooltip:AddLine("Added on "..ListeButtonPerso6Date:GetText(), 1, 0.75, 0);
+							GameTooltip:Show();
+							cacherCroixDeletePerso();
+							ListeButtonPerso6Delete:Show();
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="ListeButtonPerso7" inherits="UIPanelButtonTemplate" text="Fiche7">
+					<Size><AbsDimension x="50" y="20"/></Size>
+					<Layers><Layer level="OVERLAY">
+				        <FontString name="ListeButtonPerso7Date" inherits="GameFontNormal" justifyH="CENTER" hidden="true"/>
+					</Layer></Layers>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-190"/></Offset></Anchor></Anchors>
+					<Scripts><OnLeave>GameTooltip:Hide()</OnLeave>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(CONSULTERFICHE, 1, 1, 1);
+							GameTooltip:AddLine("Added on "..ListeButtonPerso7Date:GetText(), 1, 0.75, 0);
+							GameTooltip:Show();
+							cacherCroixDeletePerso();
+							ListeButtonPerso7Delete:Show();
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="ListeButtonPerso8" inherits="UIPanelButtonTemplate" text="Fiche8">
+					<Size><AbsDimension x="50" y="20"/></Size>
+					<Layers><Layer level="OVERLAY">
+				        <FontString name="ListeButtonPerso8Date" inherits="GameFontNormal" justifyH="CENTER" hidden="true"/>
+					</Layer></Layers>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-215"/></Offset></Anchor></Anchors>
+					<Scripts><OnLeave>GameTooltip:Hide()</OnLeave>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(CONSULTERFICHE, 1, 1, 1);
+							GameTooltip:AddLine("Added on "..ListeButtonPerso8Date:GetText(), 1, 0.75, 0);
+							GameTooltip:Show();
+							cacherCroixDeletePerso();
+							ListeButtonPerso8Delete:Show();
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="ListeButtonPerso9" inherits="UIPanelButtonTemplate" text="Fiche9">
+					<Size><AbsDimension x="50" y="20"/></Size>
+					<Layers><Layer level="OVERLAY">
+				        <FontString name="ListeButtonPerso9Date" inherits="GameFontNormal" justifyH="CENTER" hidden="true"/>
+					</Layer></Layers>
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="65" y="-240"/></Offset></Anchor></Anchors>
+					<Scripts><OnLeave>GameTooltip:Hide()</OnLeave>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine(CONSULTERFICHE, 1, 1, 1);
+							GameTooltip:AddLine("Added on "..ListeButtonPerso9Date:GetText(), 1, 0.75, 0);
+							GameTooltip:Show();
+							cacherCroixDeletePerso();
+							ListeButtonPerso9Delete:Show();
+						</OnEnter>
+					</Scripts>
+				</Button>
+				<Button name="ListeButtonPerso0Delete" inherits="ButtonDeleteTemplate">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-15"/></Offset></Anchor></Anchors>
+					<Scripts><OnClick>confirmDeletePersonnage(ListeButtonPerso0DeleteNom:GetText())</OnClick></Scripts>
+				</Button>
+				<Button name="ListeButtonPerso1Delete" inherits="ButtonDeleteTemplate">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-40"/></Offset></Anchor></Anchors>
+					<Scripts><OnClick>confirmDeletePersonnage(ListeButtonPerso1DeleteNom:GetText())</OnClick></Scripts>
+				</Button>
+				<Button name="ListeButtonPerso2Delete" inherits="ButtonDeleteTemplate">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-65"/></Offset></Anchor></Anchors>
+					<Scripts><OnClick>confirmDeletePersonnage(ListeButtonPerso2DeleteNom:GetText())</OnClick></Scripts>
+				</Button>
+				<Button name="ListeButtonPerso3Delete" inherits="ButtonDeleteTemplate">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-90"/></Offset></Anchor></Anchors>
+					<Scripts><OnClick>confirmDeletePersonnage(ListeButtonPerso3DeleteNom:GetText())</OnClick></Scripts>
+				</Button>
+				<Button name="ListeButtonPerso4Delete" inherits="ButtonDeleteTemplate">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-115"/></Offset></Anchor></Anchors>
+					<Scripts><OnClick>confirmDeletePersonnage(ListeButtonPerso4DeleteNom:GetText())</OnClick></Scripts>
+				</Button>
+				<Button name="ListeButtonPerso5Delete" inherits="ButtonDeleteTemplate">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-140"/></Offset></Anchor></Anchors>
+					<Scripts><OnClick>confirmDeletePersonnage(ListeButtonPerso5DeleteNom:GetText())</OnClick></Scripts>
+				</Button>
+				<Button name="ListeButtonPerso6Delete" inherits="ButtonDeleteTemplate">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-165"/></Offset></Anchor></Anchors>
+					<Scripts><OnClick>confirmDeletePersonnage(ListeButtonPerso6DeleteNom:GetText())</OnClick></Scripts>
+				</Button>
+				<Button name="ListeButtonPerso7Delete" inherits="ButtonDeleteTemplate">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-190"/></Offset></Anchor></Anchors>
+					<Scripts><OnClick>confirmDeletePersonnage(ListeButtonPerso7DeleteNom:GetText())</OnClick></Scripts>
+				</Button>
+				<Button name="ListeButtonPerso8Delete" inherits="ButtonDeleteTemplate">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-215"/></Offset></Anchor></Anchors>
+					<Scripts><OnClick>confirmDeletePersonnage(ListeButtonPerso8DeleteNom:GetText())</OnClick></Scripts>
+				</Button>
+				<Button name="ListeButtonPerso9Delete" inherits="ButtonDeleteTemplate">
+					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-240"/></Offset></Anchor></Anchors>
+					<Scripts><OnClick>confirmDeletePersonnage(ListeButtonPerso9DeleteNom:GetText())</OnClick></Scripts>
+				</Button>
+				<EditBox name="ListeSaisieRecherche" inherits="SaisieTemplateSmall" letters="25">
+					<Size>
+						<AbsDimension x="110" y="18"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="5" y="-360"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnTextChanged>
+							if RegistrePanelListe:IsVisible() then
+								this:SetText(string.gsub(this:GetText(),"%%",""));
+								this:SetText(string.gsub(this:GetText(),"%(",""));
+								this:SetText(string.gsub(this:GetText(),"%)",""));
+								this:SetText(string.gsub(this:GetText(),"%$",""));
+								this:SetText(string.gsub(this:GetText(),"%^",""));
+								this:SetText(string.gsub(this:GetText(),"%[",""));
+								this:SetText(string.gsub(this:GetText(),"%]",""));
+								this:SetText(string.gsub(this:GetText(),"%.",""));
+								this:SetText(string.gsub(this:GetText(),"%+",""));
+								this:SetText(string.gsub(this:GetText(),"%-",""));
+								this:SetText(string.gsub(this:GetText(),"%*",""));
+								this:SetText(string.gsub(this:GetText(),"%d",""));
+								ChargerListe();
+							end
+						</OnTextChanged>
+						<OnEnterPressed>
+							if PersoTab[1] ~= nil then
+								PanelOpen("FicheJoueurOngletRegistre","General",PersoTab[1]);
+							end
+						</OnEnterPressed>
+					</Scripts>
+				</EditBox>
+				<Slider name="ListeTypeSlider" inherits="OptionsSliderTemplate">
+					<Size>
+						<AbsDimension x="270" y="15"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="5" y="-295"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="FicheListeTypeTri" inherits="GameFontNormal" justifyH="CENTER" text="">
+								<Size>
+									<AbsDimension x="500" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Scripts>
+						<OnLoad>
+							getglobal(this:GetName().."Text"):SetText("");
+							getglobal(this:GetName().."High"):SetText();
+							getglobal(this:GetName().."Low"):SetText();
+							this:SetMinMaxValues(0, 7);
+							this:SetValueStep(1);
+							this:SetValue(0);
+						</OnLoad>
+						<OnValueChanged>
+							if this:IsVisible() then
+								ChargerListe(this:GetValue());
+							end
+							ListeButtonSlider:SetValue(0);
+						</OnValueChanged>
+					</Scripts>
+				</Slider>
+				<Slider name="ListeTypeBSlider" inherits="OptionsSliderTemplate">
+					<Size>
+						<AbsDimension x="270" y="15"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="5" y="-320"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="FicheListeTypeBTri" inherits="GameFontNormal" justifyH="CENTER" text="">
+								<Size>
+									<AbsDimension x="500" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Scripts>
+						<OnLoad>
+							getglobal(this:GetName().."Text"):SetText("");
+							getglobal(this:GetName().."High"):SetText();
+							getglobal(this:GetName().."Low"):SetText();
+							this:SetMinMaxValues(0, 3);
+							this:SetValueStep(1);
+							this:SetValue(0);
+						</OnLoad>
+						<OnValueChanged>
+							if ListeTypeSlider:IsVisible() then
+								ChargerListe(ListeTypeSlider:GetValue());
+							end
+							ListeButtonSlider:SetValue(0);
+						</OnValueChanged>
+					</Scripts>
+				</Slider>
+				<!-- Detecteur d'hrp -->
+				<CheckButton name="ListeConnectedCheck" inherits="OptionsCheckButtonTemplate" checked="false">
+					<Size x="24" y="24"/>
+					<Anchors>
+						<Anchor point="TOP"><Offset><AbsDimension x="-150" y="-370"/></Offset></Anchor>
+					</Anchors>
+					<Scripts>
+						<OnClick>
+							ChargerListe();
+						</OnClick>
+						<OnLoad>
+							ListeConnectedCheckText:SetText("Online Only");
+						</OnLoad>
+						<OnEnter>
+							GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+							GameTooltip:AddLine("Show only connected people.",1,0.75,0);
+							GameTooltip:Show();
+						</OnEnter>
+						<OnLeave>
+							GameTooltip:Hide();
+						</OnLeave>
+						<OnUpdate>
+						</OnUpdate>
+					</Scripts>
+				</CheckButton>
+			</Frames>
+			<Scripts>
+				<OnMouseWheel>
+					
+				</OnMouseWheel>
+			</Scripts>
+		</Frame>
+	</Frames>
+</Frame>
+
+<!-- Fiche du personnage du joueur -->
+<Frame name="FicheJoueurPanelRegistreTemplate" virtual="true">
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="450" y="50"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="-225"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="505" y="90"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="12" y="-240"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="FicheJoueurNomComplet" inherits="GameFontNormalHuge" justifyH="CENTER" text="">
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension x="0" y="-460"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="FicheJoueurSousTitre" inherits="GameFontNormalLarge" justifyH="CENTER" text="">
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension x="0" y="-485"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0.95" g="0.95" b="0.95"/>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<!-- PANEL REGISTRE : Bouton General -->
+		<Button name="FicheJoueurRegistreButtonGeneral" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-130" y="-22"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletFiche",GENERAL_TEXT,FicheJoueurPanelRegistreDescriptionEdition:IsVisible() or FicheJoueurPanelRegistreStatistiquesEdition:IsVisible())
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(GENERAL_TEXT, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- PANEL REGISTRE : Bouton Description -->
+		<Button name="FicheJoueurRegistreButtonDescription" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-90" y="-22"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletFiche",DESCRIPTIONTEXT,FicheJoueurPanelRegistreGeneralEdition:IsVisible() or FicheJoueurPanelRegistreStatistiquesEdition:IsVisible())
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine(DESCRIPTIONTEXT, 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- PANEL REGISTRE : Bouton Description -->
+		<Button name="FicheJoueurRegistreButtonStatistiques" inherits="GraphicOngletTemplate">
+			<Size>
+				<AbsDimension x="34" y="34"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="-50" y="-22"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					PanelOpen("FicheJoueurOngletFiche","Statistiques",FicheJoueurPanelRegistreGeneralEdition:IsVisible() or FicheJoueurPanelRegistreDescriptionEdition:IsVisible())
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(this, "ANCHOR_TOPLEFT");
+					GameTooltip:AddLine("Characteristics", 1, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<!-- PANEL REGISTRE : Bouton edition -->
+		<Button name="FicheJoueurRegistreButtonEdition" inherits="UIPanelButtonTemplate">
+			<Size>
+				<AbsDimension x="110" y="20"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="145" y="-25"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					if FicheJoueurRegistreButtonGeneral:IsEnabled() ~= 1 then
+						PanelOpen("FicheJoueurOngletFiche",GENERAL_TEXT,true)
+					elseif FicheJoueurRegistreButtonDescription:IsEnabled() ~= 1 then
+						PanelOpen("FicheJoueurOngletFiche",DESCRIPTIONTEXT,true)
+					elseif FicheJoueurRegistreButtonStatistiques:IsEnabled() ~= 1 then
+						PanelOpen("FicheJoueurOngletFiche","Statistiques",true)
+					end
+				</OnClick>
+			</Scripts>
+		</Button>
+		<!-- PANEL REGISTRE : Bouton Charger profil -->
+		<Button name="FicheJoueurRegistreButtonCharger" inherits="UIPanelButtonTemplate">
+			<Size>
+				<AbsDimension x="110" y="20"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="145" y="-45"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					AfficheLoadPerso();
+					ShadeSecondPlan(0.5);
+				</OnClick>
+			</Scripts>
+		</Button>
+		<!-- PANEL REGISTRE : Bouton Sauver -->
+		<Button name="FicheJoueurRegistreButtonSauver" inherits="UIPanelButtonTemplate">
+			<Size>
+				<AbsDimension x="110" y="20"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="145" y="-25"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					EnregistrerDonneesJoueur();
+					if FicheJoueurRegistreButtonGeneral:IsEnabled() ~= 1 then
+						PanelOpen("FicheJoueurOngletFiche",GENERAL_TEXT,false)
+					elseif FicheJoueurRegistreButtonDescription:IsEnabled() ~= 1 then
+						PanelOpen("FicheJoueurOngletFiche",DESCRIPTIONTEXT,false)
+					elseif FicheJoueurRegistreButtonStatistiques:IsEnabled() ~= 1 then
+						PanelOpen("FicheJoueurOngletFiche","Statistiques",false)
+					end
+				</OnClick>
+			</Scripts>
+		</Button>
+		<!-- PANEL REGISTRE : Bouton Sauver profil -->
+		<Button name="FicheJoueurRegistreButtonSauverSous" inherits="UIPanelButtonTemplate">
+			<Size>
+				<AbsDimension x="110" y="20"/>
+			</Size>
+			<Anchors><Anchor point="TOP"><Offset><AbsDimension x="145" y="-45"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					AfficheSavePerso();
+					ShadeSecondPlan(0.5);
+				</OnClick>
+			</Scripts>
+		</Button>
+		<!-- PANEL REGISTRE : MODELE -->
+		<Frame>
+			<Size>
+				<AbsDimension x="330" y="400"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="145" y="10"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="150" y="300"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP"><Offset><AbsDimension x="0" y="-25"/></Offset></Anchor>
+						</Anchors>
+						<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+					</Texture>
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="150" y="60"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP"><Offset><AbsDimension x="0" y="-328"/></Offset></Anchor>
+						</Anchors>
+						<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="172" y="505"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP">
+								<Offset>
+									<AbsDimension x="5" y="-10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="172" y="100"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP">
+								<Offset>
+									<AbsDimension x="5" y="-325"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+			</Layers>
+			<Frames>
+				<DressUpModel name="FicheJoueurModel" scale="0.8">
+					<Size>
+						<AbsDimension x="172" y="400"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="5" y="20"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnUpdate>
+							FicheJoueurModel_OnUpdate(arg1,animationPlayed);
+						</OnUpdate>
+					</Scripts>
+				</DressUpModel>
+				<Slider name="FicheJoueurHumeurSlider" inherits="OptionsSliderTemplate">
+					<Size>
+						<AbsDimension x="140" y="15"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-340"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="FicheJoueurHumeurSelected" inherits="GameFontNormal" justifyH="CENTER" text="">
+								<Size>
+									<AbsDimension x="500" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.75" b="0"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Scripts>
+						<OnLoad>
+							getglobal(this:GetName().."Text"):SetText("");
+							getglobal(this:GetName().."High"):SetText();
+							getglobal(this:GetName().."Low"):SetText();
+							this:SetMinMaxValues(1, 7);
+							this:SetValueStep(1);
+						</OnLoad>
+						<OnValueChanged>
+							ChangeHumeur(this:GetValue());
+							if UnitName("target") == Joueur then
+								changeTarget();
+							end
+						</OnValueChanged>
+					</Scripts>
+				</Slider>
+				<Slider name="FicheJoueurStatutSlider" inherits="OptionsSliderTemplate">
+					<Size>
+						<AbsDimension x="140" y="15"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-360"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="FicheJoueurStatut" inherits="GameFontNormal" justifyH="CENTER" text="">
+								<Size>
+									<AbsDimension x="500" y="0"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.75" b="0"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Scripts>
+						<OnLoad>
+							getglobal(this:GetName().."Text"):SetText();
+							getglobal(this:GetName().."High"):SetText();
+							getglobal(this:GetName().."Low"):SetText();
+							this:SetMinMaxValues(1, 2);
+							this:SetValueStep(1);
+						</OnLoad>
+						<OnValueChanged>
+							ChangeStatutRP(this:GetValue());
+						</OnValueChanged>
+					</Scripts>
+				</Slider>
+			</Frames>
+		</Frame>
+		<!-- PANELS REGISTRE : GENERAL : SCROLL D EDITION -->
+		<ScrollFrame name="FicheJoueurPanelRegistreGeneralEdition" inherits="UIPanelScrollFrameTemplate" hidden="false">
+			<Size>
+				<AbsDimension x="260" y="370"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-90" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="260" y="380"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="300" y="650"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="6" y="-107"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+			</Layers>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="270" y="370"/>
+					</Size>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="FicheJoueurBaseEdit" inherits="GameFontNormalLarge" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-15"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurNomEdit" inherits="GameFontNormal" justifyH="RIGHT" text="">
+								<Anchors>
+									<Anchor point="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="-200" y="-40"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurPrenomEdit" inherits="GameFontNormal" justifyH="RIGHT" text="">
+								<Anchors>
+									<Anchor point="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="-200" y="-60"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurTitreEdit" inherits="GameFontNormal" justifyH="RIGHT" text="">
+								<Anchors>
+									<Anchor point="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="-200" y="-80"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurSousTitreEdit" inherits="GameFontNormal" justifyH="RIGHT" text="">
+								<Anchors>
+									<Anchor point="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="-200" y="-100"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurAgeEdit" inherits="GameFontNormal" justifyH="RIGHT" text="">
+								<Anchors>
+									<Anchor point="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="-200" y="-120"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurOrigineEdit" inherits="GameFontNormal" justifyH="RIGHT" text="">
+								<Anchors>
+									<Anchor point="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="-200" y="-140"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurPhysiqueEdit" inherits="GameFontNormalLarge" justifyH="LEFT" text="">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-160"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							
+						</Layer>
+					</Layers>
+					<Frames>
+						<EditBox name="FicheJoueurNomSaisie" inherits="SaisieTemplateSmall" autofocus="true">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-35"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 25;
+								</OnLoad>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"|",""))
+								</OnTextChanged>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										FicheJoueurOrigineSaisie:SetFocus();
+									else
+										FicheJoueurPrenomSaisie:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<EditBox name="FicheJoueurPrenomSaisie" inherits="SaisieTemplateSmall" autofocus="true">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-55"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 25;
+								</OnLoad>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"|",""))
+								</OnTextChanged>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										FicheJoueurNomSaisie:SetFocus();
+									else
+										FicheJoueurTitreSaisie:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<EditBox name="FicheJoueurTitreSaisie" inherits="SaisieTemplateSmall" autofocus="true">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-75"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 25;
+								</OnLoad>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"|",""))
+								</OnTextChanged>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										FicheJoueurPrenomSaisie:SetFocus();
+									else
+										FicheJoueurSousTitreSaisie:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<EditBox name="FicheJoueurSousTitreSaisie" inherits="SaisieTemplateSmall" autofocus="true">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-95"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 50;
+								</OnLoad>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"|",""))
+								</OnTextChanged>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										FicheJoueurTitreSaisie:SetFocus();
+									else
+										FicheJoueurAgeSaisie:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<EditBox name="FicheJoueurAgeSaisie" inherits="SaisieTemplateSmall" autofocus="true">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-115"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 9;
+								</OnLoad>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"|",""))
+								</OnTextChanged>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										FicheJoueurSousTitreSaisie:SetFocus();
+									else
+										FicheJoueurOrigineSaisie:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<EditBox name="FicheJoueurOrigineSaisie" inherits="SaisieTemplateSmall" autofocus="true">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-135"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnLoad>
+									this.max = 25;
+								</OnLoad>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"|",""))
+								</OnTextChanged>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										FicheJoueurAgeSaisie:SetFocus();
+									else
+										FicheJoueurNomSaisie:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+						</EditBox>
+						<Slider name="FicheJoueurEditTaille" inherits="OptionsSliderTemplate">
+							<Size><AbsDimension x="175" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-180"/></Offset></Anchor></Anchors>
+							<Layers>
+								<Layer level="OVERLAY">
+									<FontString name="FicheJoueurEditTailleSelected" inherits="GameFontNormal" justifyH="CENTER" text="">
+										<Size><AbsDimension x="500" y="0"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+										<Color r="0.95" g="0.75" b="0"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(1, 5);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									FicheJoueurEditTailleSelected:SetText(TAILLE.." "..TAILLE_TEXTE[this:GetValue()])
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+						<Slider name="FicheJoueurEditCorpulence" inherits="OptionsSliderTemplate">
+							<Size><AbsDimension x="175" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-200"/></Offset></Anchor></Anchors>
+							<Layers>
+								<Layer level="OVERLAY">
+									<FontString name="FicheJoueurEditCorpulenceSelected" inherits="GameFontNormal" justifyH="CENTER" text="">
+										<Size><AbsDimension x="500" y="0"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+										<Color r="0.95" g="0.75" b="0"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(1, 5);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									FicheJoueurEditCorpulenceSelected:SetText(CORPULENCE.." "..CORPULENCE_TEXTE[this:GetValue()])
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+						<Slider name="FicheJoueurEditSilhouette" inherits="OptionsSliderTemplate">
+							<Size><AbsDimension x="175" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-220"/></Offset></Anchor></Anchors>
+							<Layers>
+								<Layer level="OVERLAY">
+									<FontString name="FicheJoueurEditSilhouetteSelected" inherits="GameFontNormal" justifyH="CENTER" text="">
+										<Size><AbsDimension x="500" y="0"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+										<Color r="0.95" g="0.75" b="0"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(1, 3);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									FicheJoueurEditSilhouetteSelected:SetText(SILHOUETTE.." "..SILHOUETTE_TEXTE[this:GetValue()])
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+						<Slider name="FicheJoueurEditVetements" inherits="OptionsSliderTemplate">
+							<Size><AbsDimension x="175" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-240"/></Offset></Anchor></Anchors>
+							<Layers>
+								<Layer level="OVERLAY">
+									<FontString name="FicheJoueurEditVetementsSelected" inherits="GameFontNormal" justifyH="CENTER" text="">
+										<Size><AbsDimension x="500" y="0"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+										<Color r="0.95" g="0.75" b="0"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(1, 5);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									FicheJoueurEditVetementsSelected:SetText(TYPEVETEMENT.." "..TYPEVETEMENT_TEXTE[this:GetValue()])
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+						<Slider name="FicheJoueurEditQualite" inherits="OptionsSliderTemplate">
+							<Size><AbsDimension x="175" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-260"/></Offset></Anchor></Anchors>
+							<Layers>
+								<Layer level="OVERLAY">
+									<FontString name="FicheJoueurEditQualiteSelected" inherits="GameFontNormal" justifyH="CENTER" text="">
+										<Size><AbsDimension x="500" y="0"/></Size>
+										<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+										<Color r="0.95" g="0.75" b="0"/>
+									</FontString>
+								</Layer>
+							</Layers>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("");
+									getglobal(this:GetName().."High"):SetText();
+									getglobal(this:GetName().."Low"):SetText();
+									this:SetMinMaxValues(1, 3);
+									this:SetValueStep(1);
+								</OnLoad>
+								<OnValueChanged>
+									FicheJoueurEditQualiteSelected:SetText(QUALITEVETEMENT.." "..QUALITEVETEMENT_TEXTE[this:GetValue()])
+								</OnValueChanged>
+							</Scripts>
+						</Slider>
+						<CheckButton name="FicheJoueurEditClasseVisible" inherits="OptionsCheckButtonTemplate" checked="false">
+							<Size x="24" y="24"/>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="-50" y="-275"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Scripts>
+								<OnClick>
+									
+								</OnClick>
+							</Scripts>
+						</CheckButton>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANELS REGISTRE : GENERAL : SCROLL DE CONSULTATION -->
+		<ScrollFrame name="FicheJoueurPanelRegistreGeneral" inherits="UIPanelScrollFrameTemplate" hidden="false">
+			<Size>
+				<AbsDimension x="260" y="370"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-90" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="260" y="380"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="300" y="650"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="6" y="-107"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+			</Layers>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="270" y="370"/>
+					</Size>
+					<Layers>
+						<Layer level="OVERLAY">
+							<FontString name="FicheJoueurBase" inherits="GameFontNormalLarge" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-15"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurNom" inherits="GameFontNormal" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-45"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurPrenom" inherits="GameFontNormal" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-65"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurAge" inherits="GameFontNormal" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-85"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurOrigine" inherits="GameFontNormal" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-105"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurPhysique" inherits="GameFontNormalLarge" justifyH="LEFT" text="">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-135"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurTaille" inherits="GameFontNormal" justifyH="CENTER" text="">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-165"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurSilhouette" inherits="GameFontNormal" justifyH="CENTER" text="">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-185"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurCorpulence" inherits="GameFontNormal" justifyH="CENTER" text="">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-205"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurTypeVetement" inherits="GameFontNormal" justifyH="CENTER" text="">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-225"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurQualiteVetement" inherits="GameFontNormal" justifyH="CENTER" text="">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-245"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="FicheJoueurClasseApparente" inherits="GameFontNormal" justifyH="CENTER" text="">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-265"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANELS REGISTRE : DESCRI : EDITION -->
+		<Frame name="FicheJoueurPanelRegistreDescriptionEdition">
+			<Size>
+				<AbsDimension x="260" y="370"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-85" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="260" y="380"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="300" y="650"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="1" y="-107"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="OVERLAY">
+					<FontString name="FicheJoueurActuellementEdit" inherits="GameFontNormalLarge" justifyH="CENTER">
+						<Anchors>
+							<Anchor point="TOP">
+								<Offset>
+									<AbsDimension x="-5" y="-5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Color r="0.95" g="0.95" b="0.95"/>
+					</FontString>
+					<FontString name="FicheJoueurDescrPhysiqueEdit" inherits="GameFontNormalLarge" justifyH="LEFT" text="">
+						<Anchors>
+							<Anchor point="TOP">
+								<Offset>
+									<AbsDimension x="-5" y="-125"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Color r="0.95" g="0.95" b="0.95"/>
+					</FontString>
+				</Layer>
+			</Layers>
+			<Frames>
+				<ScrollFrame name="unNomBidonargh" inherits="UIPanelScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="200" y="85"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="-15" y="-30"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+								<Size>
+									<AbsDimension x="235" y="93"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+								<Size>
+									<AbsDimension x="270" y="155"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="15" y="-25"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+					</Layers>
+					<ScrollChild>
+						<EditBox name="DescriActuelleSaisieEdit" letters="0" multiLine="true" enableMouse="false" autoFocus="false">
+							<Size>
+								<AbsDimension x="200" y="85"/>
+							</Size>
+							<Scripts>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"|",""))
+									this:SetText(string.sub(this:GetText(),0,230))
+									FicheJoueurActuellementEdit:SetText("|cffffaa00"..ACTUELLEMENT.." ("..string.len(this:GetText()).."/230)");
+								</OnTextChanged>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										DescriPhysiqueSaisieEdit:SetFocus();
+									else
+										DescriPhysiqueSaisieEdit:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+							<FontString inherits="ChatFontNormal"/>
+						</EditBox>
+					</ScrollChild>
+					<Scripts>
+						<OnEnter>
+							DescriActuelleSaisieEdit:SetFocus();
+						</OnEnter>
+					</Scripts>
+				</ScrollFrame>
+				<ScrollFrame name="leRetourDuNomBidonArgh" inherits="UIPanelScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="200" y="200"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="-15" y="-155"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+								<Size>
+									<AbsDimension x="235" y="205"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+								<Size>
+									<AbsDimension x="270" y="355"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="15" y="-60"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+					</Layers>
+					<ScrollChild>
+						<EditBox name="DescriPhysiqueSaisieEdit" letters="0" multiLine="true" enableMouse="false" autoFocus="false">
+							<Size>
+								<AbsDimension x="195" y="200"/>
+							</Size>
+							<Scripts>
+								<OnTextChanged>
+									this:SetText(string.gsub(this:GetText(),"|",""))
+									this:SetText(string.sub(this:GetText(),0,1800))
+									FicheJoueurDescrPhysiqueEdit:SetText("|cffffaa00"..ETPHYSIQUE.." ("..string.len(this:GetText()).."/1800)");
+								</OnTextChanged>
+								<OnEditFocusGained>
+									this:HighlightText();
+								</OnEditFocusGained>
+								<OnEditFocusLost>
+									this:HighlightText(0,0);
+								</OnEditFocusLost>
+								<OnTabPressed>
+									if IsShiftKeyDown() then
+										DescriActuelleSaisieEdit:SetFocus();
+									else
+										DescriActuelleSaisieEdit:SetFocus();
+									end
+								</OnTabPressed>
+							</Scripts>
+							<FontString inherits="ChatFontNormal"/>
+						</EditBox>
+					</ScrollChild>
+					<Scripts>
+						<OnEnter>
+							DescriPhysiqueSaisieEdit:SetFocus();
+						</OnEnter>
+					</Scripts>
+				</ScrollFrame>
+			</Frames>
+		</Frame>
+		<!-- PANELS REGISTRE : DESCRI : SCROLL DE CONSULTATION -->
+		<Frame name="FicheJoueurPanelRegistreDescription">
+			<Size>
+				<AbsDimension x="260" y="370"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-85" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="260" y="380"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="300" y="650"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="1" y="-107"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+				<Layer level="OVERLAY">
+					<FontString name="FicheJoueurActuellement" inherits="GameFontNormalLarge" justifyH="CENTER">
+						<Anchors>
+							<Anchor point="TOP">
+								<Offset>
+									<AbsDimension x="-5" y="-5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Color r="0.95" g="0.95" b="0.95"/>
+					</FontString>
+					<FontString name="FicheJoueurDescrPhysique" inherits="GameFontNormalLarge" justifyH="LEFT" text="">
+						<Anchors>
+							<Anchor point="TOP">
+								<Offset>
+									<AbsDimension x="-5" y="-125"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Color r="0.95" g="0.95" b="0.95"/>
+					</FontString>
+				</Layer>
+			</Layers>
+			<Frames>
+				<ScrollFrame name="unNomBidon" inherits="UIPanelScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="200" y="85"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="-15" y="-30"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+								<Size>
+									<AbsDimension x="235" y="93"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+								<Size>
+									<AbsDimension x="270" y="155"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="15" y="-25"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+					</Layers>
+					<ScrollChild>
+						<EditBox name="DescriActuelleSaisie" letters="0" multiLine="true" enableMouse="true" autoFocus="false">
+							<Size>
+								<AbsDimension x="200" y="85"/>
+							</Size>
+							<Scripts>
+								<OnEditFocusGained>
+									this:ClearFocus();
+								</OnEditFocusGained>
+							</Scripts>
+							<FontString inherits="ChatFontNormal"/>
+						</EditBox>
+					</ScrollChild>
+					<Scripts>
+						<OnEnter>
+							
+						</OnEnter>
+					</Scripts>
+				</ScrollFrame>
+				<ScrollFrame name="leRetourDuNomBidon" inherits="UIPanelScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="200" y="200"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="-15" y="-155"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Layers>
+						<Layer level="BACKGROUND">
+							<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+								<Size>
+									<AbsDimension x="235" y="205"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="8" y="1"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+							</Texture>
+						</Layer>
+						<Layer level="BORDER">
+							<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+								<Size>
+									<AbsDimension x="270" y="355"/>
+								</Size>
+								<Anchors>
+									<Anchor point="CENTER">
+										<Offset>
+											<AbsDimension x="15" y="-60"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+					</Layers>
+					<ScrollChild>
+						<EditBox name="DescriPhysiqueSaisie" letters="0" multiLine="true" enableMouse="true" autoFocus="false">
+							<Size>
+								<AbsDimension x="195" y="200"/>
+							</Size>
+							<Scripts>
+								<OnEditFocusGained>
+									this:ClearFocus();
+								</OnEditFocusGained>
+							</Scripts>
+							<FontString inherits="ChatFontNormal"/>
+						</EditBox>
+					</ScrollChild>
+					<Scripts>
+						<OnEnter>
+							
+						</OnEnter>
+					</Scripts>
+				</ScrollFrame>
+			</Frames>
+		</Frame>
+		<!-- PANELS REGISTRE : STATISTIQUES : SCROLL DE CONSULTATION -->
+		<ScrollFrame name="FicheJoueurPanelRegistreStatistiques" inherits="UIPanelScrollFrameTemplate" hidden="false">
+			<Size>
+				<AbsDimension x="260" y="370"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-90" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="260" y="380"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="300" y="650"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="6" y="-107"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+			</Layers>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="270" y="370"/>
+					</Size>
+					<Scripts>
+						<OnLoad>
+							StatsAlignement:SetText("Character's Alignment");
+							StatsMorale:SetText("Morality");
+							StatsEthique:SetText("Ethics");
+							StatsMoraleFond:SetTexture(1,1,1);
+						</OnLoad>
+						<OnUpdate>
+							StatsAlignAdapt();
+						</OnUpdate>
+					</Scripts>
+					<Layers>
+						<Layer level="background">
+							<Texture name="StatsMoraleFond" file="">
+								<Size>
+									<AbsDimension x="190" y="15"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT">
+										<Offset>
+											<AbsDimension x="40" y="-62"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+							<Texture name="StatsEthiqueFond" file="">
+								<Size>
+									<AbsDimension x="190" y="15"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT">
+										<Offset>
+											<AbsDimension x="40" y="-102"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="border">
+							<Texture file="Interface\CastingBar\UI-CastingBar-Border-Small">
+								<Size>
+									<AbsDimension x="256" y="60"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="0" y="-37"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+							<Texture file="Interface\CastingBar\UI-CastingBar-Border-Small">
+								<Size>
+									<AbsDimension x="256" y="60"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="0" y="-77"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="artwork">
+							<Texture name="StatsMoralePointeur" file="Interface\BUTTONS\UI-SliderBar-Button-Horizontal">
+								<Size>
+									<AbsDimension x="32" y="32"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-93" y="-52"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+							<Texture name="StatsEthiquePointeur" file="Interface\BUTTONS\UI-SliderBar-Button-Horizontal">
+								<Size>
+									<AbsDimension x="32" y="32"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-93" y="-92"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Texture>
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString name="StatsAlignement" inherits="GameFontNormalLarge" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-15"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="StatsMorale" inherits="GameFontNormal" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-40"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+							<FontString name="StatsEthique" inherits="GameFontNormal" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-81"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		<!-- PANELS REGISTRE : STATISTIQUES : SCROLL D'EDITION -->
+		<ScrollFrame name="FicheJoueurPanelRegistreStatistiquesEdition" inherits="UIPanelScrollFrameTemplate" hidden="false">
+			<Size>
+				<AbsDimension x="260" y="370"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-90" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+						<Size>
+							<AbsDimension x="260" y="380"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+					</Texture>
+				</Layer>
+				<Layer level="BORDER">
+					<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+						<Size>
+							<AbsDimension x="300" y="650"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER">
+								<Offset>
+									<AbsDimension x="6" y="-107"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+				</Layer>
+			</Layers>
+			<ScrollChild>
+				<Frame>
+					<Size>
+						<AbsDimension x="270" y="370"/>
+					</Size>
+					<Scripts>
+						<OnLoad>
+							StatsAlignementEdit:SetText("Character's Alignment");
+						</OnLoad>
+						<OnUpdate>
+							PopupStatsAlignAdapt()
+						</OnUpdate>
+					</Scripts>
+					<Layers>
+						<Layer level="background">
+							
+						</Layer>
+						<Layer level="border">
+							
+						</Layer>
+						<Layer level="artwork">
+							
+						</Layer>
+						<Layer level="OVERLAY">
+							<FontString name="StatsAlignementEdit" inherits="GameFontNormalLarge" justifyH="CENTER">
+								<Anchors>
+									<Anchor point="TOP">
+										<Offset>
+											<AbsDimension x="-5" y="-15"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Color r="0.95" g="0.95" b="0.95"/>
+							</FontString>
+						</Layer>
+					</Layers>
+					<Frames>
+						<!--PopupAlignementMoraleSlider -->
+						<Slider name="PopupAlignementMoraleSlider" inherits="SliderWithTitle">
+							<Size><AbsDimension x="120" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-50"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("Morality");
+									getglobal(this:GetName().."High"):SetText("+");
+									getglobal(this:GetName().."Low"):SetText("-");
+									this:SetOrientation("Horizontal");
+									this:SetMinMaxValues(1, 999);
+									this:SetValueStep(1);
+									this:SetValue(500);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_BOTTOMLEFT");
+									GameTooltip:AddLine(TEXTE_MORALE[ceil(this:GetValue()/333)],getglobal(this:GetName().."Text"):GetTextColor())
+									decouperForTooltip(DETAIL_MORALE[ceil(this:GetValue()/333)],30,getglobal(this:GetName().."Text"):GetTextColor());
+									GameTooltip:Show();
+								</OnEnter>
+								<OnValueChanged>
+									if this:IsVisible() then
+										GameTooltip:SetOwner(this, "ANCHOR_BOTTOMLEFT");
+										GameTooltip:AddLine(TEXTE_MORALE[ceil(this:GetValue()/333)],getglobal(this:GetName().."Text"):GetTextColor())
+										decouperForTooltip(DETAIL_MORALE[ceil(this:GetValue()/333)],30,getglobal(this:GetName().."Text"):GetTextColor());
+										GameTooltip:Show();
+									end
+								</OnValueChanged>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Slider>
+						<!--PopupAlignementMoraleSlider  -->
+						<Slider name="PopupAlignementEthiqueSlider" inherits="SliderWithTitle">
+							<Size><AbsDimension x="120" y="15"/></Size>
+							<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-100"/></Offset></Anchor></Anchors>
+							<Scripts>
+								<OnLoad>
+									getglobal(this:GetName().."Text"):SetText("Ethics");
+									getglobal(this:GetName().."High"):SetText("+");
+									getglobal(this:GetName().."Low"):SetText("-");
+									this:SetOrientation("Horizontal");
+									this:SetMinMaxValues(1, 999);
+									this:SetValueStep(1);
+									this:SetValue(500);
+								</OnLoad>
+								<OnEnter>
+									GameTooltip:SetOwner(this, "ANCHOR_BOTTOMLEFT");
+									GameTooltip:AddLine(TEXTE_ETHIQUE[ceil(this:GetValue()/333)],getglobal(this:GetName().."Text"):GetTextColor())
+									decouperForTooltip(DETAIL_ETHIQUE[ceil(this:GetValue()/333)],30,getglobal(this:GetName().."Text"):GetTextColor());
+									GameTooltip:Show();
+								</OnEnter>
+								<OnValueChanged>
+									if this:IsVisible() then
+										GameTooltip:SetOwner(this, "ANCHOR_BOTTOMLEFT");
+										GameTooltip:AddLine(TEXTE_ETHIQUE[ceil(this:GetValue()/333)],getglobal(this:GetName().."Text"):GetTextColor())
+										decouperForTooltip(DETAIL_ETHIQUE[ceil(this:GetValue()/333)],30,getglobal(this:GetName().."Text"):GetTextColor());
+										GameTooltip:Show();
+									end
+								</OnValueChanged>
+								<OnLeave>
+									GameTooltip:Hide();
+								</OnLeave>
+							</Scripts>
+						</Slider>
+					</Frames>
+				</Frame>
+			</ScrollChild>
+		</ScrollFrame>
+		
+	</Frames>
+</Frame>
+
+<!-- Encadré de style RSP -->
+<Frame name="TRPCadreResumeRSPStyle" toplevel="true" parent="UIParent" enableMouse="true" hidden="true" movable="true">
+	<TitleRegion setAllPoints="true"/>
+	<Size>
+		<AbsDimension x="270" y="370"/> 
+	</Size>
+	<Anchors>
+		<Anchor point="LEFT">
+			<Offset>
+				<AbsDimension x="250" y="0"/>
+			</Offset>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\DialogFrame\UI-DialogBox-Background">
+				<Size>
+					<AbsDimension x="250" y="350"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0" right="0.25" top="0" bottom="0.25"/>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BattlefieldFrame\UI-BattlefieldMinimap-Border">
+				<Size>
+					<AbsDimension x="285" y="590"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="5" y="-98"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\BUTTONS\UI-AutoCastableOverlay">
+				<Size>
+					<AbsDimension x="32" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="107" y="-155"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Frames>
+		<ScrollFrame name="TRPCadreResumeRSPStyleScroll" inherits="UIPanelScrollFrameTemplate">
+			<Size>
+				<AbsDimension x="220" y="290"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="25"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<ScrollChild>
+				<EditBox name="TRPCadreResumeRSPStyleTexte" multiLine="true" topLevel="false" enableMouse="false" autoFocus="false">
+					<Size>
+						<AbsDimension x="215" y="290"/>
+					</Size>
+					<Scripts>
+						<OnEditFocusGained>
+							this:ClearFocus();
+						</OnEditFocusGained>
+					</Scripts>
+					<FontString inherits="GameFontNormal" justifyH="CENTER">
+						<Color r="0.95" g="0.95" b="0.95"/>
+					</FontString>
+				</EditBox>
+			</ScrollChild>
+		</ScrollFrame>
+		<Slider name="TRPCadreResumeRSPStyleSliderAlign" inherits="SliderWithTitle">
+			<Size><AbsDimension x="120" y="15"/></Size>
+			<Anchors><Anchor point="CENTER"><Offset><AbsDimension x="0" y="-150"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnLoad>
+					getglobal(this:GetName().."Text"):SetText("Alignement");
+					getglobal(this:GetName().."High"):SetText("");
+					getglobal(this:GetName().."Low"):SetText("");
+					this:SetOrientation("Horizontal");
+					this:SetMinMaxValues(1, 3);
+					this:SetValueStep(1);
+					this:SetValue(2);
+				</OnLoad>
+				<OnValueChanged>
+					if this:IsVisible() then
+						if this:GetValue() == 1 then
+							TRPCadreResumeRSPStyleTexte:SetJustifyH("LEFT");
+						elseif this:GetValue() == 2 then
+							TRPCadreResumeRSPStyleTexte:SetJustifyH("CENTER");
+						else
+							TRPCadreResumeRSPStyleTexte:SetJustifyH("RIGHT");
+						end
+					end
+				</OnValueChanged>
+			</Scripts>
+		</Slider>
+		<Button inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-170"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					TRPCadreResumeRSPStyle:Hide();
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			this:SetAlpha(0.75);
+		</OnLoad>
+	</Scripts>
+</Frame>
+
+</Ui>
